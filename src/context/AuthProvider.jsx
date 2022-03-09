@@ -24,8 +24,8 @@ function parseExp(exp) {
 const useAuth = ()=> useContext(AuthContext);
 
 export const useSession = ()=>{
-    const {loading,error,token,lid,ready} = useAuth();
-    return {loading,error,token,lid,ready,isAuthed: Boolean(token)}
+    const {loading,error,token,lid,ready, hasRole} = useAuth();
+    return {loading,error,token,lid,ready,isAuthed: Boolean(token), hasRole}
 }
 
 export const useLogin = ()=>{
@@ -37,6 +37,10 @@ export const useLogout = ()=>{
     const {logout} = useAuth();
     return logout;
 }
+export const useRegister = () =>{
+    const { register } = useAuth();
+    return register;
+}
 export const AuthProvider = ({children})=>{
     const [ready,setReady] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -44,8 +48,8 @@ export const AuthProvider = ({children})=>{
     const [token,setToken] = useState(localStorage.getItem(JWT_TOKEN_KEY));
     const [lid,setLid] = useState(null);
 
-    const setSession = useCallback((token)=>{
-        const {exp} = parseJWT(token);
+    const setSession = useCallback(async (token,lid)=>{
+        const {exp,userId} = parseJWT(token);
         const expiry = parseExp(exp);
         const stillValid = expiry >= new Date();
 
@@ -59,8 +63,13 @@ export const AuthProvider = ({children})=>{
             }
         }
         api.setAuthToken(token);
-        setReady(stillValid);
+        setReady(token && stillValid);
         setToken(token);
+
+        if (!lid && stillValid) {
+            lid = await LidApi.getLidById(userId);
+        }
+        setLid(lid);
     },[])
 
     useEffect(()=>{
@@ -71,9 +80,8 @@ export const AuthProvider = ({children})=>{
         try {
             setLoading(true)
             setError('');
-            const {token,lid} = await LidApi.login(mail,wachtwoord);
-            setSession(token);
-            setLid(lid)
+            const {token,user} = await LidApi.login(mail,wachtwoord);
+            await setSession(token,user);
             return true;
         } catch(error) {
             console.error(error)
@@ -84,14 +92,33 @@ export const AuthProvider = ({children})=>{
         }
     },[setSession]);
 
+    const register = useCallback(async (data)=>{
+        try {
+            setLoading(true);
+            setError('');
+            const {token, lid} = await LidApi.register(data)
+            await setSession(token,lid);
+            return true;
+        } catch (error) {
+            setError(error);
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    },[setSession])
     const logout = useCallback(()=>{
         setSession(null);
         setLid(null);
     },[setSession]);
+
+    const hasRole = useCallback((role)=>{
+        if (!lid) return false;
+        return lid.roles.include(lid)
+    },[lid])
     
     const value= useMemo(()=>({
-        loading,error,token,lid,login,logout,ready
-    }),[loading,error,token,lid,login,logout,ready]);
+        loading,error,token,lid,login,logout,register,ready,hasRole
+    }),[loading,error,token,lid,login,logout,register,ready,hasRole]);
 
     return (
         <AuthContext.Provider value={value}>
