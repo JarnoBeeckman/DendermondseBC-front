@@ -13,6 +13,6 @@ export default function Main() {
     },[authReady,authLid])
     return (<>
     <h1>Main page</h1>
-    <p>{elid}</p>
+    <p>{elid ? elid.voornaam : elid}</p>
     </>)
 }
