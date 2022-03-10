@@ -23,7 +23,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2.3.1
+      - name: Checkout
+        uses: actions/checkout@v2.3.1
 
       # Runs a set of commands using the runners shell
       - name: Install and build
@@ -33,3 +34,6 @@ jobs:
           
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.7
+        with: 
+          branch: gh-pages
+          folder: build
