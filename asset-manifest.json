@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/DendermondseBC-front/static/css/main.741f6d49.chunk.css",
-    "main.js": "/DendermondseBC-front/static/js/main.627bcda7.chunk.js",
-    "main.js.map": "/DendermondseBC-front/static/js/main.627bcda7.chunk.js.map",
+    "main.js": "/DendermondseBC-front/static/js/main.0157b895.chunk.js",
+    "main.js.map": "/DendermondseBC-front/static/js/main.0157b895.chunk.js.map",
     "runtime-main.js": "/DendermondseBC-front/static/js/runtime-main.f15762fb.js",
     "runtime-main.js.map": "/DendermondseBC-front/static/js/runtime-main.f15762fb.js.map",
     "static/js/2.38a1d9a3.chunk.js": "/DendermondseBC-front/static/js/2.38a1d9a3.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.f15762fb.js",
     "static/js/2.38a1d9a3.chunk.js",
     "static/css/main.741f6d49.chunk.css",
-    "static/js/main.627bcda7.chunk.js"
+    "static/js/main.0157b895.chunk.js"
   ]
 }
