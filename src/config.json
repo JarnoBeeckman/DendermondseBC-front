@@ -1,5 +1,4 @@
 {
-    
     "url": "https://dendermondse-bc.herokuapp.com/api/",
     "token_key": "auth_token"
 }
