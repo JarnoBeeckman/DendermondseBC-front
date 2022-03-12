@@ -1,0 +1,15 @@
+.cntr {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 5%;
+}
+img {
+    max-width: 100%;
+    display: block;
+}

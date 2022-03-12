@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../context/AuthProvider"
+import logo from '../img/logoBC.jpg'
 
 export default function Main() {
     const [elid, setElid] = useState();
@@ -11,8 +12,9 @@ export default function Main() {
             setElid(authLid)
         }
     },[authReady,authLid])
-    return (<>
-    <h1>Main page</h1>
-    <p>{elid ? elid.voornaam : elid}</p>
-    </>)
+    return (
+    <div className="limit">
+        <div className="cntr"><img src={logo} alt="logo"></img></div>
+    </div>
+    )
 }

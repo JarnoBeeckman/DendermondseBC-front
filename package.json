@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "yarn build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
