@@ -12,6 +12,7 @@ export default function Main() {
             setElid(authLid)
         }
     },[authReady,authLid])
+console.log(elid);
     return (
     <div className="limit">
         <div className="cntr"><img src={logo} alt="logo"></img></div>
