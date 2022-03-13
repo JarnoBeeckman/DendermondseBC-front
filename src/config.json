@@ -2,7 +2,7 @@
     "url": "https://dendermondse-bc.herokuapp.com/api/",
     "token_key": "auth_token",
     "pages": {
-        "lid": ["account gegevens","kledij bestellen"],
+        "lid": ["account gegevens","kledij bestellen","test","test"],
         "trainer": [],
         "admin": [],
         "penningmeester": [],
