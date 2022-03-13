@@ -28,9 +28,9 @@ export default function Login() {
             <div className="limit">
                 <div className="conlogin">
                     <div className="wraplogin">
-                        {error ? (<p className="text-red-500 errorlogin">{JSON.stringify(error)}</p>): null}
                         <form className="loginform validate-form flex-sb flex-w" onSubmit={handleSubmit(handleLogin)}>
                             <span className="loginformtitle">Login</span>
+                            {error ? (<p className="errorlogin">{JSON.stringify(error)}</p>): null}
                             <div className="wrapinput validate-input">
                                 <input id="mail" className="input" type="text" defaultValue="" data-cy='mail' placeholder="mail" {...register('mail',{required: 'Dit is vereist'})}/>
                                 <span className="focusinput"></span>
@@ -43,7 +43,6 @@ export default function Login() {
                             {errors.wachtwoord && <p>{errors.wachtwoord.message}</p>}
                             <div className="conloginform">
                                 <button type="submit" className="loginbutton" disabled={loading} data-cy='login' >Log in</button>
-                                {console.log(loading)}
                             </div>
                         </form>
                     </div>

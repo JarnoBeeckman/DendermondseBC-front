@@ -8,7 +8,31 @@
     display: -ms-flexbox;
     display: flex;
     margin-top: 5%;
+    padding: 15px;
+    flex-wrap: wrap;
 }
+
+.wrapper {
+    position: relative;
+
+}
+
+.buttongrid {
+    flex-direction: row;
+    margin-top: 15px;
+}
+
+.keuzemenubutton {
+    padding: 15px;
+    border: 1px solid black;
+    background-color: #72C2E3;
+    width: 125px;
+    height: 80px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+}
+
 img {
     max-width: 100%;
     display: block;
