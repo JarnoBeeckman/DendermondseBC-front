@@ -26,7 +26,7 @@ export default function KeuzeMenu() {
                 return <Buttn key={page} page={page}/>
                     })
             })}
-            <Buttn />
+            <Buttn key={'log uit'} page={'Log uit'} click={loguit}/>
         </div>
         ) }
         return (<div className="buttongrid flex-w">
