@@ -378,7 +378,7 @@
     transition: all 0.4s;
   }
   .loginbutton:disabled {
-      opacity: 50;
+      opacity: 50%;
   }
   
   .login100-form-btn:hover {

@@ -1,13 +1,13 @@
-import KeuzeMenu from "../components/KeuzeMenu";
 import logo from '../img/logoBC.jpg'
+import AccountGegevens from '../components/accountGegevens'
 
-export default function Main() {
+export default function AccountBeheren() {
     return (
         <div className="limit">
             <div className="cntr">
                 <div className="wrapper">
                     <img src={logo} alt="logo"/>
-                    <KeuzeMenu />
+                    <AccountGegevens />
                 </div>
             </div>
         </div>

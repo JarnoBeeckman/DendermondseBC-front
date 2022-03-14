@@ -2,10 +2,11 @@
     "url": "https://dendermondse-bc.herokuapp.com/api/",
     "token_key": "auth_token",
     "pages": {
-        "lid": ["account gegevens","kledij bestellen"],
-        "trainer": [],
-        "admin": [],
-        "penningmeester": [],
-        "beheerder": ["account gegevens","kledij bestellen"]
+        "lid": [["Account gegevens","accountBeheren"],["Kledij bestellen","kledijBestellen"]],
+        "kapitein": [["Onkosten","onkosten"]],
+        "trainer": [["Trainingsuren","trainingsuren"],["Aanwezigheden","aanwezigheden"]],
+        "admin": [["Leden beheren","lidBeheer"],["Mail versturen","stuurMail"]],
+        "penningmeester": [["BV aanpassingen","aanpassenBV"],["Trainers vergoedingen","vergoedingTrainers"],["Kapiteins onkosten","onkostenKapitein"],["Bestuurders onkosten","onkostenBestuur"]],
+        "beheerder": [["Leden beheren","beheerLeden"]]
     }
 }
