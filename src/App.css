@@ -17,20 +17,20 @@
 
 }
 
-.buttongrid {
+.grid {
     flex-direction: row;
     margin-top: 15px;
     max-width: 512px;
 }
 @media (max-width: 542px) {
-    .buttongrid {
+    .grid {
         justify-content: center;
     }
 }
 
 .keuzemenubutton {
     padding: 15px;
-    border: 1px solid black;
+    border: 1.5px solid black;
     background-color: #72C2E3;
     width: 123px;
     height: 80px;
@@ -44,4 +44,52 @@
 img {
     max-width: 100%;
     display: block;
+}
+.backbutton {
+    margin-top: 10px;
+    margin-left: 5px;
+}
+/*         Account details            */
+
+.acclabel {
+    color: #72C2E3;
+    width: 45%;
+    margin-bottom: 15px;
+}
+.acclabelfirst {
+    width: 40%;
+}
+.accgrid {
+    justify-content: center;
+}
+.accvalue {
+    width: 45%;
+}
+.accvaluefirst {
+    width: 50%;
+}
+
+.accwijzig {
+    border: 1px solid black;
+    border-radius: 10px;
+    align-items: center;
+    padding: 5px;
+    background-color: #72C2E3;
+    width: 100px
+}
+.accgrid input {
+    border-bottom: 1px solid black;
+    margin-bottom: 5px;
+    height: 25px;
+}
+.wwwijzig {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 7px;
+    margin-top: 15px;
+    background-color: #72C2E3;
+}
+.error {
+    color: red;
+    margin-bottom: 5px;
 }

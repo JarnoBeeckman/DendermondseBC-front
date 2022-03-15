@@ -19,3 +19,9 @@ export const getLidById = async (id)=>{
     const {data} = await axios.get(`account/${id}`)
     return data
 }
+export const ChangePassword = async (id,current,wachtwoord)=>{
+    const {data} = await axios.put(`account/wachtwoord/${id}`,{
+        current,wachtwoord
+    })
+    return data
+}

@@ -24,13 +24,18 @@ function parseExp(exp) {
 const useAuth = ()=> useContext(AuthContext);
 
 export const useSession = ()=>{
-    const {loading,error,token,lid,ready, hasRole, component} = useAuth();
-    return {loading,error,token,lid,ready,isAuthed: Boolean(token), hasRole, component}
+    const {loading,error,token,lid,ready, hasRole} = useAuth();
+    return {loading,error,token,lid,ready,isAuthed: Boolean(token), hasRole}
 }
 
 export const useLogin = ()=>{
     const {login} = useAuth();
     return login;
+}
+
+export const useChangePassword = ()=>{
+    const {changePassword} = useAuth()
+    return changePassword
 }
 
 export const useLogout = ()=>{
@@ -113,12 +118,27 @@ export const AuthProvider = ({children})=>{
 
     const hasRole = useCallback((role)=>{
         if (!lid) return false;
-        return lid.roles.include(lid)
+        return lid.roles.include(role)
     },[lid])
+
+    const changePassword = useCallback(async (id,current,wachtwoord)=>{
+        try {
+            setLoading(true);
+            setError('');
+            await LidApi.ChangePassword(id,current,wachtwoord);
+            return 200;
+        } catch (error) {
+            if (error.response?.status === 403)
+            return 403
+            return false;
+        } finally {
+            setLoading(false)
+        }
+    },[])
     
     const value= useMemo(()=>({
-        loading,error,token,lid,login,logout,register,ready,hasRole
-    }),[loading,error,token,lid,login,logout,register,ready,hasRole]);
+        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword
+    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword]);
 
     return (
         <AuthContext.Provider value={value}>

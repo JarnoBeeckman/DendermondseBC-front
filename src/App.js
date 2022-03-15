@@ -5,6 +5,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Main from './pages/main';
 import Login from './pages/login'
 import AccountBeheren from './pages/account_beheren';
+import WijzigWachtwoord from './pages/ww_edit';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route exact path='/DendermondseBC-front'><Redirect to='/' /></Route>
         <PrivateRoute exact path='/'><Main /></PrivateRoute>
         <PrivateRoute exact path='/accountBeheren'><AccountBeheren/></PrivateRoute>
+        <PrivateRoute exact path='/wijzigWachtwoord'><WijzigWachtwoord/></PrivateRoute>
         <PrivateRoute exact path='/kledijBestellen'></PrivateRoute>
         <PrivateRoute exact path='/onkosten'></PrivateRoute>
         <PrivateRoute exact path='/trainingsuren'></PrivateRoute>

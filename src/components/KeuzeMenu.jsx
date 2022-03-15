@@ -25,7 +25,7 @@ export default function KeuzeMenu() {
     if (lid) {
         if (!lid.roles.includes('beheerder')) {
         return (
-        <div className="buttongrid flex-w">
+        <div className="grid flex-w">
             {lid.roles.map(role=>{
                const x = config.pages[role]
                return x.map(page=>{
