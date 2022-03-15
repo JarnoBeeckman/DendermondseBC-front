@@ -7,8 +7,8 @@
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
-    margin-top: 5%;
     padding: 15px;
+    margin-top: 5%;
     flex-wrap: wrap;
 }
 
@@ -54,19 +54,28 @@ img {
 .acclabel {
     color: #72C2E3;
     width: 45%;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+}
+form .acclabel {
+    margin-bottom: 20px;
+}
+form .select {
+    margin-bottom: 25px;
 }
 .acclabelfirst {
     width: 40%;
+    margin-bottom: 20px;
 }
 .accgrid {
     justify-content: center;
 }
 .accvalue {
     width: 45%;
+    margin-bottom: 10px;
 }
 .accvaluefirst {
     width: 50%;
+    margin-bottom: 20px;
 }
 
 .accwijzig {
@@ -92,4 +101,26 @@ img {
 .error {
     color: red;
     margin-bottom: 5px;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+  }
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+select {
+    border-radius: 10px;
+    height: fit-content;
+    padding: 8px;
+}
+@media (max-width: 308px) {
+    .acclabel, .accvalue {
+        width: 60%;
+        text-align: center;
+    }
+    .accgrid input {
+        margin-bottom: 20px;
+    }
 }

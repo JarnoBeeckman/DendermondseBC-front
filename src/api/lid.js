@@ -25,3 +25,9 @@ export const ChangePassword = async (id,current,wachtwoord)=>{
     })
     return data
 }
+export const updateLid = async (id,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm)=>{
+    const {data} = await axios.put(`account/${id}`,{
+        voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm
+    })
+    return data
+}

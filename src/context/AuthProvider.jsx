@@ -46,6 +46,10 @@ export const useRegister = () =>{
     const { register } = useAuth();
     return register;
 }
+export const useUpdateLid = ()=>{
+    const {updateLid} = useAuth()
+    return updateLid
+}
 export const AuthProvider = ({children})=>{
     const [ready,setReady] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -135,10 +139,24 @@ export const AuthProvider = ({children})=>{
             setLoading(false)
         }
     },[])
+
+    const updateLid = useCallback(async (id,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm)=>{
+        try {
+            setError('')
+            setLoading(true);
+            const e = await LidApi.updateLid(id,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm)
+            setLid(e)
+            return e
+        } catch (error) {
+            return false;
+        } finally {
+            setLoading(false)
+        }
+    },[])
     
     const value= useMemo(()=>({
-        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword
-    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword]);
+        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid
+    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid]);
 
     return (
         <AuthContext.Provider value={value}>
