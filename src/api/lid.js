@@ -1,9 +1,9 @@
 import {axios} from ".";
 
 
-export const login = async (mail,wachtwoord)=>{
+export const login = async (username,wachtwoord)=>{
     const {data} = await axios.post(`account/login`,{
-        mail,wachtwoord
+        username,wachtwoord
     });
     return data
 }

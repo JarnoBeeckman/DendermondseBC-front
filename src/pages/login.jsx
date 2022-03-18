@@ -17,8 +17,8 @@ export default function Login() {
         }
     })
 
-    const handleLogin = useCallback(async({mail,wachtwoord})=>{
-        const e = await login({mail,wachtwoord});
+    const handleLogin = useCallback(async({username,wachtwoord})=>{
+        const e = await login({username,wachtwoord});
         if(e){
             history.push('/');
         }
@@ -32,10 +32,10 @@ export default function Login() {
                             <span className="loginformtitle">Login</span>
                             {error ? (<p className="errorlogin">{JSON.stringify(error)}</p>): null}
                             <div className="wrapinput validate-input">
-                                <input id="mail" className="input" type="text" defaultValue="" data-cy='mail' placeholder="mail" {...register('mail',{required: 'Dit is vereist'})}/>
+                                <input id="username" className="input" type="text" defaultValue="" data-cy='mail' placeholder="username" {...register('username',{required: 'Dit is vereist'})}/>
                                 <span className="focusinput"></span>
                             </div>
-                            {errors.mail && <p>{errors.mail.message}</p>}
+                            {errors.username && <p>{errors.username.message}</p>}
                             <div className="wrapinput validate-input">
                                 <input id="pw" className="input" type="password" data-cy='wachtwoord'placeholder="wachtwoord" {...register('wachtwoord',{required: 'Dit is vereist'})}/>
                                 <span className="focusinput"></span>

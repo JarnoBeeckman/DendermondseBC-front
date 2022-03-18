@@ -45,6 +45,8 @@ export default function AccountGegevens() {
                 <div className='grid flex-w accgrid'>
                     <label className='acclabel acclabelfirst'>Wachtwoord: </label>
                     <div className="accvalue accvaluefirst"><button className='accwijzig' onClick={pw}>Wijzigen</button></div>
+                    <label className='acclabel'>Lidnummer: </label>
+                    <div className='accvalue'>{lid.bvid ? lid.bvid : ''}</div>
                     <label className='acclabel'>Voornaam: </label>
                     <div className='accvalue'>{lid.voornaam}</div>
                     <label className='acclabel'>Achternaam: </label>
@@ -59,10 +61,10 @@ export default function AccountGegevens() {
                     <div className='accvalue'>{lid.geslacht}</div>
                     <label className='acclabel'>Geboortedatum: </label>
                     <div className='accvalue'>{toDateInputString(lid.geboortedatum)}</div>
-                    <label className='acclabel'>Gsm-nummber: </label>
+                    <label className='acclabel'>Gsm-nummer: </label>
                     <div className='accvalue'>{lid.gsm}</div>
                     <label className='acclabel'>Spelertype: </label>
-                    <div className='accvalue'>{lid.spelertype}</div>
+                    <div className='accvalue'>{lid.status}</div>
                     <label className='acclabel'>Enkel: </label>
                     <div className='accvalue'>{lid.enkel}</div>
                     <label className='acclabel'>Dubbel: </label>

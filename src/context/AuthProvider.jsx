@@ -85,11 +85,11 @@ export const AuthProvider = ({children})=>{
        setSession(token);
     },[token,setSession])
 
-    const login = useCallback(async({mail,wachtwoord})=>{
+    const login = useCallback(async({username,wachtwoord})=>{
         try {
             setLoading(true)
             setError('');
-            const {token,user} = await LidApi.login(mail,wachtwoord);
+            const {token,user} = await LidApi.login(username,wachtwoord);
             await setSession(token,user);
             return true;
         } catch(error) {
