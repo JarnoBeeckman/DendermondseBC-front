@@ -36,7 +36,7 @@ export default function KeuzeMenu() {
             <Buttn key={'log uit'} page={'Log uit'} click={loguit}/>
         </div>
         ) }
-        return (<div className="buttongrid flex-w">
+        return (<div className="grid flex-w">
         {config.pages.beheerder.map(page=>{
             return <Buttn key={page[0]} page={page[0]} click={()=>goTo(page[1])}/>
         })}
