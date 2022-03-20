@@ -50,6 +50,10 @@ export const useUpdateLid = ()=>{
     const {updateLid} = useAuth()
     return updateLid
 }
+export const useGetAllLeden = ()=>{
+    const {getAllLeden} = useAuth()
+    return getAllLeden
+}
 export const AuthProvider = ({children})=>{
     const [ready,setReady] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -140,11 +144,11 @@ export const AuthProvider = ({children})=>{
         }
     },[])
 
-    const updateLid = useCallback(async (id,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm)=>{
+    const updateLid = useCallback(async (id,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,gsm)=>{
         try {
             setError('')
             setLoading(true);
-            const e = await LidApi.updateLid(id,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm)
+            const e = await LidApi.updateLid(id,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,gsm)
             setLid(e)
             return e
         } catch (error) {
@@ -153,10 +157,23 @@ export const AuthProvider = ({children})=>{
             setLoading(false)
         }
     },[])
+
+    const getAllLeden = useCallback(async ()=>{
+        try {
+            setLoading(true)
+            setError('')
+            const e = await LidApi.getAllLeden()
+            return e
+        } catch (error) {
+            return false
+        } finally {
+            setLoading(false)
+        }
+    },[])
     
     const value= useMemo(()=>({
-        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid
-    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid]);
+        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden
+    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden]);
 
     return (
         <AuthContext.Provider value={value}>

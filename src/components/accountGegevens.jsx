@@ -19,8 +19,8 @@ export default function AccountGegevens() {
         history.push('/wijzigWachtwoord')
     },[history])
 
-    const handleSub = useCallback(async ({voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm})=>{
-         const e = await updateLid(lid?.id,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm)
+    const handleSub = useCallback(async ({mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,gsm})=>{
+         const e = await updateLid(lid?.id,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,gsm)
          if (e) setEdit(false)
          else setCustomError('Er liep iets fout, controleer uw gegevens en contacteer een beheerder als deze juist zijn.')
     },[updateLid,lid?.id])
@@ -46,7 +46,9 @@ export default function AccountGegevens() {
                     <label className='acclabel acclabelfirst'>Wachtwoord: </label>
                     <div className="accvalue accvaluefirst"><button className='accwijzig' onClick={pw}>Wijzigen</button></div>
                     <label className='acclabel'>Lidnummer: </label>
-                    <div className='accvalue'>{lid.bvid ? lid.bvid : ''}</div>
+                    <div className='acclabel accvalue'>{lid.bvid ? lid.bvid : ''}</div>
+                    <label className='acclabel'>E-mail-adres: </label>
+                    <div className='accvalue'>{lid.mail}</div>
                     <label className='acclabel'>Voornaam: </label>
                     <div className='accvalue'>{lid.voornaam}</div>
                     <label className='acclabel'>Achternaam: </label>
@@ -82,6 +84,9 @@ export default function AccountGegevens() {
                     <button className='backbutton' onClick={()=>setEdit(false)}>{'<'} Terug</button>
                     {customError ? (<p className="error">{customError}</p>): null}
                     <form className='grid flex-w accgrid' onSubmit={handleSubmit(handleSub)}>
+                        <label className='acclabel'>E-mail adres:</label>
+                        <input type='email' className='accvalue' placeholder='e-mail' defaultValue={lid.mail} {...register('mail',{required: 'Dit is vereist'})}></input>
+                        {errors.mail && <><div className='acclabel'></div><p className='accvalue error'>{errors.mail.message}</p></>}
                         <label className='acclabel'>Voornaam: </label>
                         <input className='accvalue' type='text' placeholder='voornaam' defaultValue={lid.voornaam} {...register('voornaam',{required: 'Dit is vereist'})} />
                         {errors.voornaam && <><div className='acclabel'></div><p className='accvalue error'>{errors.voornaam.message}</p></>}
@@ -104,9 +109,6 @@ export default function AccountGegevens() {
                             <option value='A'>Andere</option>
                         </select>
                         {errors.geslacht && <><div className='acclabel'></div><p className='accvalue error'>{errors.geslacht.message}</p></>}
-                        <label className='acclabel'>Geboortedatum: </label>
-                        <input className='accvalue' type='date' placeholder='geboortedatum' defaultValue={toDateInputString(lid.geboortedatum)}{...register('geboortedatum',{required: 'Dit is vereist'})} />
-                        {errors.geboortedatum && <><div className='acclabel'></div><p className='accvalue error'>{errors.geboortedatum.message}</p></>}
                         <label className='acclabel'>Gsm-nummer: </label>
                         <input className='accvalue' type='tel' placeholder='gsm-nummer' defaultValue={lid.gsm}{...register('gsm',{required: 'Dit is vereist'})} />
                         {errors.gsm && <><div className='acclabel'></div><p className='accvalue error'>{errors.gsm.message}</p></>}

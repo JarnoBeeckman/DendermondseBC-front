@@ -115,6 +115,60 @@ select {
     height: fit-content;
     padding: 8px;
 }
+
+.fullwidth {
+    width: 100%;
+}
+.lidlijst {
+    border: 1px solid black;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    cursor: pointer;
+}
+.lidnaam {
+    width: 50%;
+    text-align: center;
+    
+}
+.lidnr {
+    margin-left: 5px;
+    color: #72C2E3;
+    width: 20%;
+}
+.lidstatus {
+    width: 30%;
+    text-align: center;
+    overflow: hidden;
+}
+.lidselected {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.lidedit {
+    width: 100%;
+    border: 1px solid black;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.lidattribuut {
+    width: 48%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+.lidattribuut .accvalue {
+    width: 60%;
+}
+.lidattribuut .acclabel {
+    width: 40%;
+}
 @media (max-width: 308px) {
     .acclabel, .accvalue {
         width: 60%;
@@ -122,5 +176,11 @@ select {
     }
     .accgrid input {
         margin-bottom: 20px;
+    }
+    .lidstatus {
+        display: none;
+    }
+    .lidnaam {
+        width: 80%;
     }
 }

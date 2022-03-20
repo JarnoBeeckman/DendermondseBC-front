@@ -25,9 +25,13 @@ export const ChangePassword = async (id,current,wachtwoord)=>{
     })
     return data
 }
-export const updateLid = async (id,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm)=>{
+export const updateLid = async (id,voornaam,achternaam,adres,postcode,woonplaats,geslacht,gsm)=>{
     const {data} = await axios.put(`account/${id}`,{
-        voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm
+        voornaam,achternaam,adres,postcode,woonplaats,geslacht,gsm
     })
+    return data
+}
+export const getAllLeden = async ()=>{
+    const {data} = await axios.get('account');
     return data
 }

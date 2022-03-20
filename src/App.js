@@ -6,6 +6,7 @@ import Main from './pages/main';
 import Login from './pages/login'
 import AccountBeheren from './pages/account_beheren';
 import WijzigWachtwoord from './pages/ww_edit';
+import LedenBeheer from './pages/lid_beheer';
 
 function App() {
   return (
@@ -21,13 +22,12 @@ function App() {
         <PrivateRoute exact path='/onkosten'></PrivateRoute>
         <PrivateRoute exact path='/trainingsuren'></PrivateRoute>
         <PrivateRoute exact path='/aanwezigheden'></PrivateRoute>
-        <PrivateRoute exact path='lidBeheer'></PrivateRoute>
+        <PrivateRoute exact path='/lidBeheer'><LedenBeheer/></PrivateRoute>
         <PrivateRoute exact path='/stuurMail'></PrivateRoute>
         <PrivateRoute exact path='/aanpassenBV'></PrivateRoute>
         <PrivateRoute exact path='/vergoedingTrainers'></PrivateRoute>
         <PrivateRoute exact path='/onkostenKapitein'></PrivateRoute>
         <PrivateRoute exact path='/onkostenBestuur'></PrivateRoute>
-        <PrivateRoute exact path='/beheerLeden'></PrivateRoute>
       </Switch>
       </BrowserRouter>
     </AuthProvider>
