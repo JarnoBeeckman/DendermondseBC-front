@@ -37,7 +37,10 @@ export const useChangePassword = ()=>{
     const {changePassword} = useAuth()
     return changePassword
 }
-
+export const useAdminUpdateLid = ()=>{
+    const {adminUpdateLid} = useAuth()
+    return adminUpdateLid
+}
 export const useLogout = ()=>{
     const {logout} = useAuth();
     return logout;
@@ -157,6 +160,18 @@ export const AuthProvider = ({children})=>{
             setLoading(false)
         }
     },[])
+    const adminUpdateLid = useCallback(async (id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status)=>{
+        try {
+            setError('')
+            setLoading(true)
+            const e = await LidApi.adminUpdateLid(id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status)
+            return e
+        } catch (error) {
+            return false
+        } finally {
+            setLoading(false)
+        }
+    },[])
 
     const getAllLeden = useCallback(async ()=>{
         try {
@@ -172,8 +187,8 @@ export const AuthProvider = ({children})=>{
     },[])
     
     const value= useMemo(()=>({
-        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden
-    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden]);
+        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid
+    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid]);
 
     return (
         <AuthContext.Provider value={value}>

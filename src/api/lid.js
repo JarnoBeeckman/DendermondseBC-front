@@ -31,6 +31,12 @@ export const updateLid = async (id,voornaam,achternaam,adres,postcode,woonplaats
     })
     return data
 }
+export const adminUpdateLid = async (id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status)=>{
+    const {data} = await axios.put(`account/admin/${id}`,{
+        username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status
+    })
+    return data
+}
 export const getAllLeden = async ()=>{
     const {data} = await axios.get('account');
     return data
