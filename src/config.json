@@ -7,6 +7,6 @@
         "trainer": [["Trainingsuren","trainingsuren"],["Aanwezigheden","aanwezigheden"]],
         "admin": [["Leden beheren","lidBeheer"],["Mail versturen","stuurMail"]],
         "penningmeester": [["BV aanpassingen","aanpassenBV"],["Trainers vergoedingen","vergoedingTrainers"],["Kapiteins onkosten","onkostenKapitein"],["Bestuurders onkosten","onkostenBestuur"]],
-        "beheerder": [["Leden beheren","lidBeheer"]]
+        "beheerder": [["Leden beheren","lidBeheer"],["BV aanpassingen","aanpassenBV"]]
     }
 }

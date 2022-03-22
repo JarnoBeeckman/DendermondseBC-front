@@ -168,6 +168,9 @@ select {
     text-align: end;
     word-wrap: break-word;
 }
+.margin20 {
+    margin-bottom: 20px;
+}
 @media (max-width: 542px) {
     .grid {
         justify-content: center;

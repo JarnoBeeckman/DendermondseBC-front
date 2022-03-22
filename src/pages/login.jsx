@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form"
 import { useLogin, useSession } from "../context/AuthProvider";
 import { useHistory } from "react-router-dom";
-import './login.css'
+import '../login.css'
 
 
 export default function Login() {

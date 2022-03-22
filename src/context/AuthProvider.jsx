@@ -57,6 +57,22 @@ export const useGetAllLeden = ()=>{
     const {getAllLeden} = useAuth()
     return getAllLeden
 }
+export const useGetAanpassingen = ()=>{
+    const {getAanpassingen} = useAuth()
+    return getAanpassingen
+}
+export const useGetNewLeden = ()=>{
+    const {getNewLeden} = useAuth()
+    return getNewLeden
+}
+export const useDeleteAanpassing = ()=>{
+    const {deleteAanpassing} = useAuth()
+    return deleteAanpassing
+}
+export const useInschrijven = ()=>{
+    const {inschrijven} = useAuth()
+    return inschrijven
+}
 export const AuthProvider = ({children})=>{
     const [ready,setReady] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -185,10 +201,56 @@ export const AuthProvider = ({children})=>{
             setLoading(false)
         }
     },[])
+    const getAanpassingen = useCallback(async ()=>{
+        try {
+            setError('')
+            setLoading(true)
+            return await LidApi.getAanpassingen()
+        } catch (error) {
+            return 404
+        } finally {
+            setLoading(false)
+        }
+    },[])
+    const deleteAanpassing = useCallback(async (id)=>{
+        try {
+            setError('')
+            setLoading(true)
+             await LidApi.deleteAanpassing(id)
+             return true
+        } catch(error) {
+            return false
+        } finally {
+            setLoading(false)
+        }
+    },[])
+    const getNewLeden = useCallback(async ()=>{
+        try {
+            setError('')
+            setLoading(true)
+            return await LidApi.getNewLeden()
+        } catch (error) {
+            return 404
+        } finally {
+            setLoading(false)
+        }
+    },[])
+    const inschrijven = useCallback(async (id,bvid)=>{
+        try {   
+            setError('')
+            setLoading(true)
+            await LidApi.inschrijven(id,bvid)
+            return true
+        } catch (error) {
+            return false
+        } finally {
+            setLoading(false)
+        }
+    },[])
     
     const value= useMemo(()=>({
-        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid
-    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid]);
+        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid,getAanpassingen,getNewLeden,deleteAanpassing,inschrijven
+    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid,getAanpassingen,getNewLeden,deleteAanpassing,inschrijven]);
 
     return (
         <AuthContext.Provider value={value}>

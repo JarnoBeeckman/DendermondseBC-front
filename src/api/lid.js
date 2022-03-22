@@ -41,3 +41,21 @@ export const getAllLeden = async ()=>{
     const {data} = await axios.get('account');
     return data
 }
+export const getAanpassingen = async ()=>{
+    const {data} = await axios.get('account/aanpassingen')
+    return data
+}
+export const getNewLeden = async ()=>{
+    const {data} = await axios.get('account/nieuwe')
+    return data
+}
+export const deleteAanpassing = async (id)=>{
+    const {data} = await axios.delete(`account/aanpassingen/${id}`)
+    return data
+}
+export const inschrijven = async (id,bvid)=>{
+    const {data} = await axios.put(`account/aanpassingen/${id}`,{
+        bvid
+    })
+    return data
+}

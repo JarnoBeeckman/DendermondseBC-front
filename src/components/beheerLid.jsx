@@ -39,11 +39,11 @@ export default function LidBeheer() {
         const e = await adminUpdateLid(selected?.id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status)
         if (e) {
             setEdit(false)
-            setLidLijst(await list())
+            await e()
             setSelected(e)
         }
         else setCustomError('Er liep iets fout, controleer uw gegevens en contacteer een beheerder als deze juist zijn.')
-   },[adminUpdateLid,selected?.id,list])
+   },[adminUpdateLid,selected?.id])
 
     useEffect(()=>{
         if (ready) {
@@ -51,7 +51,7 @@ export default function LidBeheer() {
         }
     },[ready,e])
     
-    const Edit = ()=>{
+    const Edit = memo(()=>{
         const { register, handleSubmit, formState: {errors} } = useForm();
         return (<><button className='backbutton' onClick={()=>back(true)}>{'<'} Terug</button>
         {customError ? (<p className="error">{customError}</p>): null}
@@ -99,7 +99,7 @@ export default function LidBeheer() {
                    {errors.status && <><div className='acclabel'></div><p className='accvalue error'>{errors.status.message}</p></>}
                    <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
                </form></>) 
-    }
+    })
     const Details = memo((props)=>{
        return (<div className="lidedit">
            <div className="lidattribuut">
