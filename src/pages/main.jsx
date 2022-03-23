@@ -7,7 +7,7 @@ export default function Main() {
             <div className="cntr">
                 <div className="wrapper">
                     <img src={logo} alt="logo"/>
-                    <KeuzeMenu />
+                    <KeuzeMenu view={'main'}/>
                 </div>
             </div>
         </div>

@@ -168,7 +168,6 @@ export const AuthProvider = ({children})=>{
             setError('')
             setLoading(true);
             const e = await LidApi.updateLid(id,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,gsm)
-            console.log(e)
             setLid(e)
             return e
         } catch (error) {

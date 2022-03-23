@@ -8,6 +8,8 @@ import AccountBeheren from './pages/account_beheren';
 import WijzigWachtwoord from './pages/ww_edit';
 import LedenBeheer from './pages/lid_beheer';
 import AanpassingenBV from './pages/aanpassingenBV';
+import Instellingen from './pages/instellingen';
+import GroepConfig from './pages/groepConfig';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <PrivateRoute exact path='/vergoedingTrainers'></PrivateRoute>
         <PrivateRoute exact path='/onkostenKapitein'></PrivateRoute>
         <PrivateRoute exact path='/onkostenBestuur'></PrivateRoute>
+        <PrivateRoute exact path='/settings'><Instellingen/></PrivateRoute>
+        <PrivateRoute exact path='/groepConfig'><GroepConfig /></PrivateRoute>
       </Switch>
       </BrowserRouter>
     </AuthProvider>
