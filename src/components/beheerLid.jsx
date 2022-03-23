@@ -25,7 +25,7 @@ export default function LidBeheer() {
     const adminUpdateLid = useAdminUpdateLid()
     const {loading} = useSession()
     
-    const e = useCallback(async ()=>{
+    const refresh = useCallback(async ()=>{
         const a = await list()
         setLidLijst(a)
     },[list])
@@ -39,17 +39,17 @@ export default function LidBeheer() {
         const e = await adminUpdateLid(selected?.id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status)
         if (e) {
             setEdit(false)
-            await e()
+            await refresh()
             setSelected(e)
         }
         else setCustomError('Er liep iets fout, controleer uw gegevens en contacteer een beheerder als deze juist zijn.')
-   },[adminUpdateLid,selected?.id])
+   },[adminUpdateLid,selected?.id,refresh])
 
     useEffect(()=>{
         if (ready) {
-            e();
+            refresh();
         }
-    },[ready,e])
+    },[ready,refresh])
     
     const Edit = memo(()=>{
         const { register, handleSubmit, formState: {errors} } = useForm();
