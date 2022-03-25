@@ -2,14 +2,14 @@ import './App.css';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import PrivateRoute from "./components/PrivateRoute";
-import Main from './pages/main';
 import Login from './pages/login'
 import AccountBeheren from './pages/account_beheren';
 import WijzigWachtwoord from './pages/ww_edit';
 import LedenBeheer from './pages/lid_beheer';
 import AanpassingenBV from './pages/aanpassingenBV';
-import Instellingen from './pages/instellingen';
 import GroepConfig from './pages/groepConfig';
+import Wrapper from './components/wrapper';
+import KeuzeMenu from './components/KeuzeMenu';
 
 function App() {
   return (
@@ -18,7 +18,8 @@ function App() {
       <Switch>
         <Route exact path='/login'><Login /></Route>
         <Route exact path='/DendermondseBC-front'><Redirect to='/' /></Route>
-        <PrivateRoute exact path='/'><Main /></PrivateRoute>
+        <Wrapper>
+        <PrivateRoute exact path='/'><KeuzeMenu view={'main'} /></PrivateRoute>
         <PrivateRoute exact path='/accountBeheren'><AccountBeheren/></PrivateRoute>
         <PrivateRoute exact path='/wijzigWachtwoord'><WijzigWachtwoord/></PrivateRoute>
         <PrivateRoute exact path='/kledijBestellen'></PrivateRoute>
@@ -31,8 +32,9 @@ function App() {
         <PrivateRoute exact path='/vergoedingTrainers'></PrivateRoute>
         <PrivateRoute exact path='/onkostenKapitein'></PrivateRoute>
         <PrivateRoute exact path='/onkostenBestuur'></PrivateRoute>
-        <PrivateRoute exact path='/settings'><Instellingen/></PrivateRoute>
+        <PrivateRoute exact path='/settings'><KeuzeMenu view={'settings'}/></PrivateRoute>
         <PrivateRoute exact path='/groepConfig'><GroepConfig /></PrivateRoute>
+        </Wrapper>
       </Switch>
       </BrowserRouter>
     </AuthProvider>

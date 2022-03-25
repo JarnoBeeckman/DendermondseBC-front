@@ -1,4 +1,4 @@
-import logo from '../img/logoBC.jpg'
+
 import { useHistory } from "react-router-dom";
 import { memo, useCallback, useEffect, useState } from 'react';
 import { useDeleteAanpassing, useGetAanpassingen, useGetNewLeden, useInschrijven, useSession } from '../context/AuthProvider';
@@ -141,11 +141,8 @@ export default function AanpassingenBV() {
                    </form></>)
     })
 
-    return (
-        <div className="limit">
-            <div className="cntr">
-                <div className="wrapper">
-                    <img src={logo} alt="logo"/>
+    return (<>
+        
                     {edit ? (<>
                         <button className='backbutton' onClick={()=>setEdit(false)}>{'<'} Terug</button>
                         {customError ? (<p className="error">{customError}</p>): null}
@@ -159,8 +156,6 @@ export default function AanpassingenBV() {
                     <p className=''>Nieuwe leden: </p>
                     {newLeden ? <Second /> : null}
                     <div className='fullwidth margin20'></div></>)}
-                </div>
-            </div>
-        </div>
+        </>
     )
 }

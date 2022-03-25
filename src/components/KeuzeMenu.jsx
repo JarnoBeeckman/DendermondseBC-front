@@ -8,6 +8,9 @@ export default function KeuzeMenu(props) {
    const {lid,loading,error} = useSession();
    const logout = useLogout();
    const history = useHistory();
+   const back = useCallback(async ()=>{
+    history.push('/')
+},[history])
 
    const loguit = useCallback(async ()=>{
     await logout()
@@ -46,7 +49,8 @@ export default function KeuzeMenu(props) {
         }
         if (props.view === 'settings') {
             if (!lid.roles.includes('beheerder')) {
-                return (
+                return (<>
+                    <button className='backbutton' onClick={back}>{'<'} Terug</button>
                 <div className="grid flex-w">
                     {lid.roles.map(role=>{
                        const x = config.settings[role]
@@ -55,14 +59,14 @@ export default function KeuzeMenu(props) {
                         return <Buttn key={page[0]} page={page[0]} click={()=>goTo(page[1])}/>
                             })
                     })}
-                </div>
+                </div></>
                 )
             }
-            return (<div className="grid flex-w">
+            return (<><button className='backbutton' onClick={back}>{'<'} Terug</button><div className="grid flex-w">
                 {config.settings.beheerder.map(page=>{
                     return <Buttn key={page[0]} page={page[0]} click={()=>goTo(page[1])}/>
                 })}
-                </div>)
+                </div></>)
         }
     }
     if (loading) 

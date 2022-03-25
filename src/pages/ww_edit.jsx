@@ -1,4 +1,4 @@
-import logo from '../img/logoBC.jpg'
+
 import { useHistory } from "react-router-dom";
 import { useCallback, useState } from 'react';
 import { useForm } from "react-hook-form"
@@ -26,27 +26,18 @@ export default function WijzigWachtwoord() {
 
     return (
     <>
-        <div className="limit">
-            <div className="cntr">
-                <div className="wrapper">
-                    <img src={logo} alt="logo"/>
-                    <button className='backbutton' onClick={back}>{'<'} Terug</button>
-                    {customError ? (<p className="error">{customError}</p>): null}
-                    <form className='grid flex-w accgrid' onSubmit={handleSubmit(handleSub)}>
-                        <label className='acclabel'>Huidig wachtwoord: </label>
-                        <input className='accvalue' type='password' placeholder='huidig' {...register('current',{required: 'Dit is vereist'})} />
-                        {errors.current && <><div className='acclabel'></div><p className='accvalue error'>{errors.current.message}</p></>}
-                        <label className='acclabel'>Nieuw wachtwoord: </label>
-                        <input className='accvalue' type='password' placeholder='nieuw' {...register('wachtwoord',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
-                        {errors.wachtwoord && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoord.message}</p></>}
-                        <label className='acclabel'>Herhaal nieuw wachtwoord: </label>
-                        <input className='accvalue' type='password' placeholder='herhaal'{...register('wachtwoordd',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
-                        {errors.wachtwoordd && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoordd.message}</p></>}
-                        <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+                <button className='backbutton' onClick={back}>{'<'} Terug</button>
+                {customError ? (<p className="error">{customError}</p>): null}
+                <form className='grid flex-w accgrid' onSubmit={handleSubmit(handleSub)}>
+                    <label className='acclabel'>Huidig wachtwoord: </label>
+                    <input className='accvalue' type='password' placeholder='huidig' {...register('current',{required: 'Dit is vereist'})} />                        {errors.current && <><div className='acclabel'></div><p className='accvalue error'>{errors.current.message}</p></>}
+                    <label className='acclabel'>Nieuw wachtwoord: </label>
+                   <input className='accvalue' type='password' placeholder='nieuw' {...register('wachtwoord',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
+                    {errors.wachtwoord && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoord.message}</p></>}                        <label className='acclabel'>Herhaal nieuw wachtwoord: </label>
+                   <input className='accvalue' type='password' placeholder='herhaal'{...register('wachtwoordd',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
+                    {errors.wachtwoordd && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoordd.message}</p></>}
+                   <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
+               </form>
     </>
     )
 }
