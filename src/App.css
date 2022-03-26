@@ -224,7 +224,12 @@ select {
 input[type=color] {
     border: none;
 }
-
+.margin0 {
+    margin-top: 0px;
+}
+.width40 {
+    width: 40%;
+}
 @media (max-width: 542px) {
     .grid {
         justify-content: center;

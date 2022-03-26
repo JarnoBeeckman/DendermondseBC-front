@@ -19,7 +19,10 @@ export default function GroepConfig() {
     const refresh = useCallback(async ()=>{
         const e = await groep.getAll()
         if (e === 404) setCustomError('Kon groepen niet laden')
-        else setGroepen(e)
+        else {
+            setGroepen(e)
+            setCustomError(null)
+        } 
     },[])
 
     useEffect(()=>{
@@ -28,7 +31,7 @@ export default function GroepConfig() {
     },[ready,refresh])
 
     const update = useCallback(async ({groepnaam,kleur})=>{
-        const e = await groep.updateById(selected.id,groepnaam,kleur)
+        const e = await groep.updateById(selected.gid,groepnaam,kleur)
         if (!e) setCustomError('Kon wijziging niet uitvoeren')
         else {
             await refresh()
@@ -41,20 +44,23 @@ export default function GroepConfig() {
         else {
             await refresh()
             setAdd(false)
+            setCustomError(null)
         }
     },[refresh])
     const del = useCallback(async ()=>{
-        const e = await groep.deleteById(selected.id)
+        const e = await groep.deleteById(selected.gid)
         if (!e) setCustomError('Kan groep niet verwijderen, zitten er nog leden in?')
-        else await refresh()
-    },[refresh,selected?.id])
+        else{
+            await refresh()
+            setCustomError(null)
+        } 
+    },[refresh,selected])
 
     const Groep = memo((props)=>{
-
-        return (<><div className={`lidlijst ${selected?.id === props.ob.id ? 'lidselected' : ''}`} onClick={()=>{selected?.id === props.ob.id ? setSelected(null) : setSelected(props.ob)}}>
-            <div className="fullwidth center flex">{props.ob.groepnaam}</div>
+        return (<><div className={`lidlijst ${selected?.gid === props.ob.gid ? 'lidselected' : ''}`} onClick={()=>{selected?.gid === props.ob.gid ? setSelected(null) : setSelected(props.ob)}}>
+            <div className=" center flex">{props.ob.groepnaam}</div> {selected?.gid === props.ob.gid ? (<button className='wwwijzig delete width40 margin0' disabled={loading} onClick={()=>del()}>Verwijderen</button>): null}
             </div>
-            {selected?.id === props.ob.id ? (<Edit ob={props.ob}/>) : null}
+            {selected?.gid === props.ob.gid ? (<Edit ob={props.ob}/>) : null}
             </>)
     })
 
@@ -73,7 +79,6 @@ export default function GroepConfig() {
                     {errors.kleur && <><div className='acclabel'></div><p className='accvalue error' >{errors.kleur.message}</p></>}
                 </div>
                 <button className='wwwijzig halfwidth' type='submit' disabled={loading}>Bevestigen</button>
-                <button className='wwwijzig delete halfwidth' disabled={loading} onClick={()=>del()}>Verwijderen</button>
             </form>
             
         </>)
@@ -103,14 +108,14 @@ export default function GroepConfig() {
             {customError ? (<p className="error">{customError}</p>): null}
             
                 {groepen.map(x=>{
-                    return <Groep key={x.id} ob={x}/>
+                    return <Groep key={x.gid} ob={x}/>
                 })}
                 <div className='margin20'></div>
             <button className='wwwijzig' onClick={()=>setAdd(true)}>Nieuwe groep</button>
         </>
     ); else return (<>
         <button className='backbutton' onClick={()=>setAdd(false)}>{'<'} Terug</button>
-        <Addnew/>
+        <Addnew />
     </>)
             }
     return <><button className='backbutton' onClick={back}>{'<'} Terug</button><div>Loading...</div></>
