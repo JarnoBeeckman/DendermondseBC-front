@@ -218,8 +218,12 @@ select {
 .textcenter {
     text-align: center;
 }
-
-
+.delete {
+    background-color: red;
+}
+input[type=color] {
+    border: none;
+}
 
 @media (max-width: 542px) {
     .grid {
@@ -237,6 +241,9 @@ select {
 
     .lidattribuut .accvalue {
         text-align: center;
+    }
+    .halfwidth {
+        width: 100%;
     }
 }
 

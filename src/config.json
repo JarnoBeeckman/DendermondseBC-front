@@ -14,6 +14,6 @@
         "trainer":[],
         "admin":[],
         "penningmeester":[],
-        "beheerder": [["Groepen configuratie","groepConfig"]]
+        "beheerder": [["Groepen","groepConfig"]]
     }
 }

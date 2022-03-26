@@ -30,3 +30,11 @@ export const create = async (groepnaam,kleur)=>{
         return false
     }
 }
+export const deleteById = async (id)=>{
+    try {
+        await axios.delete(`groep/${id}`)
+        return true
+    } catch(error) {
+        return false
+    }
+}

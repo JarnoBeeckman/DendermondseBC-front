@@ -43,6 +43,11 @@ export default function GroepConfig() {
             setAdd(false)
         }
     },[refresh])
+    const del = useCallback(async ()=>{
+        const e = await groep.deleteById(selected.id)
+        if (!e) setCustomError('Kan groep niet verwijderen, zitten er nog leden in?')
+        else await refresh()
+    },[refresh,selected?.id])
 
     const Groep = memo((props)=>{
 
@@ -55,7 +60,7 @@ export default function GroepConfig() {
 
     const Edit = memo((props)=>{
         const { register, handleSubmit, formState: {errors} } = useForm();
-        return (
+        return (<>
             <form className='lidedit accgrid' onSubmit={handleSubmit(update)}>
                 <div className='lidattribuut'>
                     <div className='acclabel '>Naam: </div>
@@ -67,9 +72,11 @@ export default function GroepConfig() {
                     <input className='accvalue' type='color' defaultValue={props.ob.kleur} {...register('kleur',{required: 'Dit is vereist'})}></input>
                     {errors.kleur && <><div className='acclabel'></div><p className='accvalue error' >{errors.kleur.message}</p></>}
                 </div>
-                <button className='wwwijzig' type='submit' disabled={loading}>Wijzigen</button>
+                <button className='wwwijzig halfwidth' type='submit' disabled={loading}>Bevestigen</button>
+                <button className='wwwijzig delete halfwidth' disabled={loading} onClick={()=>del()}>Verwijderen</button>
             </form>
-        )
+            
+        </>)
     })
     const Addnew = memo(()=>{
         const { register, handleSubmit, formState: {errors} } = useForm();
