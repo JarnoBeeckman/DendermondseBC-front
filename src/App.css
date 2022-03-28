@@ -67,7 +67,7 @@ form .select {
 }
 
 .acclabelfirst {
-    width: 40%;
+    width: 45%;
     margin-bottom: 20px;
 }
 
@@ -146,7 +146,7 @@ select {
 }
 
 .lidnaam {
-    width: 80%;
+    width: 70%;
     text-align: center;
 
 }
@@ -229,6 +229,16 @@ input[type=color] {
 }
 .width40 {
     width: 40%;
+}
+.circle {
+    height: 20px;
+    min-width: 20px;
+    border-radius: 50%;
+}
+.circles {
+    width: fit-content;
+    margin-left: auto;
+    display: flex;
 }
 @media (max-width: 542px) {
     .grid {

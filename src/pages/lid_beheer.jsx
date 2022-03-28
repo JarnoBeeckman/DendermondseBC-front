@@ -101,10 +101,20 @@ export default function LedenBeheer() {
                </form></>) 
     })
     const Details = memo((props)=>{
+        let groep = ''
+        if (Array.isArray(props.ob.groepnaam))
+        props.ob.groepnaam?.forEach((x,index)=>{
+            if (index === 0) groep+=x
+            else groep+= `, ${x}`
+        }); else groep = props.ob.groepnaam
        return (<div className="lidedit">
            <div className="lidattribuut">
             <div className="acclabel">Username: </div>
             <div className="accvalue">{props.ob.username}</div>
+           </div>
+           <div className="lidattribuut">
+               <div className="acclabel">{props.ob.groepnaam?.length > 1 && Array.isArray(props.ob.groepnaam) ? 'Groepen: ' : 'Groep: '}</div>
+               <div className="accvalue">{groep}</div>
            </div>
            <div className="lidattribuut">
             <div className="acclabel">E-mail: </div>
@@ -150,15 +160,24 @@ export default function LedenBeheer() {
             <div className="acclabel">Mix: </div>
             <div className="accvalue">{props.ob.mix}</div>
            </div>
+           <div className="lidattribuut"></div>
            <button className="fullwidth wwwijzig" onClick={()=>setEdit(true)}>Wijzigen</button>
        </div>)
     })
 
     const Lid = memo((props)=>{
-
+        let list = []
+        if (Array.isArray(props.ob.kleur))
+            props.ob.kleur.forEach(x=>list.push(x))
+        else list.push(props.ob.kleur)
         return (<><div className={`lidlijst ${selected?.id === props.ob.id ? 'lidselected' : ''}`} onClick={()=>{selected?.id === props.ob.id ? setSelected(null) : setSelected(props.ob)}}>
             <div className="lidnr">{props.ob.bvid ? props.ob.bvid : 'Geen ID'}</div>
             <div className="lidnaam">{`${props.ob.voornaam} ${props.ob.achternaam}`}</div>
+            <div className="circles">
+                {list ? list.map(x=>{
+                    return (<div className="circle" key={x} style={{backgroundColor: x,marginRight: '5px'}}/>)
+                }) : ''}
+            </div>
             </div>
             {selected?.id === props.ob.id ? (<Details ob={props.ob}/>) : null}
             </>)

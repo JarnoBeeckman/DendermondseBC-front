@@ -57,8 +57,16 @@ export default function GroepConfig() {
     },[refresh,selected])
 
     const Groep = memo((props)=>{
+        let list = []
+        if (Array.isArray(props.ob.kleur))
+            props.ob.kleur.forEach(x=>list.push(x))
+        else list.push(props.ob.kleur)
         return (<><div className={`lidlijst ${selected?.gid === props.ob.gid ? 'lidselected' : ''}`} onClick={()=>{selected?.gid === props.ob.gid ? setSelected(null) : setSelected(props.ob)}}>
-            <div className=" center flex">{props.ob.groepnaam}</div> {selected?.gid === props.ob.gid ? (<button className='wwwijzig delete width40 margin0' disabled={loading} onClick={()=>del()}>Verwijderen</button>): null}
+            <div className=" center flex">{props.ob.groepnaam}</div> {selected?.gid === props.ob.gid ? (<button className='wwwijzig delete width40 margin0' disabled={loading} onClick={()=>del()}>Verwijderen</button>): <div className="circles">
+                {list ? list.map(x=>{
+                    return (<div className="circle" key={x} style={{backgroundColor: x,marginRight: '5px'}}/>)
+                }) : ''}
+            </div>}
             </div>
             {selected?.gid === props.ob.gid ? (<Edit ob={props.ob}/>) : null}
             </>)
@@ -78,7 +86,7 @@ export default function GroepConfig() {
                     <input className='accvalue' type='color' defaultValue={props.ob.kleur} {...register('kleur',{required: 'Dit is vereist'})}></input>
                     {errors.kleur && <><div className='acclabel'></div><p className='accvalue error' >{errors.kleur.message}</p></>}
                 </div>
-                <button className='wwwijzig halfwidth' type='submit' disabled={loading}>Bevestigen</button>
+                <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
             </form>
             
         </>)

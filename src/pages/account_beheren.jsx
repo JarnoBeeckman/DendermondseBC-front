@@ -35,9 +35,14 @@ export default function AccountBeheren() {
         const asString = date.toISOString();
         return asString.substring(0, asString.indexOf("T"));
     }
-
     if (error) return (<div>{error}</div>)
     if (lid) {
+        let groep = ''
+        lid.groepnaam.forEach((x,index)=>{
+            if (!x) groep = 'null'
+            else if (index === 0) groep+=x
+            else groep+= `, ${x}`
+        })
         if (!edit)
             return (
                 <>
@@ -47,8 +52,10 @@ export default function AccountBeheren() {
                     <div className="accvalue accvaluefirst"><button className='accwijzig' onClick={pw}>Wijzigen</button></div>
                     <label className='acclabel'>Lidnummer: </label>
                     <div className='acclabel accvalue'>{lid.bvid ? lid.bvid : ''}</div>
-                    <label className='acclabel'>E-mail-adres: </label>
+                    <label className='acclabel'>E-mail adres: </label>
                     <div className='accvalue'>{lid.mail}</div>
+                    <label className='acclabel'>{lid.groepnaam.length > 1 ? 'Groepen: ' : 'Groep: '} </label>
+                    <div className='accvalue'>{groep}</div>
                     <label className='acclabel'>Voornaam: </label>
                     <div className='accvalue'>{lid.voornaam}</div>
                     <label className='acclabel'>Achternaam: </label>
