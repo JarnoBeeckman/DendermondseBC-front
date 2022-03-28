@@ -11,6 +11,10 @@
     margin-top: 5%;
     flex-wrap: wrap;
 }
+.center {
+    align-items: center;
+    justify-content: center;
+}
 .textcenter {
     text-align: center;
 }
@@ -43,6 +47,9 @@
 img {
     max-width: 100%;
     display: block;
+}
+.hidden {
+    display: none;
 }
 
 .backbutton {
@@ -200,11 +207,6 @@ select {
 .margin20 {
     margin-bottom: 20px;
 }
-.center {
-    align-items: center;
-    justify-content: center;
-}
-
 
 .flex {
     width: 100%;
@@ -220,6 +222,7 @@ select {
 }
 .delete {
     background-color: red;
+    word-wrap: break-word;
 }
 input[type=color] {
     border: none;
@@ -240,6 +243,13 @@ input[type=color] {
     margin-left: auto;
     display: flex;
 }
+.width20 {
+    width: 20%;
+}
+.nocursor {
+    cursor: default;
+}
+
 @media (max-width: 542px) {
     .grid {
         justify-content: center;

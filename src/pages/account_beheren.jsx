@@ -47,6 +47,7 @@ export default function AccountBeheren() {
             return (
                 <>
                 <button className='backbutton' onClick={back}>{'<'} Terug</button>
+                {customError ? (<p className="error">{customError}</p>): null}
                 <div className='grid flex-w accgrid'>
                     <label className='acclabel acclabelfirst'>Wachtwoord: </label>
                     <div className="accvalue accvaluefirst"><button className='accwijzig' onClick={pw}>Wijzigen</button></div>

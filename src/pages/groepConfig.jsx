@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom'
 import {useSession} from '../context/AuthProvider'
 import * as groep from '../api/groep'
 import { useForm } from "react-hook-form"
+import {RiDeleteBin6Line} from 'react-icons/ri'
 
 export default function GroepConfig() {
 
@@ -62,7 +63,7 @@ export default function GroepConfig() {
             props.ob.kleur.forEach(x=>list.push(x))
         else list.push(props.ob.kleur)
         return (<><div className={`lidlijst ${selected?.gid === props.ob.gid ? 'lidselected' : ''}`} onClick={()=>{selected?.gid === props.ob.gid ? setSelected(null) : setSelected(props.ob)}}>
-            <div className=" center flex">{props.ob.groepnaam}</div> {selected?.gid === props.ob.gid ? (<button className='wwwijzig delete width40 margin0' disabled={loading} onClick={()=>del()}>Verwijderen</button>): <div className="circles">
+            <div className=" center flex">{props.ob.groepnaam}</div> {selected?.gid === props.ob.gid ? (<button className='wwwijzig delete width40 margin0' disabled={loading} onClick={()=>del()}><RiDeleteBin6Line/></button>): <div className="circles">
                 {list ? list.map(x=>{
                     return (<div className="circle" key={x} style={{backgroundColor: x,marginRight: '5px'}}/>)
                 }) : ''}

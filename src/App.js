@@ -10,6 +10,7 @@ import AanpassingenBV from './pages/aanpassingenBV';
 import GroepConfig from './pages/groepConfig';
 import Wrapper from './components/wrapper';
 import KeuzeMenu from './components/KeuzeMenu';
+import GroepBeheer from './pages/groepBeheer';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <PrivateRoute exact path='/onkostenBestuur'></PrivateRoute>
         <PrivateRoute exact path='/settings'><KeuzeMenu view={'settings'}/></PrivateRoute>
         <PrivateRoute exact path='/groepConfig'><GroepConfig /></PrivateRoute>
+        <PrivateRoute exact path='/groepBeheer'><GroepBeheer/></PrivateRoute>
         </Wrapper>
       </Switch>
       </BrowserRouter>
