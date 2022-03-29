@@ -29,6 +29,7 @@ export default function GroepBeheer() {
         const e = await getAll()
         if (!e) setCustomError('Kon leden niet laden')
         else setLeden(e)
+        setLoading(false)
     },[getAll])
 
     const filterLeden = useCallback((w)=>{
