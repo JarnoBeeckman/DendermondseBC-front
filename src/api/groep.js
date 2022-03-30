@@ -38,3 +38,23 @@ export const deleteById = async (id)=>{
         return false
     }
 }
+export const linkGroep = async (gid,id)=>{
+    try {
+        const {data} = await axios.post(`groep/lid/${id}`,{
+            groepId:gid
+        })
+        return data
+    } catch(error) {
+        return false
+    }
+}
+export const unlinkGroep = async (gid,id)=>{
+    try {
+        await axios.put(`groep/lid/${id}`,{
+            groepId:gid
+        })
+        return true
+    } catch(error) {
+        return false
+    }
+}
