@@ -27,6 +27,7 @@ export default function GroepBeheer() {
     },[])
 
     const refresh = useCallback(async ()=>{
+        setLoading(true)
         const e = await getAll()
         if (!e) setCustomError('Kon leden niet laden')
         else setLeden(e)

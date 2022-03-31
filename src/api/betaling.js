@@ -36,24 +36,32 @@ export const deleteById = async (id)=>{
     } catch(error) {
         return false
     }
-} /*
-export const linkGroep = async (gid,id)=>{
+} 
+export const getAllBetalingen = async ()=>{
     try {
-        const {data} = await axios.post(`groep/lid/${id}`,{
-            groepId:gid
+        const {data} = await axios.get('betaling/account/')
+        return data
+        } catch (error) {
+            return 404
+        }
+}
+export const link = async (bid,id)=>{
+    try {
+        const {data} = await axios.post(`betaling/account/${id}`,{
+            soortId:bid
         })
         return data
     } catch(error) {
         return false
     }
 }
-export const unlinkGroep = async (gid,id)=>{
+export const unlink = async (gid,id)=>{
     try {
-        await axios.put(`groep/lid/${id}`,{
-            groepId:gid
+        await axios.put(`betaling/account/${id}`,{
+            soortId:gid
         })
         return true
     } catch(error) {
         return false
     }
-}*/
+}
