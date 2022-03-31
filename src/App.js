@@ -11,6 +11,8 @@ import GroepConfig from './pages/groepConfig';
 import Wrapper from './components/wrapper';
 import KeuzeMenu from './components/KeuzeMenu';
 import GroepBeheer from './pages/groepBeheer';
+import BetalingConfig from './pages/betalingConfig';
+import Betalingen from './pages/betalingen';
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
         <PrivateRoute exact path='/settings'><KeuzeMenu view={'settings'}/></PrivateRoute>
         <PrivateRoute exact path='/groepConfig'><GroepConfig /></PrivateRoute>
         <PrivateRoute exact path='/groepBeheer'><GroepBeheer/></PrivateRoute>
+        <PrivateRoute exact path='/betalingConfig'><BetalingConfig/></PrivateRoute>
+        <PrivateRoute exact path='/betalingen'><Betalingen/></PrivateRoute>
         </Wrapper>
       </Switch>
       </BrowserRouter>
