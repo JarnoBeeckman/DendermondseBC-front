@@ -9,21 +9,23 @@ export const getAll = async ()=>{
         return 404
     }
 }
-export const updateById = async (id,groepnaam,kleur)=>{
+export const updateById = async (id,groepnaam,kleur,aantal)=>{
     try {
         const {data} = await axios.put(`groep/${id}`,{
             groepnaam: groepnaam,
-            kleur:kleur
+            kleur:kleur,
+            aantal:aantal
         }); return data
     } catch (error) {
         return false
     }
 }
-export const create = async (groepnaam,kleur)=>{
+export const create = async (groepnaam,kleur,aantal)=>{
     try {
         const {data} = await axios.post('groep',{
             groepnaam:groepnaam,
-            kleur:kleur
+            kleur:kleur,
+            aantal:aantal
         })
         return data
     } catch(error) {

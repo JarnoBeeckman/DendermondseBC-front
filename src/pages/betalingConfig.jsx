@@ -34,18 +34,18 @@ export default function BetalingConfig() {
             refresh()
     },[ready,refresh])
 
-    const update = useCallback(async ({naam,actief})=>{
+    const update = useCallback(async ({naam,inschrijving,actief})=>{
         setLoading(true)
-        const e = await betaling.updateById(selected.bid,naam,actief ? true : false)
+        const e = await betaling.updateById(selected.bid,naam,inschrijving ? true : false,actief ? true : false)
         if (!e) setCustomError('Kon wijziging niet uitvoeren')
         else {
             await refresh()
             setCustomError(null)
         } ; setLoading(false)
     },[selected,refresh])
-    const addGroep = useCallback(async ({naam,actief})=>{
+    const addGroep = useCallback(async ({naam,inschrijving,actief})=>{
         setLoading(true)
-        const e = await betaling.create(naam,actief)
+        const e = await betaling.create(naam,inschrijving ? true : false,actief ? true : false)
         if (!e) setCustomError('Kon betalingssoort niet aanmaken')
         else {
             await refresh()
@@ -81,9 +81,14 @@ export default function BetalingConfig() {
                     {errors.groepnaam && <><div className='acclabel'></div><p className='accvalue error'>{errors.groepnaam.message}</p></>}
                 </div>
                 <div className='lidattribuut'>
+                    <div className='acclabel'>Inschrijving: </div>
+                    <input className='accvalue' type='checkbox' defaultChecked={props.ob.inschrijving} {...register('inschrijving')}/>
+                </div>
+                <div className='lidattribuut'>
                     <div className='acclabel'>Actief: </div>
                     <input className='accvalue' type='checkbox' defaultChecked={props.ob.actief} {...register('actief')}/>
                 </div>
+                <div className='lidattribuut'></div>
                 <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
             </form>
             
@@ -98,6 +103,8 @@ export default function BetalingConfig() {
                 <label className='acclabel'>Naam: </label>
                    <input className='accvalue' type='text' placeholder='naam' {...register('naam',{required: 'Dit is vereist'})} />
                    {errors.groepnaam && <><div className='acclabel'></div><p className='accvalue error'>{errors.groepnaam.message}</p></>}
+                   <label className='acclabel'>Inschrijving: </label>
+                   <input className='accvalue' type='checkbox' {...register('inschrijving')}/>
                    <label className='acclabel'>Actief: </label>
                    <input className='accvalue' type='checkbox' defaultChecked={true} {...register('actief')} />
                    <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>

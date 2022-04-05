@@ -8,20 +8,22 @@ export const getAll = async ()=>{
         return 404
     }
 }
-export const updateById = async (id,naam,actief)=>{
+export const updateById = async (id,naam,inschrijving,actief)=>{
     try {
         const {data} = await axios.put(`betaling/${id}`,{
             naam: naam,
+            inschrijving:inschrijving,
             actief:actief
         }); return data
     } catch (error) {
         return false
     }
 }
-export const create = async (naam,actief)=>{
+export const create = async (naam,inschrijving,actief)=>{
     try {
         const {data} = await axios.post('betaling',{
             naam:naam,
+            inschrijving:inschrijving,
             actief:actief
         })
         return data

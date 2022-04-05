@@ -34,18 +34,18 @@ export default function GroepConfig() {
             refresh()
     },[ready,refresh])
 
-    const update = useCallback(async ({groepnaam,kleur})=>{
+    const update = useCallback(async ({groepnaam,kleur,aantal})=>{
         setLoading(true)
-        const e = await groep.updateById(selected.gid,groepnaam,kleur)
+        const e = await groep.updateById(selected.gid,groepnaam,kleur,aantal === '' ? null : aantal)
         if (!e) setCustomError('Kon wijziging niet uitvoeren')
         else {
             await refresh()
             setCustomError(null)
         } ; setLoading(false)
     },[selected,refresh])
-    const addGroep = useCallback(async ({groepnaam,kleur})=>{
+    const addGroep = useCallback(async ({groepnaam,kleur,aantal})=>{
         setLoading(true)
-        const e = await groep.create(groepnaam,kleur)
+        const e = await groep.create(groepnaam,kleur,aantal === '' ? null : aantal)
         if (!e) setCustomError('Kon groep niet aanmaken')
         else {
             await refresh()
@@ -64,15 +64,9 @@ export default function GroepConfig() {
     },[refresh,selected])
 
     const Groep = memo((props)=>{
-        let list = []
-        if (Array.isArray(props.ob.kleur))
-            props.ob.kleur.forEach(x=>list.push(x))
-        else list.push(props.ob.kleur)
         return (<><div className={`lidlijst ${selected?.gid === props.ob.gid ? 'lidselected' : ''}`} onClick={()=>{selected?.gid === props.ob.gid ? setSelected(null) : setSelected(props.ob)}}>
             <div className=" center flex">{props.ob.groepnaam}</div> {selected?.gid === props.ob.gid ? (<button className='wwwijzig delete width40 margin0' disabled={loading} onClick={()=>del()}><RiDeleteBin6Line/></button>): <div className="circles">
-                {list ? list.map(x=>{
-                    return (<div className="circle" key={x} style={{backgroundColor: x,marginRight: '5px'}}/>)
-                }) : ''}
+            <div className="circle" key={props.ob.kleur} style={{backgroundColor: props.ob.kleur,marginRight: '5px'}}/>
             </div>}
             </div>
             {selected?.gid === props.ob.gid ? (<Edit ob={props.ob}/>) : null}
@@ -93,6 +87,11 @@ export default function GroepConfig() {
                     <input className='accvalue' type='color' defaultValue={props.ob.kleur} {...register('kleur',{required: 'Dit is vereist'})}/>
                     {errors.kleur && <><div className='acclabel'></div><p className='accvalue error' >{errors.kleur.message}</p></>}
                 </div>
+                <div className='lidattribuut'>
+                    <div className='acclabel'>Prijs: </div>
+                    <input className='accvalue' type='number' step='any' defaultValue={props.ob.aantal} {...register('aantal')} />
+                </div>
+                <div className='lidattribuut'></div>
                 <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
             </form>
             
@@ -109,6 +108,8 @@ export default function GroepConfig() {
                    <label className='acclabel'>Kleur: </label>
                    <input className='accvalue' type='color' placeholder='kleur' {...register('kleur',{required: 'Dit is vereist'})} />
                    {errors.kleur && <><div className='acclabel'></div><p className='accvalue error'>{errors.kleur.message}</p></>}
+                   <label className='acclabel'>Prijs: </label>
+                   <input className='accvalue' type='number' step='any' {...register('aantal')} />
                    <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
                 </form>
             </>
@@ -130,6 +131,7 @@ export default function GroepConfig() {
         </>
     );  return (<>
         <button className='backbutton' onClick={()=>setAdd(false)}>{'<'} Terug</button>
+        {customError ? (<p className="error">{customError}</p>): null}
         <Addnew />
     </>)
             }
