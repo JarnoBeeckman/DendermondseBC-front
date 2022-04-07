@@ -82,7 +82,7 @@ export default function GroepBeheer() {
                     <button className={`wwwijzig width20 margin0 ${props.del ? 'delete':null} ${props.none ? 'hidden':null}`}
                      disabled={loading} onClick={props.del ? ()=>unlink(selected,props.x.id) : ()=>link(selected,props.x.id) } >{props.del ?<RiDeleteBin6Line/>:<GrAdd/>}</button>
                     <div className="flex center">{`${props.x.voornaam} ${props.x.achternaam}`}</div>
-                    <div className="circles">
+                    <div className="circles lidstatus">
                 {list ? list.map(x=>{
                     return (<div className="circle" key={x} style={{backgroundColor: x,marginRight: '5px'}}/>)
                 }) : ''}

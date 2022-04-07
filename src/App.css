@@ -129,6 +129,7 @@ form .select {
 
 input[type=number] {
     -moz-appearance: textfield;
+    
 }
 
 input::-webkit-outer-spin-button,
@@ -169,10 +170,7 @@ select {
     width: 20%;
 }
 
-.lidstatus {
-    width: 30%;
-    text-align: center;
-}
+
 .width30 {
     width: 33%;
     text-align: center;
@@ -228,6 +226,9 @@ select {
 .delete {
     background-color: red;
     word-wrap: break-word;
+}
+.alignright {
+    text-align: end;
 }
 input[type=color] {
     border: none;

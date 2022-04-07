@@ -47,21 +47,22 @@ export const getAllBetalingen = async ()=>{
             return 404
         }
 }
-export const link = async (bid,id)=>{
+export const link = async (bid,lid,prijs,datum)=>{
     try {
-        const {data} = await axios.post(`betaling/account/${id}`,{
-            soortId:bid
+        const {data} = await axios.post(`betaling/account/`,{
+            soortId:bid,
+            ledenId:lid,
+            prijs:prijs,
+            datum:datum
         })
         return data
     } catch(error) {
         return false
     }
 }
-export const unlink = async (gid,id)=>{
+export const unlink = async (id)=>{
     try {
-        await axios.put(`betaling/account/${id}`,{
-            soortId:gid
-        })
+        await axios.delete(`betaling/account/${id}`)
         return true
     } catch(error) {
         return false

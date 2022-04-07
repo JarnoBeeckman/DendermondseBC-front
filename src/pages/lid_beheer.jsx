@@ -173,7 +173,7 @@ export default function LedenBeheer() {
         return (<><div className={`lidlijst ${selected?.id === props.ob.id ? 'lidselected' : ''}`} onClick={()=>{selected?.id === props.ob.id ? setSelected(null) : setSelected(props.ob)}}>
             <div className="lidnr">{props.ob.bvid ? props.ob.bvid : 'Geen ID'}</div>
             <div className="lidnaam">{`${props.ob.voornaam} ${props.ob.achternaam}`}</div>
-            <div className="circles">
+            <div className="circles lidstatus">
                 {list ? list.map(x=>{
                     return (<div className="circle" key={x} style={{backgroundColor: x,marginRight: '5px'}}/>)
                 }) : ''}

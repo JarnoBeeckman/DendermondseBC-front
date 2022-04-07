@@ -3,15 +3,31 @@ import { useCallback, useEffect, useState, memo } from 'react';
 import * as betaling from '../api/betaling'
 import { useSession } from "../context/AuthProvider"
 import {RiDeleteBin6Line} from 'react-icons/ri'
-import {GrAdd} from 'react-icons/gr'
+import { useForm } from "react-hook-form"
+
+const toDateInputString = (date) => {
+    // (toISOString returns something like 2020-12-05T14:15:74Z,
+    // date HTML5 input elements expect 2020-12-05
+    // 
+    if (!date) return null;
+    if (typeof date !== Object) {
+        date = new Date(date);
+    }
+    const asString = date.toISOString();
+    return asString.substring(0, asString.indexOf("T"));
+};
 
 export default function Betalingen() {
 
     const [soorten,setSoorten] = useState()
+    const [add,setAdd] = useState(false)
     const [loading,setLoading] = useState()
+    const [betalingen,setBetalingen] = useState()
+    const [clicked,setClicked] = useState()
     const [leden,setLeden] = useState()
-    const [selected,setSelected] =  useState('0')
+    const [selected,setSelected] =  useState('none')
     const [customError,setCustomError] = useState()
+    const [addlid,setAddlid] = useState(0)
     const {ready } = useSession()
     const history = useHistory()
 
@@ -28,20 +44,23 @@ export default function Betalingen() {
     const refresh = useCallback(async ()=>{
         const e = await betaling.getAllBetalingen()
         if (!e) setCustomError('Kon leden niet laden')
-        else setLeden(e)
+        else {
+            setLeden(e.leden)
+            setBetalingen(e.data)
+        } 
         setLoading(false)
     },[])
 
     const filterLeden = useCallback((w,reversed)=>{
         if (Array.isArray(w.bid)){
             if (!reversed)
-            return w.bid.includes(parseInt(selected))
-            return !w.bid.includes(parseInt(selected))
+            return w.bid === parseInt(soorten[selected].bid)
+            return w.bid !== parseInt(selected)
         }
         if (!reversed) 
-        return w.bid === parseInt(selected)
+        return w.bid === parseInt(soorten[selected].bid)
         return w.bid !== parseInt(selected)
-    },[selected]) 
+    },[selected,soorten]) 
 
     useEffect( ()=>{
         if (ready) {
@@ -50,74 +69,121 @@ export default function Betalingen() {
         }
     },[ready,refreshSoorten,refresh])
 
-    const link = useCallback(async (bid,id)=>{
+    const link = useCallback(async ({prijs,datum})=>{
         setLoading(true)
-        const e = await betaling.link(bid,id)
-        if (!e) setCustomError('Kon lid niet toevoegen')
+        const e = await betaling.link(soorten[selected].bid,leden[addlid].id,prijs,datum)
+        if (!e) setCustomError('Kon betaling niet toevoegen')
         else {
             await refresh()
             setCustomError(null)
+            setAdd(false)
         } 
-    },[refresh])
+        setLoading(false)
+    },[refresh,selected,addlid,leden,soorten])
 
-    const unlink = useCallback(async (bid,id)=>{
+    const unlink = useCallback(async (id)=>{
         setLoading(true)
-        const e = await betaling.unlink(bid,id)
-        if (!e) setCustomError('Kon lid niet verwijderen')
+        const e = await betaling.unlink(id)
+        if (!e) setCustomError('Kon betaling niet verwijderen')
         else {
             await refresh()
             setCustomError(null)
         }
+        setLoading(false)
     },[refresh])
 
     const Lid = memo((props)=>{
         return (<>
-            <div className="lidlijst center nocursor">
-                    <button className={`wwwijzig width20 margin0 ${props.del ? 'delete':null} ${props.none ? 'hidden':null}`}
-                     disabled={loading} onClick={props.del ? ()=>unlink(selected,props.x.id) : ()=>link(selected,props.x.id) } >{props.del ?<RiDeleteBin6Line/>:<GrAdd/>}</button>
+            <div className={`lidlijst center ${props.x === clicked ? 'lidselected' : ''}`} onClick={()=>{props.x === clicked ? setClicked(null) : setClicked(props.x)}}>
+                    <button className={`wwwijzig width20 margin0 delete ${props.x === clicked ? null : 'hidden'}`}
+                     disabled={loading} onClick={props.del ? ()=>unlink(props.x.beid) : ()=>link(selected,props.x.id) } ><RiDeleteBin6Line/></button>
                     <div className="flex center">{`${props.x.voornaam} ${props.x.achternaam}`}</div>
+                    <div className="circles lidstatus">
+                        {props.x.prijs}
+                    </div>
                 </div>
+            {props.x === clicked ? <Edit x={props.x}/> : null}
        </> )
     })
 
-    const Filtered = memo((props)=>{
-        let temp = []
-        if (selected !== '0') {
-           if (!props.reversed) {
-                temp = leden.filter(x=>filterLeden(x,false))
-                return (<>{temp.map(x=>{
-                    return <Lid key={x.id} x={x} del={true} />
-                })}</>)
-            }
-            else {
-                temp = leden.filter(x=>filterLeden(x,true))
-                return (<>{temp.map(x=>{
-                    return <Lid key={x.id} x={x} />
-                })}</>)
-            }
-        }
-        temp = leden.filter(x=>!x.bid)
-        return (<>{temp.map(x=>{return <Lid key={x.id} x={x} none={true}/>})}</>)
+    const Edit = memo((props)=>{
+        return <div className="lidedit">
+            <div className="lidattribuut">
+                <div className="acclabel">Prijs: </div>
+                <div className="accvalue">{props.x.prijs}</div>
+            </div>
+            <div className="lidattribuut">
+                <div className="acclabel">Datum: </div>
+                <div className="accvalue">{toDateInputString(props.x.datum)}</div>
+            </div>
+        </div>
     })
 
+    const Filtered = memo(()=>{
+        let temp = []
+        if (selected !== 'none') {
+                temp = betalingen.filter(x=>filterLeden(x,false))
+                return (<><button className="wwwijzig" disabled={loading} onClick={()=>setAdd(true)}>Nieuwe betaling</button><div className="margin20"/>{temp.map(x=>{
+                    return <Lid key={x.beid} x={x} />
+                })}</>)
+        }
+        return null
+    })
+
+    const Addnew = memo(()=>{
+        const { register, handleSubmit, formState: {errors} } = useForm();
+        
+        return (
+            <>
+                <div className='grid flex-w accgrid'>
+                <label className='acclabel'>Naam: </label>
+                   <select className='accvalue' onChange={e=>setAddlid(e.target.value)} value={addlid}>
+                       
+                        {leden.map(x=>{
+                            return <option key={x.id} value={leden.indexOf(x)}>{`${x.achternaam} ${x.voornaam}`}</option>
+                        })}
+                   </select>
+                   </div>
+                   <form className=" grid flex-w accgrid margin0" onSubmit={handleSubmit(link)}>
+                   <label className='acclabel'>Aantal: </label>
+                   <input className='accvalue' type='number' step={'any'} {...register('prijs',{required: 'Dit is vereist'})} />
+                   {soorten[selected].inschrijving === 1 && leden[addlid].gid ? (<><div className="accvalue alignright fullwidth">{
+                       leden[addlid].groepnaam.map((e,i)=>{
+                           return `${e}: ${leden[addlid].aantal[i]} `
+                       })
+                   }</div></>) : null}
+                   {errors.prijs && <><div className='acclabel'></div><p className='accvalue error'>{errors.prijs.message}</p></>}
+                   <label className='acclabel'>Datum: </label>
+                   <input className='accvalue' type='date' defaultValue={toDateInputString(Date.now())} {...register('datum')} />
+                   {errors.datum && <><div className='acclabel'></div><p className='accvalue error'>{errors.datum.message}</p></>}
+                   <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
+                   </form>
+            </>
+        )
+    })
 
     if (soorten && leden) {
+        if (!add)
         return <>
             <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
             {customError ? (<p className="error">{customError}</p>): null}
                 <div className="fullwidth center flex">
                     <select onChange={e=>setSelected(e.target.value)} defaultValue={selected}>
-                        <option value={0}>Geen</option>
+                        <option value={'none'}>Geen</option>
                         {soorten.map(x=>{
                         if (x.actief !== 0)
-                        return <option key={x.bid} value={x.bid}>{x.naam}</option>
+                        return <option key={x.bid} value={soorten.indexOf(x)}>{x.naam}</option>
                         return null
                         })}
                     </select>
                 </div>
             <div className="margin20"/>
             <Filtered/>
-            {selected!=='0' ? <><div className="margin20 line grid"/><Filtered reversed={true}/></> :null}
+        </>
+        return <>
+            <button className='backbutton margin20' onClick={()=>setAdd(false)}>{'<'} Terug</button>
+            {customError ? (<p className="error">{customError}</p>): null}
+            <Addnew/>
         </>
     }
     return <><button className='backbutton' onClick={back}>{'<'} Terug</button><div>Loading...</div></>
