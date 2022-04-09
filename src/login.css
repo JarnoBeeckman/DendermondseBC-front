@@ -64,7 +64,7 @@
       margin: 0px;
   }
   
-  ul, li {
+  .loginform ul, .loginform li {
       margin: 0px;
       list-style-type: none;
   }
@@ -81,9 +81,7 @@
     border: none;
   }
   
-  textarea:focus, input:focus {
-    border-color: transparent !important;
-  }
+ 
   
   input::-webkit-input-placeholder { color: #8f8fa1;}
   input:-moz-placeholder { color: #8f8fa1;}

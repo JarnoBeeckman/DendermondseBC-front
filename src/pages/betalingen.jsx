@@ -96,7 +96,7 @@ export default function Betalingen() {
         return (<>
             <div className={`lidlijst center ${props.x === clicked ? 'lidselected' : ''}`} onClick={()=>{props.x === clicked ? setClicked(null) : setClicked(props.x)}}>
                     <button className={`wwwijzig width20 margin0 delete ${props.x === clicked ? null : 'hidden'}`}
-                     disabled={loading} onClick={props.del ? ()=>unlink(props.x.beid) : ()=>link(selected,props.x.id) } ><RiDeleteBin6Line/></button>
+                     disabled={loading} onClick={()=>unlink(props.x.beid) } ><RiDeleteBin6Line/></button>
                     <div className="flex center">{`${props.x.voornaam} ${props.x.achternaam}`}</div>
                     <div className="circles lidstatus">
                         {props.x.prijs}
