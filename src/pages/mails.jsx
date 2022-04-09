@@ -6,6 +6,8 @@ import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header'; 
 import List from '@editorjs/list'; 
 
+let editor;
+
 export default function Mails() {
 
     const {ready} = useSession()
@@ -45,7 +47,8 @@ export default function Mails() {
     
 
     if (ready && leden) {
-        const editor = new EditorJS({ 
+        if (!editor)
+        editor = new EditorJS({ 
             /** 
              * Id of Element that should contain the Editor 
              */ 
