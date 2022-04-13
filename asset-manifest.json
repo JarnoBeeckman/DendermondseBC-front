@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/DendermondseBC-front/static/css/main.da7f1b83.chunk.css",
-    "main.js": "/DendermondseBC-front/static/js/main.23f5f005.chunk.js",
-    "main.js.map": "/DendermondseBC-front/static/js/main.23f5f005.chunk.js.map",
-    "runtime-main.js": "/DendermondseBC-front/static/js/runtime-main.91e5a9db.js",
-    "runtime-main.js.map": "/DendermondseBC-front/static/js/runtime-main.91e5a9db.js.map",
-    "static/js/2.353aae5f.chunk.js": "/DendermondseBC-front/static/js/2.353aae5f.chunk.js",
-    "static/js/2.353aae5f.chunk.js.map": "/DendermondseBC-front/static/js/2.353aae5f.chunk.js.map",
-    "static/js/3.ba47a3c7.chunk.js": "/DendermondseBC-front/static/js/3.ba47a3c7.chunk.js",
-    "static/js/3.ba47a3c7.chunk.js.map": "/DendermondseBC-front/static/js/3.ba47a3c7.chunk.js.map",
+    "main.css": "/DendermondseBC-front/static/css/main.b284e37a.chunk.css",
+    "main.js": "/DendermondseBC-front/static/js/main.27c966f1.chunk.js",
+    "main.js.map": "/DendermondseBC-front/static/js/main.27c966f1.chunk.js.map",
+    "runtime-main.js": "/DendermondseBC-front/static/js/runtime-main.dee6b0a7.js",
+    "runtime-main.js.map": "/DendermondseBC-front/static/js/runtime-main.dee6b0a7.js.map",
+    "static/js/2.f4a18ac1.chunk.js": "/DendermondseBC-front/static/js/2.f4a18ac1.chunk.js",
+    "static/js/2.f4a18ac1.chunk.js.map": "/DendermondseBC-front/static/js/2.f4a18ac1.chunk.js.map",
+    "static/js/3.b5dedef2.chunk.js": "/DendermondseBC-front/static/js/3.b5dedef2.chunk.js",
+    "static/js/3.b5dedef2.chunk.js.map": "/DendermondseBC-front/static/js/3.b5dedef2.chunk.js.map",
     "index.html": "/DendermondseBC-front/index.html",
-    "static/css/main.da7f1b83.chunk.css.map": "/DendermondseBC-front/static/css/main.da7f1b83.chunk.css.map",
-    "static/js/2.353aae5f.chunk.js.LICENSE.txt": "/DendermondseBC-front/static/js/2.353aae5f.chunk.js.LICENSE.txt",
+    "static/css/main.b284e37a.chunk.css.map": "/DendermondseBC-front/static/css/main.b284e37a.chunk.css.map",
+    "static/js/2.f4a18ac1.chunk.js.LICENSE.txt": "/DendermondseBC-front/static/js/2.f4a18ac1.chunk.js.LICENSE.txt",
     "static/media/login.css": "/DendermondseBC-front/static/media/Ubuntu-Regular.1cbb1b79.ttf",
     "static/media/logoBC.dcd27ad3.jpg": "/DendermondseBC-front/static/media/logoBC.dcd27ad3.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.91e5a9db.js",
-    "static/js/2.353aae5f.chunk.js",
-    "static/css/main.da7f1b83.chunk.css",
-    "static/js/main.23f5f005.chunk.js"
+    "static/js/runtime-main.dee6b0a7.js",
+    "static/js/2.f4a18ac1.chunk.js",
+    "static/css/main.b284e37a.chunk.css",
+    "static/js/main.27c966f1.chunk.js"
   ]
 }
