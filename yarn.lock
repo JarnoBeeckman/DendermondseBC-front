@@ -1148,6 +1148,11 @@
   resolved "https://registry.yarnpkg.com/@editorjs/list/-/list-1.7.0.tgz#986c55026bdeee2ec7ef74fe09bd4b285e12bd1e"
   integrity sha512-0k0RKbQqfV32u24UYHHz5mrmSu4wr246qqXBT7xQiS533Bfd4hzki6UGzvy4f275ULzi+egbjI3BXLkpoTh9iQ==
 
+"@editorjs/simple-image@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/simple-image/-/simple-image-1.4.1.tgz#16a847e0f21041dfac0af8235d19b8a8a756c493"
+  integrity sha512-8lqcMYKrxhnDNasqq4Id9/SwXymSofVb4SJBC7gQoJmNG9bfRgVEXLsEUnuLzn8ixkAYlK2oNTc7ioZdD8bEOw==
+
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.3.tgz#9e42981ef035beb3dd49add17acb96e8ff6f394c"

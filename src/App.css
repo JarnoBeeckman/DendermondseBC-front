@@ -256,9 +256,28 @@ input[type=color] {
     cursor: default;
 }
 .editor {
-    height: 30vh;
+    height: fit-content;
     border: 1px solid black;
+    border-radius: 5px;
     padding: 10px;
+    width: 100%;
+    max-width: 512px;
+}
+.radiolabel {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    
+}
+.radiolabel input {
+    margin: 2px;
+}
+.justify {
+    justify-content: center;
+}
+.inputfix {
+    border-bottom: 1px solid black;
 }
 @media (max-width: 542px) {
     .grid {
