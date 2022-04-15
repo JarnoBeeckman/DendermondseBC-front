@@ -14,6 +14,7 @@ import GroepBeheer from './pages/groepBeheer';
 import BetalingConfig from './pages/betalingConfig';
 import Betalingen from './pages/betalingen';
 import Mails from './pages/mails';
+import NieuweLeden from './pages/nieuweLeden';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <PrivateRoute exact path='/lidBeheer'><LedenBeheer/></PrivateRoute>
         <PrivateRoute exact path='/stuurMail'><Mails/></PrivateRoute>
         <PrivateRoute exact path='/aanpassenBV'><AanpassingenBV/></PrivateRoute>
+        <PrivateRoute exact path='/nieuweLeden'><NieuweLeden/></PrivateRoute>
         <PrivateRoute exact path='/vergoedingTrainers'></PrivateRoute>
         <PrivateRoute exact path='/onkostenKapitein'></PrivateRoute>
         <PrivateRoute exact path='/onkostenBestuur'></PrivateRoute>

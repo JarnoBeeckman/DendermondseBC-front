@@ -53,9 +53,12 @@ export const deleteAanpassing = async (id)=>{
     const {data} = await axios.delete(`account/aanpassingen/${id}`)
     return data
 }
-export const inschrijven = async (id,bvid)=>{
+export const inschrijven = async (id,bvid,enkel,dubbel,mix)=>{
     const {data} = await axios.put(`account/aanpassingen/${id}`,{
-        bvid
+        bvid,
+        enkel,
+        dubbel,
+        mix
     })
     return data
 }

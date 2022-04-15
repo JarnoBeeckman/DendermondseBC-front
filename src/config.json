@@ -5,15 +5,15 @@
         "lid": [["Account gegevens","accountBeheren"],["Kledij bestellen","kledijBestellen"]],
         "kapitein": [["Onkosten","onkosten"]],
         "trainer": [["Trainingsuren","trainingsuren"],["Aanwezigheden","aanwezigheden"]],
-        "admin": [["Leden beheren","lidBeheer"],["Mail versturen","stuurMail"]],
-        "penningmeester": [["BV aanpassingen","aanpassenBV"],["Trainers vergoedingen","vergoedingTrainers"],["Kapiteins onkosten","onkostenKapitein"],["Bestuurders onkosten","onkostenBestuur"]],
-        "beheerder": [["Account gegevens","accountBeheren"],["Leden beheren","lidBeheer"],["BV aanpassingen","aanpassenBV"],["Groepen beheren","groepBeheer"],["Betalingen","betalingen"],["Mail versturen","stuurMail"],["Instellingen","settings"]]
+        "admin": [["Leden beheren","lidBeheer"],["Mail versturen","stuurMail"],["Groepen beheren","groepBeheer"]],
+        "penningmeester": [["BV aanpassingen","aanpassenBV"],["Registreer nieuwe leden","nieuweLeden"],["Betalingen","betalingen"],["Trainers vergoedingen","vergoedingTrainers"],["Kapiteins onkosten","onkostenKapitein"],["Bestuurders onkosten","onkostenBestuur"]],
+        "beheerder": [["Account gegevens","accountBeheren"],["Leden beheren","lidBeheer"],["BV aanpassingen","aanpassenBV"],["Registreer nieuwe leden","nieuweLeden"],["Groepen beheren","groepBeheer"],["Betalingen","betalingen"],["Mail versturen","stuurMail"],["Instellingen","settings"]]
     },
     "settings": {
         "lid": [],
         "trainer":[],
-        "admin":[],
-        "penningmeester":[],
+        "admin":[["Groepen","groepConfig"]],
+        "penningmeester":[["Betalingen","betalingConfig"]],
         "beheerder": [["Groepen","groepConfig"],["Betalingen","betalingConfig"]]
     }
 }

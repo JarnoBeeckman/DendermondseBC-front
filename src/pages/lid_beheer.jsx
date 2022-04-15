@@ -95,6 +95,7 @@ export default function LedenBeheer() {
                         <option value='Recreant'>Recreant</option>
                         <option value='Jeugd'>Jeugd</option>
                         <option value='Competitiespeler'>Competitiespeler</option>
+                        <option value='Inactief'>Inactief</option>
                     </select>
                    {errors.status && <><div className='acclabel'></div><p className='accvalue error'>{errors.status.message}</p></>}
                    <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
