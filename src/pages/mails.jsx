@@ -9,7 +9,6 @@ import List from '@editorjs/list';
 import SimpleImage from '@editorjs/simple-image'
 import { useForm } from "react-hook-form"
 
-
 let editor;
 
 export default function Mails() {
@@ -49,11 +48,16 @@ export default function Mails() {
             refresh()
     },[ready,refresh])
 
-    const send = useCallback(async ({onderwerp})=>{
+    const send = useCallback(async ({onderwerp,bcc})=>{
         setLoading(true)
+        setCustomError(null)
+        if (receivers.length === 0) {
+            setCustomError('Duid ontvangers aan')
+        } else {
         const data = await editor.save().then(x=>{return x}).catch(x=>setCustomError('Kon gegevens niet verwerken.'))
-        const e = await mails.sendMail(receivers,false,true,onderwerp,data.blocks)
+        const e = await mails.sendMail(receivers,'',bcc,onderwerp,data.blocks)
         if (!e) setCustomError('Kon mail niet versturen')
+        }
         setLoading(false)
     },[receivers])
 
@@ -88,6 +92,8 @@ export default function Mails() {
                     return <label className="radiolabel" key={x.gid}><input type='radio' disabled={receivers.includes(-1) || receivers.includes(-2)} checked={receivers.includes(x.gid)} onChange={()=>null} onClick={()=>receivers.includes(x.gid) ? filter(x.gid) : setReceivers([...receivers,x.gid])} />{x.groepnaam}</label>
                 })}
             </div>
+            <label className="acclabel">Bcc: </label>
+            <input className="accvalue height20" type='checkbox' defaultChecked={true} {...register('bcc')} />
             <label className="acclabel">Onderwerp: </label>
             <input className="accvalue inputfix" {...register('onderwerp',{required: 'Dit is vereist'})}/>
             {errors.onderwerp && <><div className='acclabel'></div><p className='accvalue error' >{errors.onderwerp.message}</p></>}

@@ -256,7 +256,7 @@ input[type=color] {
     cursor: default;
 }
 .editor {
-    height: fit-content;
+    height: auto;
     border: 1px solid black;
     border-radius: 5px;
     padding: 10px;
@@ -278,6 +278,9 @@ input[type=color] {
 }
 .inputfix {
     border-bottom: 1px solid black;
+}
+.height20 {
+    height: 20px;
 }
 @media (max-width: 542px) {
     .grid {
