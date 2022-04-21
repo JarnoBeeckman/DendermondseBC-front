@@ -32,6 +32,10 @@ export const useLogin = ()=>{
     const {login} = useAuth();
     return login;
 }
+export const useDeleteLid = ()=>{
+    const {deleteLid} = useAuth()
+    return deleteLid
+}
 
 export const useChangePassword = ()=>{
     const {changePassword} = useAuth()
@@ -163,6 +167,19 @@ export const AuthProvider = ({children})=>{
         }
     },[])
 
+    const deleteLid = useCallback(async (id)=>{
+        try {
+            setError('')
+            setLoading(true)
+            await LidApi.deleteLid(id)
+            return true
+        } catch (error) {
+            return false
+        } finally {
+            setLoading(true)
+        }
+    },[])
+
     const updateLid = useCallback(async (id,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,gsm)=>{
         try {
             setError('')
@@ -249,8 +266,8 @@ export const AuthProvider = ({children})=>{
     },[])
     
     const value= useMemo(()=>({
-        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid,getAanpassingen,getNewLeden,deleteAanpassing,inschrijven
-    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid,getAanpassingen,getNewLeden,deleteAanpassing,inschrijven]);
+        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid,getAanpassingen,getNewLeden,deleteAanpassing,inschrijven,deleteLid
+    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid,getAanpassingen,getNewLeden,deleteAanpassing,inschrijven,deleteLid]);
 
     return (
         <AuthContext.Provider value={value}>

@@ -200,6 +200,9 @@ select {
     margin-top: 5px;
 
 }
+.displayflex {
+    display: flex;
+}
 
 .lidattribuut .accvalue {
     flex-wrap: wrap;
@@ -230,6 +233,9 @@ select {
 .alignright {
     text-align: end;
 }
+.align {
+    height: fit-content;
+}
 input[type=color] {
     border: none;
 }
@@ -252,8 +258,17 @@ input[type=color] {
 .width20 {
     width: 20%;
 }
+.width80 {
+    width: 80%;
+}
+.marginreset {
+    margin: 0px;
+}   
 .nocursor {
     cursor: default;
+}
+.autopadding {
+    padding: 5px;
 }
 .editor {
     height: auto;
@@ -281,6 +296,12 @@ input[type=color] {
 }
 .height20 {
     height: 20px;
+}
+.marginrightauto {
+    margin-right: auto;
+}
+.paddingrightauto {
+    padding-right: auto;
 }
 @media (max-width: 542px) {
     .grid {

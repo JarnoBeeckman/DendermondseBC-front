@@ -30,10 +30,12 @@ export default function WijzigWachtwoord() {
                 {customError ? (<p className="error">{customError}</p>): null}
                 <form className='grid flex-w accgrid' onSubmit={handleSubmit(handleSub)}>
                     <label className='acclabel'>Huidig wachtwoord: </label>
-                    <input className='accvalue' type='password' placeholder='huidig' {...register('current',{required: 'Dit is vereist'})} />                        {errors.current && <><div className='acclabel'></div><p className='accvalue error'>{errors.current.message}</p></>}
+                    <input className='accvalue' type='password' placeholder='huidig' {...register('current',{required: 'Dit is vereist'})} />                        
+                    {errors.current && <><div className='acclabel'></div><p className='accvalue error'>{errors.current.message}</p></>}
                     <label className='acclabel'>Nieuw wachtwoord: </label>
                    <input className='accvalue' type='password' placeholder='nieuw' {...register('wachtwoord',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
-                    {errors.wachtwoord && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoord.message}</p></>}                        <label className='acclabel'>Herhaal nieuw wachtwoord: </label>
+                    {errors.wachtwoord && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoord.message}</p></>}                       
+                    <label className='acclabel'>Herhaal nieuw wachtwoord: </label>
                    <input className='accvalue' type='password' placeholder='herhaal'{...register('wachtwoordd',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
                     {errors.wachtwoordd && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoordd.message}</p></>}
                    <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>

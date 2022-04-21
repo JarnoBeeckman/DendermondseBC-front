@@ -1,5 +1,5 @@
 {
-    "url": "https://dendermondse-bc.herokuapp.com/api/",
+    "url": "http://localhost:9000/api/",
     "token_key": "auth_token",
     "pages": {
         "lid": [["Account gegevens","accountBeheren"],["Kledij bestellen","kledijBestellen"]],
@@ -7,7 +7,7 @@
         "trainer": [["Trainingsuren","trainingsuren"],["Aanwezigheden","aanwezigheden"]],
         "admin": [["Leden beheren","lidBeheer"],["Mail versturen","stuurMail"],["Groepen beheren","groepBeheer"]],
         "penningmeester": [["BV aanpassingen","aanpassenBV"],["Registreer nieuwe leden","nieuweLeden"],["Betalingen","betalingen"],["Trainers vergoedingen","vergoedingTrainers"],["Kapiteins onkosten","onkostenKapitein"],["Bestuurders onkosten","onkostenBestuur"]],
-        "beheerder": [["Account gegevens","accountBeheren"],["Leden beheren","lidBeheer"],["BV aanpassingen","aanpassenBV"],["Registreer nieuwe leden","nieuweLeden"],["Groepen beheren","groepBeheer"],["Betalingen","betalingen"],["Mail versturen","stuurMail"],["Instellingen","settings"]]
+        "beheerder": [["Account gegevens","accountBeheren"],["Leden beheren","lidBeheer"],["Groepen beheren","groepBeheer"],["BV aanpassingen","aanpassenBV"],["Registreer nieuwe leden","nieuweLeden"],["Betalingen","betalingen"],["Mail versturen","stuurMail"],["Instellingen","settings"]]
     },
     "settings": {
         "lid": [],

@@ -8,11 +8,12 @@ export const login = async (username,wachtwoord)=>{
     return data
 }
 
-export const register = async (mail,wachtwoord,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,spelertype)=>{
-  const {data} = await axios.post(`account`,{
-     mail,wachtwoord,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,spelertype
+export const register = async (mail,wachtwoord,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status)=>{
+  try {const {data} = await axios.post(`account`,{
+     mail,wachtwoord,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status
  })
  return data
+} catch (error) {}
 }
 
 export const getLidById = async (id)=>{
@@ -60,5 +61,9 @@ export const inschrijven = async (id,bvid,enkel,dubbel,mix)=>{
         dubbel,
         mix
     })
+    return data
+}
+export const deleteLid = async (id)=>{
+    const {data}=await axios.delete(`account/${id}`)
     return data
 }

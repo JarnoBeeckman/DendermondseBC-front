@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState,memo } from "react";
-import { useAdminUpdateLid, useGetAllLeden, useSession } from "../context/AuthProvider"
+import { useAdminUpdateLid, useGetAllLeden, useSession, useDeleteLid } from "../context/AuthProvider"
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form"
 
@@ -24,6 +24,7 @@ export default function LedenBeheer() {
     const [edit,setEdit] = useState()
     const adminUpdateLid = useAdminUpdateLid()
     const {loading} = useSession()
+    const del = useDeleteLid()
     
     const refresh = useCallback(async ()=>{
         const a = await list()
@@ -45,6 +46,14 @@ export default function LedenBeheer() {
         else setCustomError('Er liep iets fout, controleer uw gegevens en contacteer een beheerder als deze juist zijn.')
    },[adminUpdateLid,selected?.id,refresh])
 
+   const deleteLid = useCallback(async ()=>{
+       const e = await del(selected?.id)
+       if (e) {
+           setEdit(false)
+           await refresh()
+       } else setCustomError('Kon lid niet verwijderen, heeft deze nog een groep of betalingen?')
+   },[del,selected?.id,refresh])
+
     useEffect(()=>{
         if (ready) {
             refresh();
@@ -55,7 +64,7 @@ export default function LedenBeheer() {
         const { register, handleSubmit, formState: {errors} } = useForm();
         return (<><button className='backbutton' onClick={()=>back(true)}>{'<'} Terug</button>
         {customError ? (<p className="error">{customError}</p>): null}
-               <form className='grid flex-w accgrid' onSubmit={handleSubmit(handleSub)}>
+               <form className='grid flex-w accgrid margin20' onSubmit={handleSubmit(handleSub)}>
                <label className='acclabel'>Username: </label>
                    <input className='accvalue' type='text' placeholder='username' defaultValue={selected.username} {...register('username',{required: 'Dit is vereist'})} />
                    {errors.username && <><div className='acclabel'></div><p className='accvalue error'>{errors.username.message}</p></>}
@@ -99,7 +108,9 @@ export default function LedenBeheer() {
                     </select>
                    {errors.status && <><div className='acclabel'></div><p className='accvalue error'>{errors.status.message}</p></>}
                    <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
-               </form></>) 
+               </form>
+               <button className="wwwijzig delete" onClick={()=>deleteLid()}>Verwijderen</button>
+               </>) 
     })
     const Details = memo((props)=>{
         let groep = ''
