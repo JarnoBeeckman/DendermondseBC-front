@@ -67,3 +67,10 @@ export const deleteLid = async (id)=>{
     const {data}=await axios.delete(`account/${id}`)
     return data
 }
+export const forgot = async (username)=>{
+    try {const {data} = await axios.put(`account/forgot/${username}`)
+    return data
+} catch (error) {
+    return false
+}
+}

@@ -163,7 +163,9 @@ select {
     text-align: center;
 
 }
-
+.leftmarginauto {
+    margin-left: auto;
+}
 .lidnr {
     margin-left: 5px;
     color: #72C2E3;
@@ -263,6 +265,7 @@ input[type=color] {
 }
 .marginreset {
     margin: 0px;
+    margin-bottom: 0px;
 }   
 .nocursor {
     cursor: default;

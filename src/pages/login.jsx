@@ -17,6 +17,10 @@ export default function Login() {
         }
     })
 
+    const forgot = useCallback(async ()=>{
+        history.push('/wwVergeten')
+    },[history])
+
     const handleLogin = useCallback(async({username,wachtwoord})=>{
         const e = await login({username,wachtwoord});
         if(e){
@@ -36,11 +40,12 @@ export default function Login() {
                                 <span className="focusinput"></span>
                             </div>
                             {errors.username && <p>{errors.username.message}</p>}
-                            <div className="wrapinput validate-input">
+                            <div className="wrapinput validate-input marginreset">
                                 <input id="pw" className="input" type="password" data-cy='wachtwoord'placeholder="wachtwoord" {...register('wachtwoord',{required: 'Dit is vereist'})}/>
                                 <span className="focusinput"></span>
                             </div>
                             {errors.wachtwoord && <p>{errors.wachtwoord.message}</p>}
+                            <button type="button" onClick={()=>forgot()} className="leftmarginauto">Wachtwoord vergeten</button>
                             <div className="conloginform">
                                 <button type="submit" className="loginbutton" disabled={loading} data-cy='login' >Log in</button>
                             </div>

@@ -16,6 +16,7 @@ import Betalingen from './pages/betalingen';
 import Mails from './pages/mails';
 import NieuweLeden from './pages/nieuweLeden';
 import Register from './pages/register';
+import ForgotPassword from './pages/ww_vergeten';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route exact path='/login'><Login /></Route>
         <Route exact path='/DendermondseBC-front'><Redirect to='/' /></Route>
         <Wrapper>
+        <Route exact path='/wwVergeten'><ForgotPassword/></Route>
         <Route exact path='/register'><Register/></Route>
         <PrivateRoute exact path='/'><KeuzeMenu view={'main'} /></PrivateRoute>
         <PrivateRoute exact path='/accountBeheren'><AccountBeheren/></PrivateRoute>
@@ -45,6 +47,7 @@ function App() {
         <PrivateRoute exact path='/groepBeheer'><GroepBeheer/></PrivateRoute>
         <PrivateRoute exact path='/betalingConfig'><BetalingConfig/></PrivateRoute>
         <PrivateRoute exact path='/betalingen'><Betalingen/></PrivateRoute>
+        
         </Wrapper>
       </Switch>
       </BrowserRouter>

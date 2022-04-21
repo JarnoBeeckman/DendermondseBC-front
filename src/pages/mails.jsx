@@ -23,6 +23,7 @@ export default function Mails() {
     const { register, handleSubmit, formState: {errors} } = useForm();
     const [receivers,setReceivers] = useState([])
     const [bijlagen,setBijlagen] = useState([])
+    
     const back = useCallback(async ()=>{
         history.push('/')
     },[history])
