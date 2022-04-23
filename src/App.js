@@ -17,6 +17,7 @@ import Mails from './pages/mails';
 import NieuweLeden from './pages/nieuweLeden';
 import Register from './pages/register';
 import ForgotPassword from './pages/ww_vergeten';
+import ExcelImport from './pages/excelImport';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         <PrivateRoute exact path='/groepBeheer'><GroepBeheer/></PrivateRoute>
         <PrivateRoute exact path='/betalingConfig'><BetalingConfig/></PrivateRoute>
         <PrivateRoute exact path='/betalingen'><Betalingen/></PrivateRoute>
+        <PrivateRoute exact path='/excelImport'><ExcelImport /></PrivateRoute>
         
         </Wrapper>
       </Switch>
