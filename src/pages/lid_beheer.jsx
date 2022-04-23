@@ -36,12 +36,13 @@ export default function LedenBeheer() {
         edit ? setEdit(false) : history.push('/')
     },[history])
 
-    const handleSub = useCallback(async ({username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status})=>{
-        const e = await adminUpdateLid(selected?.id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status)
+    const handleSub = useCallback(async ({username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status,bvid})=>{
+        const e = await adminUpdateLid(selected?.id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status,bvid)
         if (e) {
             setEdit(false)
             await refresh()
             setSelected(e)
+            setCustomError('')
         }
         else setCustomError('Er liep iets fout, controleer uw gegevens en contacteer een beheerder als deze juist zijn.')
    },[adminUpdateLid,selected?.id,refresh])
@@ -65,7 +66,10 @@ export default function LedenBeheer() {
         return (<><button className='backbutton' onClick={()=>back(true)}>{'<'} Terug</button>
         {customError ? (<p className="error">{customError}</p>): null}
                <form className='grid flex-w accgrid margin20' onSubmit={handleSubmit(handleSub)}>
-               <label className='acclabel'>Username: </label>
+                   <label className="acclabel">Lidnummer: </label>
+                   <input className="accvalue" type='number' placeholder="lidnummer" defaultValue={selected.bvid} {...register('bvid', {required: 'Dit is vereist'})} />
+                   {errors.bvid && <><div className='acclabel'></div><p className='accvalue error'>{errors.bvid.message}</p></>}
+                   <label className='acclabel'>Username: </label>
                    <input className='accvalue' type='text' placeholder='username' defaultValue={selected.username} {...register('username',{required: 'Dit is vereist'})} />
                    {errors.username && <><div className='acclabel'></div><p className='accvalue error'>{errors.username.message}</p></>}
                    <label className='acclabel'>E-mail adres:</label>
@@ -182,7 +186,7 @@ export default function LedenBeheer() {
         if (Array.isArray(props.ob.kleur))
             props.ob.kleur.forEach(x=>list.push(x))
         else list.push(props.ob.kleur)
-        return (<><div className={`lidlijst ${selected?.id === props.ob.id ? 'lidselected' : ''}`} onClick={()=>{selected?.id === props.ob.id ? setSelected(null) : setSelected(props.ob)}}>
+        return (<><div className={`lidlijst ${selected?.id === props.ob.id ? 'lidselected' : ''}`} onClick={()=>{selected?.id === props.ob.id ? setSelected(null) : setSelected(props.ob); setCustomError('')}}>
             <div className="lidnr">{props.ob.bvid ? props.ob.bvid : 'Geen ID'}</div>
             <div className="lidnaam">{`${props.ob.voornaam} ${props.ob.achternaam}`}</div>
             <div className="circles lidstatus">

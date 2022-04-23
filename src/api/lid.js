@@ -32,9 +32,9 @@ export const updateLid = async (id,mail,voornaam,achternaam,adres,postcode,woonp
     })
     return data
 }
-export const adminUpdateLid = async (id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status)=>{
+export const adminUpdateLid = async (id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status,bvid)=>{
     const {data} = await axios.put(`account/admin/${id}`,{
-        username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status
+        username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status,bvid
     })
     return data
 }

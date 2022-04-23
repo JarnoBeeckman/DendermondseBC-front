@@ -193,11 +193,11 @@ export const AuthProvider = ({children})=>{
             setLoading(false)
         }
     },[])
-    const adminUpdateLid = useCallback(async (id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status)=>{
+    const adminUpdateLid = useCallback(async (id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status,bvid)=>{
         try {
             setError('')
             setLoading(true)
-            const e = await LidApi.adminUpdateLid(id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status)
+            const e = await LidApi.adminUpdateLid(id,username,mail,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status,bvid)
             return e
         } catch (error) {
             return false

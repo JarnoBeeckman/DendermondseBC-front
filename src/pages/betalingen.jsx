@@ -138,7 +138,6 @@ export default function Betalingen() {
                 <div className='grid flex-w accgrid'>
                 <label className='acclabel'>Naam: </label>
                    <select className='accvalue' onChange={e=>setAddlid(e.target.value)} value={addlid}>
-                       
                         {leden.map(x=>{
                             return <option key={x.id} value={leden.indexOf(x)}>{`${x.achternaam} ${x.voornaam}`}</option>
                         })}
@@ -147,10 +146,8 @@ export default function Betalingen() {
                    <form className=" grid flex-w accgrid margin0" onSubmit={handleSubmit(link)}>
                    <label className='acclabel'>Aantal: </label>
                    <input className='accvalue' type='number' step={'any'} {...register('prijs',{required: 'Dit is vereist'})} />
-                   {soorten[selected].inschrijving === 1 && leden[addlid].gid ? (<><div className="accvalue alignright fullwidth">{
-                       leden[addlid].groepnaam.map((e,i)=>{
-                           return `${e}: ${leden[addlid].aantal[i]} `
-                       })
+                   {soorten[selected].inschrijving === 1 ? (<><div className="accvalue alignright fullwidth">{
+                       `${leden[addlid].status}: `
                    }</div></>) : null}
                    {errors.prijs && <><div className='acclabel'></div><p className='accvalue error'>{errors.prijs.message}</p></>}
                    <label className='acclabel'>Datum: </label>

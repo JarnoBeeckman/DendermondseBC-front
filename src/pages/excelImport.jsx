@@ -24,8 +24,9 @@ export default function ExcelImport() {
 
     const history = useHistory()
     const [customError,setCustomError]=useState();
-    const [uploaded,setUploaded] = useState(false)
     const [file,setFile] = useState()
+    const [loading,setLoading] = useState(false)
+    const [response,setResponse] = useState()
 
     const back = useCallback(async ()=>{
         history.push('/')
@@ -50,13 +51,14 @@ export default function ExcelImport() {
     const bevestig = useCallback(async ()=>{
         if (file) {
             setCustomError('')
+            setLoading(true)
             const data = await convert()
             const e = await api.uploadImport(data)
             if (!e) setCustomError('Er ging iets mis tijdens het updaten.')
             else {
-                setUploaded(true)
+                setResponse(e)
             }
-            
+            setLoading(false)
         }
             
         else setCustomError('Geen bestand geselecteerd')
@@ -67,18 +69,22 @@ export default function ExcelImport() {
         setFile(event.target.files[0])
     },[])
 
-    if (!uploaded)
+    if (!response)
     return <>
         <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
         {customError ? (<p className="error">{customError}</p>): null}
         <div className="grid flex-w justify fullwidth">
             <label className="acclabel">Excel bestand: </label>
             <input type='file' className="accvalue" accept=".xls,.xlsx" onChange={saveFile}/>
-            <button className="wwwijzig" onClick={bevestig}>Bevestigen</button>
+            <button className="wwwijzig" disabled={loading} onClick={bevestig}>Bevestigen</button>
         </div>
     </>
     return <>
         <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
-        <p>De gegevens zijn bijgewerkt.</p>
+        {Array.isArray(response) && response.length === 0 ? <p>De gegevens zijn bijgewerkt.</p> : <div className="grid flex-w justify fullwidth">
+                <div className="fullwidth textcenter">Deze leden konden niet worden bijgewerkt. Controleer hun lidnummer.</div>
+                <div className="margin20 fullwidth"></div>
+                {response.map(x=>{return <div key={x} className="fullwidth grid flex-w justify"><label className="acclabel">{x.split(':')[0]}</label><div className="accvalue">{x.split(':')[1]}</div></div>})}
+            </div>}
     </>
 }

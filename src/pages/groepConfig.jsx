@@ -34,18 +34,18 @@ export default function GroepConfig() {
             refresh()
     },[ready,refresh])
 
-    const update = useCallback(async ({groepnaam,kleur,aantal})=>{
+    const update = useCallback(async ({groepnaam,kleur})=>{
         setLoading(true)
-        const e = await groep.updateById(selected.gid,groepnaam,kleur,aantal === '' ? null : aantal)
+        const e = await groep.updateById(selected.gid,groepnaam,kleur)
         if (!e) setCustomError('Kon wijziging niet uitvoeren')
         else {
             await refresh()
             setCustomError(null)
         } ; setLoading(false)
     },[selected,refresh])
-    const addGroep = useCallback(async ({groepnaam,kleur,aantal})=>{
+    const addGroep = useCallback(async ({groepnaam,kleur})=>{
         setLoading(true)
-        const e = await groep.create(groepnaam,kleur,aantal === '' ? null : aantal)
+        const e = await groep.create(groepnaam,kleur)
         if (!e) setCustomError('Kon groep niet aanmaken')
         else {
             await refresh()
@@ -87,11 +87,6 @@ export default function GroepConfig() {
                     <input className='accvalue' type='color' defaultValue={props.ob.kleur} {...register('kleur',{required: 'Dit is vereist'})}/>
                     {errors.kleur && <><div className='acclabel'></div><p className='accvalue error' >{errors.kleur.message}</p></>}
                 </div>
-                <div className='lidattribuut'>
-                    <div className='acclabel'>Prijs: </div>
-                    <input className='accvalue' type='number' step='any' defaultValue={props.ob.aantal} {...register('aantal')} />
-                </div>
-                <div className='lidattribuut'></div>
                 <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
             </form>
             
