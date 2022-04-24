@@ -86,6 +86,7 @@ export default function AanpassingenBV() {
      })
 
     const First = memo(()=>{
+        if (aanpassingen[0])
         return (
             <>
                 {aanpassingen.map(e=>{
@@ -97,7 +98,7 @@ export default function AanpassingenBV() {
                     </div>)
                 })}
             </>
-        )
+        ); else return <p>Geen aanpassingen gevonden.</p>
     })
 
     return (<>

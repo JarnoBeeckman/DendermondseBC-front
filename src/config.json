@@ -12,8 +12,8 @@
     "settings": {
         "lid": [],
         "trainer":[],
-        "admin":[["Groepen","groepConfig"]],
+        "admin":[["Groepen","groepConfig"],["Prijzen","prijsConfig"],["Import","importConfig"]],
         "penningmeester":[["Betalingen","betalingConfig"]],
-        "beheerder": [["Groepen","groepConfig"],["Betalingen","betalingConfig"]]
+        "beheerder": [["Groepen","groepConfig"],["Betalingen","betalingConfig"],["Prijzen","prijsConfig"],["Import","importConfig"]]
     }
 }

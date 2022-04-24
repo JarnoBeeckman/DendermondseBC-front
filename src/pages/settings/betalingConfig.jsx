@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useState } from 'react'
 import {useHistory} from 'react-router-dom'
-import {useSession} from '../context/AuthProvider'
-import * as betaling from '../api/betaling'
+import {useSession} from '../../context/AuthProvider'
+import * as betaling from '../../api/betaling'
 import { useForm } from "react-hook-form"
 import {RiDeleteBin6Line} from 'react-icons/ri'
 

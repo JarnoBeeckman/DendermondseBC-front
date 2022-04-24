@@ -49,6 +49,7 @@ export default function NieuweLeden() {
     },[ready,refresh])
 
     const Users = memo(()=>{
+        if (newLeden[0])
         return (
             <>
                 {newLeden.map(e=>{
@@ -60,7 +61,7 @@ export default function NieuweLeden() {
                     </div>)
                 })}
             </>
-        )
+        ); else return <p>Geen nieuwe leden gevonden.</p>
     })
 
     const Details = memo((props)=>{

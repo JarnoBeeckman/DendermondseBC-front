@@ -28,6 +28,7 @@ export default function Betalingen() {
     const [selected,setSelected] =  useState('none')
     const [customError,setCustomError] = useState()
     const [addlid,setAddlid] = useState(0)
+    const [prijzen,setPrijzen] = useState()
     const {ready } = useSession()
     const history = useHistory()
 
@@ -47,6 +48,7 @@ export default function Betalingen() {
         else {
             setLeden(e.leden)
             setBetalingen(e.data)
+            setPrijzen(e.prijzen)
         } 
         setLoading(false)
     },[])
@@ -147,7 +149,7 @@ export default function Betalingen() {
                    <label className='acclabel'>Aantal: </label>
                    <input className='accvalue' type='number' step={'any'} {...register('prijs',{required: 'Dit is vereist'})} />
                    {soorten[selected].inschrijving === 1 ? (<><div className="accvalue alignright fullwidth">{
-                       `${leden[addlid].status}: `
+                       `${leden[addlid].status}: ${prijzen.find(x=>x.naam===leden[addlid].status).aantal}`
                    }</div></>) : null}
                    {errors.prijs && <><div className='acclabel'></div><p className='accvalue error'>{errors.prijs.message}</p></>}
                    <label className='acclabel'>Datum: </label>

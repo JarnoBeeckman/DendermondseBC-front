@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { useCallback, useState } from "react";
-import * as lid from "../api/lid"
+import * as lid from "../../api/lid"
 
 export default function ForgotPassword() {
 
