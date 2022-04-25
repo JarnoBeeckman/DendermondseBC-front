@@ -27,16 +27,17 @@ export default function Register() {
     <p>U bent geregistreerd.</p>
     </>
     return <>
+        <div className="fullwidth margin20"/>
         {customError ? (<p className="error">{customError}</p>): null}
         <form className='grid flex-w accgrid' onSubmit={handleSubmit(handleSub)}>
                         <label className='acclabel'>E-mail adres:</label>
                         <input type='email' className='accvalue' placeholder='e-mail' {...register('mail',{required: 'Dit is vereist'})}></input>
                         {errors.mail && <><div className='acclabel'></div><p className='accvalue error'>{errors.mail.message}</p></>}
                         <label className="acclabel">Wachtwoord: </label>
-                        <input type='password' className="accvalue" {...register('wachtwoord',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})} />
+                        <input type='password' className="accvalue" placeholder="wachtwoord" {...register('wachtwoord',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})} />
                         {errors.wachtwoord && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoord.message}</p></>}                       
                         <label className="acclabel">Herhaal wachtwoord: </label>
-                        <input type='password' className="accvalue" {...register('wachtwoordd',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
+                        <input type='password' className="accvalue" placeholder="herhaal wachtwoord" {...register('wachtwoordd',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
                         {errors.wachtwoordd && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoordd.message}</p></>}
                         <label className='acclabel'>Voornaam: </label>
                         <input className='accvalue' type='text' placeholder='voornaam'  {...register('voornaam',{required: 'Dit is vereist'})} />
@@ -57,7 +58,6 @@ export default function Register() {
                         <select className='accvalue'{...register('geslacht',{required: 'Dit is vereist'})}>
                             <option value='M'>Man</option>
                             <option value='V'>Vrouw</option>
-                            <option value='A'>Andere</option>
                         </select>
                         {errors.geslacht && <><div className='acclabel'></div><p className='accvalue error'>{errors.geslacht.message}</p></>}
                         <label className="acclabel">Geboortedatum: </label>

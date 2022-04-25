@@ -116,7 +116,7 @@ export default function BetalingConfig() {
     if (soorten && ready) {
         if (!add) {
             return <>
-            <button className='backbutton' onClick={back}>{'<'} Terug</button>
+            <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
             {customError ? (<p className="error">{customError}</p>): null}
             
                 {soorten.map(x=>{

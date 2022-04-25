@@ -27,3 +27,13 @@ export const updateConfig = async (object)=>{
         return false
     }
 }
+export const updateList = async (list)=>{
+    try {
+        const {data} = await axios.put('import/list',{
+            list: list
+        })
+        return data
+    } catch (error) {
+        return false
+    }
+}

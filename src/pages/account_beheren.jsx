@@ -32,7 +32,9 @@ export default function AccountBeheren() {
         if (typeof date !== Object) {
           date = new Date(date);
         }
+        if (date.toISOString()[11] === '2') date.setDate(date.getDate()+1)
         const asString = date.toISOString();
+        console.log(asString)
         return asString.substring(0, asString.indexOf("T"));
     }
     if (error) return (<div>{error}</div>)
@@ -46,7 +48,7 @@ export default function AccountBeheren() {
         if (!edit)
             return (
                 <>
-                <button className='backbutton' onClick={back}>{'<'} Terug</button>
+                <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
                 {customError ? (<p className="error">{customError}</p>): null}
                 <div className='grid flex-w accgrid'>
                     <label className='acclabel acclabelfirst'>Wachtwoord: </label>
@@ -89,7 +91,7 @@ export default function AccountBeheren() {
         if (edit)
             return (
                 <>
-                    <button className='backbutton' onClick={()=>setEdit(false)}>{'<'} Terug</button>
+                    <button className='backbutton margin20' onClick={()=>setEdit(false)}>{'<'} Terug</button>
                     {customError ? (<p className="error">{customError}</p>): null}
                     <form className='grid flex-w accgrid' onSubmit={handleSubmit(handleSub)}>
                         <label className='acclabel'>E-mail adres:</label>
@@ -114,7 +116,6 @@ export default function AccountBeheren() {
                         <select className='accvalue' defaultValue={lid.geslacht}{...register('geslacht',{required: 'Dit is vereist'})}>
                             <option value='M'>Man</option>
                             <option value='V'>Vrouw</option>
-                            <option value='A'>Andere</option>
                         </select>
                         {errors.geslacht && <><div className='acclabel'></div><p className='accvalue error'>{errors.geslacht.message}</p></>}
                         <label className='acclabel'>Gsm-nummer: </label>

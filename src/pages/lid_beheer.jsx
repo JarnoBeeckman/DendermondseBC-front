@@ -11,6 +11,7 @@ const toDateInputString = (date) => {
     if (typeof date !== Object) {
       date = new Date(date);
     }
+    if (date.toISOString()[11] === '2') date.setDate(date.getDate()+1)
     const asString = date.toISOString();
     return asString.substring(0, asString.indexOf("T"));
 }
@@ -63,7 +64,7 @@ export default function LedenBeheer() {
     
     const Edit = memo(()=>{
         const { register, handleSubmit, formState: {errors} } = useForm();
-        return (<><button className='backbutton' onClick={()=>back(true)}>{'<'} Terug</button>
+        return (<><button className='backbutton margin20' onClick={()=>back(true)}>{'<'} Terug</button>
         {customError ? (<p className="error">{customError}</p>): null}
                <form className='grid flex-w accgrid margin20' onSubmit={handleSubmit(handleSub)}>
                    <label className="acclabel">Lidnummer: </label>
@@ -94,7 +95,6 @@ export default function LedenBeheer() {
                    <select className='accvalue' defaultValue={selected.geslacht}{...register('geslacht',{required: 'Dit is vereist'})}>
                        <option value='M'>Man</option>
                        <option value='V'>Vrouw</option>
-                       <option value='A'>Andere</option>
                    </select>
                    {errors.geslacht && <><div className='acclabel'></div><p className='accvalue error'>{errors.geslacht.message}</p></>}
                    <label className='acclabel'>Geboortedatum: </label>
@@ -202,7 +202,7 @@ export default function LedenBeheer() {
     if (ready && lidLijst) {
         if (!edit)
         return (<>
-         <button className='backbutton' onClick={()=>back(false)}>{'<'} Terug</button>
+         <button className='backbutton margin20' onClick={()=>back(false)}>{'<'} Terug</button>
             {lidLijst.map(lid=>{
                 return <Lid key={lid.id} ob={lid}/>
             })}

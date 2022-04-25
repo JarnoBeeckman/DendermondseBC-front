@@ -101,7 +101,7 @@ export default function Betalingen() {
                      disabled={loading} onClick={()=>unlink(props.x.beid) } ><RiDeleteBin6Line/></button>
                     <div className="flex center">{`${props.x.voornaam} ${props.x.achternaam}`}</div>
                     <div className="circles lidstatus">
-                        {props.x.prijs}
+                        {'€'+props.x.prijs}
                     </div>
                 </div>
             {props.x === clicked ? <Edit x={props.x}/> : null}
@@ -112,7 +112,7 @@ export default function Betalingen() {
         return <div className="lidedit">
             <div className="lidattribuut">
                 <div className="acclabel">Prijs: </div>
-                <div className="accvalue">{props.x.prijs}</div>
+                <div className="accvalue">{'€'+props.x.prijs}</div>
             </div>
             <div className="lidattribuut">
                 <div className="acclabel">Datum: </div>
@@ -149,7 +149,7 @@ export default function Betalingen() {
                    <label className='acclabel'>Aantal: </label>
                    <input className='accvalue' type='number' step={'any'} {...register('prijs',{required: 'Dit is vereist'})} />
                    {soorten[selected].inschrijving === 1 ? (<><div className="accvalue alignright fullwidth">{
-                       `${leden[addlid].status}: ${prijzen.find(x=>x.naam===leden[addlid].status).aantal}`
+                       `${leden[addlid].status}: ${prijzen.find(x=>x.naam===leden[addlid].status)?.aantal}`
                    }</div></>) : null}
                    {errors.prijs && <><div className='acclabel'></div><p className='accvalue error'>{errors.prijs.message}</p></>}
                    <label className='acclabel'>Datum: </label>
