@@ -7,7 +7,7 @@
         "trainer": [["Trainingsuren","trainingsuren"],["Aanwezigheden","aanwezigheden"]],
         "admin": [["Leden beheren","lidBeheer"],["Mail versturen","stuurMail"],["Groepen beheren","groepBeheer"]],
         "penningmeester": [["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Trainers vergoedingen","vergoedingTrainers"],["Kapiteins onkosten","onkostenKapitein"],["Bestuurders onkosten","onkostenBestuur"]],
-        "beheerder": [["Account gegevens","accountBeheren"],["Leden beheren","lidBeheer"],["Groepen beheren","groepBeheer"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Mail versturen","stuurMail"],["Importeer gegevens","excelImport"],["Instellingen","settings"]]
+        "beheerder": [["Account gegevens","accountBeheren"],["Leden beheren","lidBeheer"],["Groepen beheren","groepBeheer"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Te betalen inschrijvingen","toPay"],["Mail versturen","stuurMail"],["Importeer gegevens","excelImport"],["Instellingen","settings"]]
     },
     "settings": {
         "lid": [],

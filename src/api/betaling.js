@@ -68,3 +68,11 @@ export const unlink = async (id)=>{
         return false
     }
 }
+export const getToPay = async ()=>{
+    try {
+         const {data} = await axios.get('betaling/toPay')
+        return data
+    } catch (error) {
+        return false
+    }
+}

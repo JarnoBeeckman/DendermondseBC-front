@@ -20,6 +20,7 @@ import ForgotPassword from './pages/public/ww_vergeten';
 import ExcelImport from './pages/excelImport';
 import PrijsConfig from './pages/settings/prijsConfig';
 import ImportConfig from './pages/settings/importConfig';
+import ToPay from './pages/toPay';
 
 function App() {
   return (
@@ -53,7 +54,7 @@ function App() {
         <PrivateRoute exact path='/excelImport'><ExcelImport /></PrivateRoute>
         <PrivateRoute exact path='/prijsConfig'><PrijsConfig/></PrivateRoute>
         <PrivateRoute exact path='/importConfig'><ImportConfig /></PrivateRoute>
-        
+        <PrivateRoute exact path='/toPay'><ToPay /></PrivateRoute>
         </Wrapper>
       </Switch>
       </BrowserRouter>
