@@ -27,6 +27,7 @@ export default function ExcelImport() {
     const [file,setFile] = useState()
     const [loading,setLoading] = useState(false)
     const [response,setResponse] = useState()
+    const [check,setCheck] = useState(false)
 
     const back = useCallback(async ()=>{
         history.push('/')
@@ -53,7 +54,7 @@ export default function ExcelImport() {
             setCustomError('')
             setLoading(true)
             const data = await convert()
-            const e = await api.uploadImport(data)
+            const e = await api.uploadImport(data,check)
             if (!e) setCustomError('Er ging iets mis tijdens het updaten.')
             else {
                 setResponse(e)
@@ -62,7 +63,7 @@ export default function ExcelImport() {
         }
             
         else setCustomError('Geen bestand geselecteerd')
-    },[file,convert])
+    },[file,convert,check])
 
     const saveFile = useCallback(async (event)=>{
         setCustomError('')
@@ -76,6 +77,8 @@ export default function ExcelImport() {
         <div className="grid flex-w justify fullwidth">
             <label className="acclabel">Excel bestand: </label>
             <input type='file' className="accvalue" accept=".xls,.xlsx" onChange={saveFile}/>
+            <label className="acclabel">Nieuwe leden bijvoegen: </label>
+            <input type='checkbox' className="accvalue height20" value={check} onClick={()=>setCheck(!check)}/>
             <button className="wwwijzig" disabled={loading} onClick={bevestig}>Bevestigen</button>
         </div>
     </>

@@ -1,9 +1,9 @@
 import {axios} from ".";
 
-export const uploadImport = async (object)=>{
+export const uploadImport = async (object,check)=>{
     try {
         const {data} = await axios.post('import',{
-            data: object
+            data: object, addNew: check
         })
         return data
     } catch (error){
