@@ -92,7 +92,7 @@ export default function AanpassingenBV() {
                 {aanpassingen.map(e=>{
                     return (<div key={e.id}><div className={`lidlijst ${selected?.id === e.id ? 'lidselected' : ''}`} onClick={()=>{selected?.id === e.id ? setSelected(null) : setSelected(e)}}>
                     <div className="lidnr">{e.bvid ? e.bvid : 'Geen ID'}</div>
-                    <div className="lidnaam">{`${e.voornaam} ${e.achternaam}`}</div>
+                    <div className="lidnaam">{`${e.achternaam} ${e.voornaam}`}</div>
                     </div>
                     {selected?.id === e.id ? (<Details ob={e} first={true}/>) : null}
                     </div>)

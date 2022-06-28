@@ -10,12 +10,11 @@ import SimpleImage from '@editorjs/simple-image'
 import { useForm } from "react-hook-form"
 import {RiDeleteBin6Line} from 'react-icons/ri'
 
-let editor;
 
 export default function Mails() {
 
     const {ready} = useSession()
-    //const [leden,setLeden] = useState()
+    const [editor,setEditor] = useState(undefined)
     const [groepen,setGroepen] = useState()
     const history = useHistory()
     const [loading,setLoading] = useState()
@@ -66,7 +65,7 @@ export default function Mails() {
         if (!e) {setCustomError('Kon mail niet versturen'); setLoading(false)}
         }
         setLoading(false)
-    },[receivers,bijlagen,toBase64])
+    },[receivers,bijlagen,toBase64,editor])
 
     const filter = useCallback((id)=>{
         const e = receivers
@@ -90,17 +89,17 @@ export default function Mails() {
         temp.splice(temp.indexOf(x),1)
         setBijlagen(temp)
     },[bijlagen])
-
+    
     if (ready && groepen) {
         if (!editor)
-        editor = new EditorJS({ 
-            holder: 'editorjs', 
-             tools: { 
-                header: Header, 
-                list: List,
-                image: SimpleImage,
-              }, 
-          })
+    setEditor(new EditorJS({
+        holder: 'editorjs', 
+         tools: { 
+            header: Header, 
+            list: List,
+            image: SimpleImage,
+          }, 
+      }))
     return <>
         <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
         {customError ? (<p className="error">{customError}</p>): null}

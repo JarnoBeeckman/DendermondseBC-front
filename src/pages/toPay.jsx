@@ -28,7 +28,7 @@ export default function ToPay() {
     },[ready,refresh])
 
     const Lid = memo(props=>{
-        return <div className="fullwidth flex-w justify grid" key={props.lid.id}><label className="acclabel">{props.lid.voornaam + ' ' + props.lid.achternaam}</label><div className="accvalue"><div className="flex-w justify">{props.lid.beid ? <BsCheckLg/> : 'X'}</div></div></div>
+        return <div className="fullwidth flex-w justify grid" key={props.lid.id}><label className="acclabel">{props.lid.achternaam + ' ' +props.lid.voornaam }</label><div className="accvalue"><div className="flex-w justify">{props.lid.beid ? <BsCheckLg/> : 'X'}</div></div></div>
     })
 
     if (list)
