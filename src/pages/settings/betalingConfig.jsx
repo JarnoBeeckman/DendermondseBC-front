@@ -21,7 +21,7 @@ export default function BetalingConfig() {
     const refresh = useCallback(async ()=>{
         setLoading(true)
         const e = await betaling.getAll()
-        if (e === 404) setCustomError('Kon groepen niet laden')
+        if (e === 404) setCustomError('Kon betalingsgroepen niet laden')
         else {
             setSoorten(e)
             setCustomError(null)

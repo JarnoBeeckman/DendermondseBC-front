@@ -2,17 +2,15 @@
     "url": "https://dendermondse-bc.herokuapp.com/api/",
     "token_key": "auth_token",
     "pages": {
-        "lid": [["Account gegevens","accountBeheren"],["Kledij bestellen","kledijBestellen"]],
-        "kapitein": [["Onkosten","onkosten"]],
-        "trainer": [["Trainingsuren","trainingsuren"],["Aanwezigheden","aanwezigheden"]],
-        "admin": [["Leden beheren","lidBeheer"],["Mail versturen","stuurMail"],["Groepen beheren","groepBeheer"]],
-        "penningmeester": [["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Trainers vergoedingen","vergoedingTrainers"],["Kapiteins onkosten","onkostenKapitein"],["Bestuurders onkosten","onkostenBestuur"]],
+        "lid": [["Account gegevens","accountBeheren"]],
+        "kapitein": [],
+        "trainer": [],
+        "penningmeester": [["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"]],
         "beheerder": [["Account gegevens","accountBeheren"],["Registreer nieuw lid","register"],["Leden beheren","lidBeheer"],["Groepen beheren","groepBeheer"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Te betalen inschrijvingen","toPay"],["Mail versturen","stuurMail"],["Importeer gegevens","excelImport"],["Instellingen","settings"]]
     },
     "settings": {
         "lid": [],
         "trainer":[],
-        "admin":[["Groepen","groepConfig"],["Prijzen","prijsConfig"],["Import","importConfig"]],
         "penningmeester":[["Betalingen","betalingConfig"]],
         "beheerder": [["Groepen","groepConfig"],["Betalingen","betalingConfig"],["Prijzen","prijsConfig"],["Import","importConfig"]]
     }

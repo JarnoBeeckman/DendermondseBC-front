@@ -35,17 +35,10 @@ function App() {
         <PrivateRoute exact path='/'><KeuzeMenu view={'main'} /></PrivateRoute>
         <PrivateRoute exact path='/accountBeheren'><AccountBeheren/></PrivateRoute>
         <PrivateRoute exact path='/wijzigWachtwoord'><WijzigWachtwoord/></PrivateRoute>
-        <PrivateRoute exact path='/kledijBestellen'></PrivateRoute>
-        <PrivateRoute exact path='/onkosten'></PrivateRoute>
-        <PrivateRoute exact path='/trainingsuren'></PrivateRoute>
-        <PrivateRoute exact path='/aanwezigheden'></PrivateRoute>
         <PrivateRoute exact path='/lidBeheer'><LedenBeheer/></PrivateRoute>
         <PrivateRoute exact path='/stuurMail'><Mails/></PrivateRoute>
         <PrivateRoute exact path='/aanpassenBV'><AanpassingenBV/></PrivateRoute>
         <PrivateRoute exact path='/nieuweLeden'><NieuweLeden/></PrivateRoute>
-        <PrivateRoute exact path='/vergoedingTrainers'></PrivateRoute>
-        <PrivateRoute exact path='/onkostenKapitein'></PrivateRoute>
-        <PrivateRoute exact path='/onkostenBestuur'></PrivateRoute>
         <PrivateRoute exact path='/settings'><KeuzeMenu view={'settings'}/></PrivateRoute>
         <PrivateRoute exact path='/groepConfig'><GroepConfig /></PrivateRoute>
         <PrivateRoute exact path='/groepBeheer'><GroepBeheer/></PrivateRoute>
