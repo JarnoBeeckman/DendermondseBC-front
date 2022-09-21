@@ -11,6 +11,7 @@ const toDateInputString = (date) => {
     if (typeof date !== Object) {
       date = new Date(date);
     }
+    if (date.toISOString()[11] === '2') date.setDate(date.getDate()+1)
     const asString = date.toISOString();
     return asString.substring(0, asString.indexOf("T"));
 }
@@ -49,38 +50,12 @@ export default function AanpassingenBV() {
 
     const Details = memo((props)=>{
         return (<div className="lidedit">
-            <div className="lidattribuut">
-             <div className="acclabel">E-mail: </div>
-             <div className="accvalue">{props.ob.mail}</div>
-            </div>
-            <div className="lidattribuut">
-                <div className="acclabel">Adres: </div>
-                <div className="accvalue">{props.ob.adres}</div>
-            </div>
-            <div className="lidattribuut">
-                <div className="acclabel">Postcode: </div>
-                <div className="accvalue">{props.ob.postcode}</div>
-            </div>
-            <div className="lidattribuut">
-                <div className="acclabel">Woonplaats: </div>
-                <div className="accvalue">{props.ob.woonplaats}</div>
-            </div>
-            <div className="lidattribuut">
-                <div className="acclabel">Geslacht: </div>
-                <div className="accvalue">{props.ob.geslacht}</div>
-            </div>
-            <div className="lidattribuut">
-             <div className="acclabel">Geboortedatum: </div>
-             <div className="accvalue">{toDateInputString(props.ob.geboortedatum)}</div>
-            </div>
-            <div className="lidattribuut">
-                <div className="acclabel">Gsm-nummer: </div>
-                <div className="accvalue">{props.ob.gsm}</div>
-            </div>
-            <div className="lidattribuut">
-             <div className="acclabel">Status: </div>
-             <div className="accvalue">{props.ob.status}</div>
-            </div>
+            {props.ob.aanpassinglijst.map(attribute => {
+                return <div className="lidattribuut" key={attribute}>
+                <div className="acclabel">{attribute+': '} </div>
+                <div className="accvalue">{attribute === "geboortedatum" ? toDateInputString(props.ob[attribute]) : props.ob[attribute]}</div>
+                </div>
+            })}
             <button className="fullwidth wwwijzig" disabled={loading} onClick={()=>del(props.ob.id)}>{'Delete wijziging'}</button>
         </div>)
      })
@@ -92,7 +67,7 @@ export default function AanpassingenBV() {
                 {aanpassingen.map(e=>{
                     return (<div key={e.id}><div className={`lidlijst ${selected?.id === e.id ? 'lidselected' : ''}`} onClick={()=>{selected?.id === e.id ? setSelected(null) : setSelected(e)}}>
                     <div className="lidnr">{e.bvid ? e.bvid : 'Geen ID'}</div>
-                    <div className="lidnaam">{`${e.achternaam} ${e.voornaam}`}</div>
+                    <div className="lidnaam">{`(${e.achternaam} ${e.voornaam})`}</div>
                     </div>
                     {selected?.id === e.id ? (<Details ob={e} first={true}/>) : null}
                     </div>)

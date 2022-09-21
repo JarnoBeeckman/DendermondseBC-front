@@ -1,5 +1,6 @@
 {
-    "url": "https://dendermondse-bc.herokuapp.com/api/",
+    "url": "http://localhost:9000/api/",
+    "x":"https://dendermondse-bc.herokuapp.com/api/",
     "token_key": "auth_token",
     "pages": {
         "lid": [["Account gegevens","accountBeheren"]],
