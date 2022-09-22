@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useCallback, useEffect, useState, memo } from 'react';
 import * as groep from '../api/groep'
-import { useGetAllLeden, useSession } from "../context/AuthProvider"
+import { useSession } from "../context/AuthProvider"
 import {RiDeleteBin6Line} from 'react-icons/ri'
 import {GrAdd} from 'react-icons/gr'
 
@@ -14,7 +14,6 @@ export default function GroepBeheer() {
     const [customError,setCustomError] = useState()
     const {ready } = useSession()
     const history = useHistory()
-    const getAll = useGetAllLeden()
 
     const back = useCallback(async ()=>{
         history.push('/')
@@ -28,11 +27,11 @@ export default function GroepBeheer() {
 
     const refresh = useCallback(async ()=>{
         setLoading(true)
-        const e = await getAll()
+        const e = await groep.getLeden()
         if (!e) setCustomError('Kon leden niet laden')
         else setLeden(e)
         setLoading(false)
-    },[getAll])
+    },[])
 
     const filterLeden = useCallback((w,reversed)=>{
         if (Array.isArray(w.gid)){

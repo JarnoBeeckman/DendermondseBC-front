@@ -9,6 +9,14 @@ export const getAll = async ()=>{
         return 404
     }
 }
+export const getLeden = async ()=>{
+    try {
+        const {data}=await axios.get('groep/leden')
+        return data
+    } catch (error) {
+        return 404
+    }
+}
 export const updateById = async (id,groepnaam,kleur)=>{
     try {
         const {data} = await axios.put(`groep/${id}`,{

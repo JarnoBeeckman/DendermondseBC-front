@@ -73,5 +73,5 @@ export default function KeuzeMenu(props) {
         return <div>Loading...</div>
     if (error)
         return <div>{error}</div>
-    return <></>
+    return <>Something went wrong</>
 }
