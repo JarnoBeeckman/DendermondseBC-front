@@ -34,10 +34,10 @@ export default function Rolconfig() {
     },[])
 
     const filterLeden = useCallback((w,reversed)=>{
-        if (Array.isArray(w.gid)){
+        if (Array.isArray(w.roles)){
             if (!reversed)
-            return w.gid.includes(parseInt(selected))
-            return !w.gid.includes(parseInt(selected))
+            return w.roles.includes(selected)
+            return !w.roles.includes(selected)
         }
         if (!reversed) 
         return w.gid === parseInt(selected)
@@ -51,25 +51,27 @@ export default function Rolconfig() {
         }
     },[ready,refreshGroepen,refresh])
 
-    const link = useCallback(async (gid,id)=>{
+    const link = useCallback(async (naam,id)=>{
         setLoading(true)
-        const e = await groep.linkGroep(gid,id)
+        const grp = groepen.find(x=>x.rolnaam === naam)
+        const e = await groep.linkGroep(grp.gid,id)
         if (!e) setCustomError('Kon lid niet toevoegen')
         else {
             await refresh()
             setCustomError(null)
         } 
-    },[refresh])
+    },[refresh,groepen])
 
-    const unlink = useCallback(async (gid,id)=>{
+    const unlink = useCallback(async (naam,id)=>{
         setLoading(true)
-        const e = await groep.unlinkGroep(gid,id)
+        const grp = groepen.find(x=>x.rolnaam === naam)
+        const e = await groep.unlinkGroep(grp.gid,id)
         if (!e) setCustomError('Kon lid niet verwijderen')
         else {
             await refresh()
             setCustomError(null)
         }
-    },[refresh])
+    },[refresh,groepen])
 
     const Lid = memo((props)=>{
         let list = []
@@ -109,7 +111,6 @@ export default function Rolconfig() {
         temp = leden.filter(x=>!x.gid)
         return (<>{temp.map(x=>{return <Lid key={x.id} x={x} none={true}/>})}</>)
     })
-    
     if (groepen && leden)
     return (
         <>
@@ -119,7 +120,7 @@ export default function Rolconfig() {
                     <select onChange={e=>setSelected(e.target.value)} defaultValue={selected}>
                         <option value={0}>Geen</option>
                         {groepen.map(x=>{
-                        return <option key={x.gid} value={x.gid}>{x.groepnaam}</option>
+                        return <option key={x.gid} value={x.rolnaam}>{x.groepnaam}</option>
                         })}
                     </select>
                 </div>
