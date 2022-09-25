@@ -21,6 +21,7 @@ import ExcelImport from './pages/excelImport';
 import PrijsConfig from './pages/settings/prijsConfig';
 import ImportConfig from './pages/settings/importConfig';
 import ToPay from './pages/toPay';
+import Rolconfig from './pages/settings/rolConfig';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <PrivateRoute exact path='/prijsConfig'><PrijsConfig/></PrivateRoute>
         <PrivateRoute exact path='/importConfig'><ImportConfig /></PrivateRoute>
         <PrivateRoute exact path='/toPay'><ToPay /></PrivateRoute>
+        <PrivateRoute exact path='/rolConfig'><Rolconfig /></PrivateRoute>
         </Wrapper>
       </Switch>
       </BrowserRouter>

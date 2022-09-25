@@ -103,8 +103,6 @@ export default function GroepConfig() {
                    <label className='acclabel'>Kleur: </label>
                    <input className='accvalue' type='color' placeholder='kleur' {...register('kleur',{required: 'Dit is vereist'})} />
                    {errors.kleur && <><div className='acclabel'></div><p className='accvalue error'>{errors.kleur.message}</p></>}
-                   <label className='acclabel'>Prijs: </label>
-                   <input className='accvalue' type='number' step='any' {...register('aantal')} />
                    <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
                 </form>
             </>

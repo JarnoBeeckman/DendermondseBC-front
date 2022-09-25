@@ -34,7 +34,6 @@ export default function AccountBeheren() {
         }
         if (date.toISOString()[11] === '2') date.setDate(date.getDate()+1)
         const asString = date.toISOString();
-        console.log(asString)
         return asString.substring(0, asString.indexOf("T"));
     }
     if (error) return (<div>{error}</div>)

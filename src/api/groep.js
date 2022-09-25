@@ -9,6 +9,14 @@ export const getAll = async ()=>{
         return 404
     }
 }
+export const getRollen = async ()=>{
+    try {
+        const {data} = await axios.get('groep/roles')
+        return data
+    } catch (error) {
+        return 404
+    }
+}
 export const getLeden = async ()=>{
     try {
         const {data}=await axios.get('groep/leden')
