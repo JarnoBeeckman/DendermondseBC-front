@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form"
 import * as LidApi from '../../api/lid.js';
-
+import { useHistory } from "react-router-dom";
 
 
 export default function Register() {
@@ -10,6 +10,11 @@ export default function Register() {
     const [customError,setCustomError] = useState()
     const [loading,setLoading] = useState()
     const [registered,setRegistered] = useState(false)
+    const history = useHistory();
+
+    const back = useCallback(async ()=>{
+        history.push('/')
+    },[history])
 
     const handleSub = useCallback(async ({mail,wachtwoord,wachtwoordd,voornaam,achternaam,adres,postcode,woonplaats,geslacht,geboortedatum,gsm,status})=>{
         setLoading(true)
@@ -28,6 +33,7 @@ export default function Register() {
     </>
     return <>
         <div className="fullwidth margin20"/>
+        <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
         {customError ? (<p className="error">{customError}</p>): null}
         <form className='grid flex-w accgrid' onSubmit={handleSubmit(handleSub)}>
                         <label className='acclabel'>E-mail adres:</label>

@@ -306,6 +306,9 @@ input[type=color] {
 .paddingrightauto {
     padding-right: auto;
 }
+.codex-editor:first-of-type {
+    display: none;
+}
 @media (max-width: 542px) {
     .grid {
         justify-content: center;

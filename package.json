@@ -5,7 +5,7 @@
   "homepage": "https://jarnobeeckman.github.io/DendermondseBC-front/",
   "dependencies": {
     "@craco/craco": "^6.4.0",
-    "@editorjs/editorjs": "^2.23.2",
+    "@editorjs/editorjs": "^2.25.0",
     "@editorjs/header": "^2.6.2",
     "@editorjs/list": "^1.7.0",
     "@editorjs/simple-image": "^1.4.1",
