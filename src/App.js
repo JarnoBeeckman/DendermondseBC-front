@@ -22,6 +22,7 @@ import PrijsConfig from './pages/settings/prijsConfig';
 import ImportConfig from './pages/settings/importConfig';
 import ToPay from './pages/toPay';
 import Rolconfig from './pages/settings/rolConfig';
+import ResetPassword from './pages/public/ww_reset';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Wrapper>
         <Route exact path='/wwVergeten'><ForgotPassword/></Route>
         <Route exact path='/register'><Register/></Route>
+        <Route exact path='/reset'><ResetPassword/></Route>
         <PrivateRoute exact path='/'><KeuzeMenu view={'main'} /></PrivateRoute>
         <PrivateRoute exact path='/accountBeheren'><AccountBeheren/></PrivateRoute>
         <PrivateRoute exact path='/wijzigWachtwoord'><WijzigWachtwoord/></PrivateRoute>

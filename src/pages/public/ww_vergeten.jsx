@@ -28,7 +28,7 @@ export default function ForgotPassword() {
     if (done)
     return <>
         <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
-        <p>Uw wachtwoord is gereset, controleer uw e-mail.</p>
+        <p>Er is een link verstuurd. Controleer uw mailbox.</p>
     </>
     return <>
         <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
@@ -37,7 +37,7 @@ export default function ForgotPassword() {
             <label className="acclabel">Username: </label>
             <input className="accvalue inputfix" {...register('username',{required: 'Dit is vereist'})}/>
             {errors.username && <><div className='acclabel'></div><p className='accvalue error' >{errors.username.message}</p></>}
-            <button className="wwwijzig" disabled={loading} type="submit">Reset wachtwoord</button>
+            <button className="wwwijzig" disabled={loading} type="submit">Bevestigen</button>
         </form>
     </>
 }
