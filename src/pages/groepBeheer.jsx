@@ -12,6 +12,7 @@ export default function GroepBeheer() {
     const [leden,setLeden] = useState()
     const [selected,setSelected] =  useState('0')
     const [customError,setCustomError] = useState()
+    const [status,setStatus] = useState('0')
     const {ready } = useSession()
     const history = useHistory()
 
@@ -42,7 +43,13 @@ export default function GroepBeheer() {
         if (!reversed) 
         return w.gid === parseInt(selected)
         return w.gid !== parseInt(selected)
-    },[selected]) 
+    },[selected])
+    
+    const filterStatus = useCallback(lid=>{
+        if (status === '0') return true
+        if (status === 'Volwassene') return lid.status === 'Recreant' || lid.status === 'Competitiespeler'
+        return lid.status === status
+    },[status])
 
     useEffect( ()=>{
         if (ready) {
@@ -94,19 +101,19 @@ export default function GroepBeheer() {
         let temp = []
         if (selected !== '0') {
            if (!props.reversed) {
-                temp = leden.filter(x=>filterLeden(x,false))
+                temp = leden.filter(x=>filterLeden(x,false) && filterStatus(x))
                 return (<>{temp.map(x=>{
                     return <Lid key={x.id} x={x} del={true} />
                 })}</>)
             }
             else {
-                temp = leden.filter(x=>filterLeden(x,true))
+                temp = leden.filter(x=>filterLeden(x,true) && filterStatus(x))
                 return (<>{temp.map(x=>{
                     return <Lid key={x.id} x={x} />
                 })}</>)
             }
         }
-        temp = leden.filter(x=>!x.gid)
+        temp = leden.filter(x=>!x.gid && filterStatus(x))
         return (<>{temp.map(x=>{return <Lid key={x.id} x={x} none={true}/>})}</>)
     })
     
@@ -115,13 +122,22 @@ export default function GroepBeheer() {
         <>
             <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
             {customError ? (<p className="error">{customError}</p>): null}
-                <div className="fullwidth center flex">
+                <div className="fullwidth center flex margin20">
                     <select onChange={e=>setSelected(e.target.value)} defaultValue={selected}>
                         <option value={0}>Geen</option>
                         {groepen.map(x=>{
                         return <option key={x.gid} value={x.gid}>{x.groepnaam}</option>
                         })}
                     </select>
+                </div>
+                <div className="fullwidth center flex">
+                    <select onChange={e=>setStatus(e.target.value)} defaultValue={status}>
+                            <option value={'0'}>Alles</option>
+                            <option value={'Jeugd'}>Jeugd</option>
+                            <option value={'Competitiespeler'}>Competitiespeler</option>
+                            <option value={'Recreant'}>Recreant</option>
+                            <option value={'Volwassene'}>Volwassene</option>
+                        </select>
                 </div>
             <div className="margin20"/>
             <Filtered/>
