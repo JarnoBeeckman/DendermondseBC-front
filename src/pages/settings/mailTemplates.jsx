@@ -72,7 +72,7 @@ export default function MailTemplates() {
         setLoading(true)
         setCustomError(null)
         const data = await editor.save().then(x=>{return x}).catch(x=>setCustomError('Kon gegevens niet verwerken.'))
-        const e = add ? await mails.createTemplate(naam,onderwerp,data,null,bijlagen) : await mails.updateTemplate(selected?.tid,naam,onderwerp,data,null,bijlagen)
+        const e = add ? await mails.createTemplate(naam,onderwerp,data,null,bijlagen ? bijlagen : []) : await mails.updateTemplate(selected?.tid,naam,onderwerp,data,null,bijlagen ? bijlagen : [])
         if (!e) {setCustomError('Kon template niet opslaan'); setLoading(false)}
         await refresh()
         await back()
