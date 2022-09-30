@@ -22,6 +22,6 @@
         "trainer":[],
         "penningmeester":[["Betalingen","betalingConfig"]],
         "jeugd":[["Groepen","groepConfig"]],
-        "beheerder": [["Groepen","groepConfig"],["Betalingen","betalingConfig"],["Prijzen","prijsConfig"],["Import","importConfig"],["Rollen","rolConfig"]]
+        "beheerder": [["Groepen","groepConfig"],["Betalingen","betalingConfig"],["Prijzen","prijsConfig"],["Import","importConfig"],["Rollen","rolConfig"],["Mail Templates","mailTemplates"]]
     }
 }

@@ -89,7 +89,6 @@ export default function Mails() {
         temp.splice(temp.indexOf(x),1)
         setBijlagen(temp)
     },[bijlagen])
-    
     if (ready && groepen) {
         if (!editor)
     setEditor(new EditorJS({

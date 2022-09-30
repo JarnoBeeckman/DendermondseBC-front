@@ -120,7 +120,7 @@ export default function GroepConfig() {
                     return <Groep key={x.gid} ob={x}/>
                 })}
                 <div className='margin20'></div>
-            <button className='wwwijzig' onClick={()=>setAdd(true)} disabled={loading}>Nieuwe groep</button>
+                <button className='wwwijzig' onClick={()=>setAdd(true)} disabled={loading}>Nieuwe groep</button>
         </>
     );  return (<>
         <button className='backbutton' onClick={()=>setAdd(false)}>{'<'} Terug</button>
