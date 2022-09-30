@@ -306,7 +306,7 @@ input[type=color] {
 .paddingrightauto {
     padding-right: auto;
 }
-.codex-editor:first-of-type {
+.codex-editor:not(:last-of-type) {
     display: none;
 }
 @media (max-width: 542px) {
