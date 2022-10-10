@@ -22,7 +22,9 @@ export default function LedenBeheer() {
     const [lidLijst,setLidLijst] = useState()
     const [selected,setSelected] = useState()
     const [customError,setCustomError] = useState(null)
+    const [status,setStatus] = useState('0')
     const [edit,setEdit] = useState()
+    const [amount,setAmount] = useState()
     const adminUpdateLid = useAdminUpdateLid()
     const {loading} = useSession()
     const del = useDeleteLid()
@@ -199,13 +201,34 @@ export default function LedenBeheer() {
             </>)
     })
 
+    const filterStatus = useCallback(lid=>{
+        if (status === '0') return true
+        if (status === 'Volwassene') return lid.status === 'Recreant' || lid.status === 'Competitiespeler'
+        return lid.status === status
+    },[status])
+
+    const Filtered = memo((props)=>{
+        let temp = lidLijst.filter(x=> filterStatus(x))
+        setAmount(temp.length)
+        return (<>{temp.map(x=>{return <Lid key={x.id} ob={x}/>})}</>)
+    })
+
     if (ready && lidLijst) {
         if (!edit)
         return (<>
          <button className='backbutton margin20' onClick={()=>back(false)}>{'<'} Terug</button>
-            {lidLijst.map(lid=>{
-                return <Lid key={lid.id} ob={lid}/>
-            })}
+         <div className="fullwidth center flex">
+                    <select onChange={e=>setStatus(e.target.value)} defaultValue={status}>
+                            <option value={'0'}>Alles</option>
+                            <option value={'Jeugd'}>Jeugd</option>
+                            <option value={'Competitiespeler'}>Competitiespeler</option>
+                            <option value={'Recreant'}>Recreant</option>
+                            <option value={'Volwassene'}>Volwassene</option>
+                        </select>
+                </div>
+            <div className="margin20"/>
+            <p>Aantal: {amount}</p>
+            <Filtered/>
         </>)
         else return (<>
              <Edit />

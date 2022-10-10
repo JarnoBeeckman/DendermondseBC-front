@@ -13,6 +13,7 @@ export default function GroepBeheer() {
     const [selected,setSelected] =  useState('0')
     const [customError,setCustomError] = useState()
     const [status,setStatus] = useState('0')
+    const [amount,setAmount] = useState(0)
     const {ready } = useSession()
     const history = useHistory()
 
@@ -102,6 +103,7 @@ export default function GroepBeheer() {
         if (selected !== '0') {
            if (!props.reversed) {
                 temp = leden.filter(x=>filterLeden(x,false) && filterStatus(x))
+                setAmount(temp.length)
                 return (<>{temp.map(x=>{
                     return <Lid key={x.id} x={x} del={true} />
                 })}</>)
@@ -140,6 +142,7 @@ export default function GroepBeheer() {
                         </select>
                 </div>
             <div className="margin20"/>
+            <p>Aantal: {amount}</p>
             <Filtered/>
             
             {selected!=='0' ? <><div className="margin20 line grid"/><Filtered reversed={true}/></> :null}
