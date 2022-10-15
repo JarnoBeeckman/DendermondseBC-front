@@ -25,7 +25,7 @@ const useAuth = ()=> useContext(AuthContext);
 
 export const useSession = ()=>{
     const {loading,error,token,lid,ready, hasRole} = useAuth();
-    return {loading,error,token,lid,ready,isAuthed: Boolean(token), hasRole}
+    return {loading,error,token,lid,ready,isAuthed: Boolean(token),hasRole}
 }
 
 export const useLogin = ()=>{
@@ -77,6 +77,7 @@ export const useInschrijven = ()=>{
     const {inschrijven} = useAuth()
     return inschrijven
 }
+
 export const AuthProvider = ({children})=>{
     const [ready,setReady] = useState(false);
     const [loading, setLoading] = useState(false);

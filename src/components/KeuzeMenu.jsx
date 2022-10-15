@@ -8,6 +8,8 @@ export default function KeuzeMenu(props) {
    const {lid,loading,error} = useSession();
    const logout = useLogout();
    const history = useHistory();
+   if (lid?.vanilla === 1)
+    history.push('/wijzigWachtwoord');
    const back = useCallback(async ()=>{
     history.push('/')
 },[history])

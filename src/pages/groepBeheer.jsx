@@ -116,6 +116,7 @@ export default function GroepBeheer() {
             }
         }
         temp = leden.filter(x=>!x.gid && filterStatus(x))
+        setAmount(temp.length)
         return (<>{temp.map(x=>{return <Lid key={x.id} x={x} none={true}/>})}</>)
     })
     
