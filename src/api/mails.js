@@ -1,12 +1,12 @@
 import { axios } from ".";
 
-export const sendMail = async (list, cc, bcc, onderwerp, text, bijlagen) => {
+export const sendMail = async (list, cc, onderwerp, isVanilla, text, bijlagen) => {
   try {
     const { data } = await axios.post("mails", {
       ontvangers: list,
       cc: cc,
-      bcc: bcc,
       onderwerp: onderwerp,
+      isVanilla: isVanilla,
       text: text,
       bijlagen: bijlagen,
     });

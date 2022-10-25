@@ -50,7 +50,7 @@ export default function Mails() {
         reader.onerror = error => reject(error);
     }),[]);
 
-    const send = useCallback(async ({onderwerp,cc,bcc})=>{
+    const send = useCallback(async ({onderwerp,cc,isVanilla})=>{
         setLoading(true)
         setCustomError(null)
         if (receivers.length === 0 && cc.replace(/\s/g, "") === '') {
@@ -61,7 +61,7 @@ export default function Mails() {
         for (let index = 0; index < bijlagen.length; index++) {
             list.push({name: bijlagen[index].name,url: await toBase64(bijlagen[index])})
         }
-        const e = await mails.sendMail(receivers,cc.replace(/\s/g, ""),bcc,onderwerp,data.blocks,list)
+        const e = await mails.sendMail(receivers,cc.replace(/\s/g, ""),onderwerp,isVanilla,data.blocks,list)
         if (!e) {setCustomError('Kon mail niet versturen'); setLoading(false)}
         }
         setLoading(false)
@@ -111,8 +111,6 @@ export default function Mails() {
                     return <label className="radiolabel" key={x.gid}><input type='radio' disabled={receivers.includes(-1) || receivers.includes(-2)} checked={receivers.includes(x.gid)} onChange={()=>null} onClick={()=>receivers.includes(x.gid) ? filter(x.gid) : setReceivers([...receivers,x.gid])} />{x.groepnaam}</label>
                 })}
             </div>
-            <label className="acclabel">BCC: </label>
-            <input className="accvalue height20 paddingrightauto" type='checkbox' defaultChecked={true} {...register('bcc')} />
             <label className="acclabel">CC: </label>
             <input className="accvalue inputfix" {...register('cc')} />
             <label className="acclabel"></label>
@@ -129,6 +127,9 @@ export default function Mails() {
             {bijlagen?.map(x=>{
                 return <div key={x.name} className="fullwidth flex-w"><button className="delete wwwijzig width20 marginreset" type="button" onClick={()=>del(x)}><RiDeleteBin6Line/></button><div className="width80 textcenter autopadding">{x.name}</div><div className="fullwidth margin20" /></div>
             })}
+            <label className="acclabel">Opgemaakte mail (beta test): </label>
+            <input className="accvalue height20 paddingrightauto" type="checkbox" {...register('isVanilla')}/>
+            {errors.isVanilla && <><div className='acclabel'></div><p className='accvalue error' >{errors.isVanilla.message}</p></>}
             <button disabled={loading} className="wwwijzig" type="submit">Versturen</button>
         </form>
     </>
