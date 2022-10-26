@@ -22,11 +22,12 @@ export default function Mails() {
     const { register, handleSubmit, formState: {errors} } = useForm();
     const [receivers,setReceivers] = useState([])
     const [bijlagen,setBijlagen] = useState([])
+    const [selected,setSelected] = useState('0')
+    const [templates,setTemplates] = useState()
     
     const back = useCallback(async ()=>{
         history.push('/')
     },[history])
-
     const refresh = useCallback(async ()=>{
         setLoading(true)
             const a = await groep.getAll()
@@ -34,10 +35,15 @@ export default function Mails() {
             else {
                 setCustomError(null)
                 setGroepen(a)
+                const e = await mails.getAll()
+                if (e === 404) setCustomError('Kon templates niet laden')
+                else {
+                    setCustomError(null)
+                    setTemplates(e)
+                }
             }
         setLoading(false)
     },[])
-
     useEffect(()=>{
         if (ready)
             refresh()
@@ -57,15 +63,11 @@ export default function Mails() {
             setCustomError('Ontvangers of CC ontbreken')
         } else {
         const data = await editor.save().then(x=>{return x}).catch(x=>setCustomError('Kon gegevens niet verwerken.'))
-        const list = []
-        for (let index = 0; index < bijlagen.length; index++) {
-            list.push({name: bijlagen[index].name,url: await toBase64(bijlagen[index])})
-        }
-        const e = await mails.sendMail(receivers,cc.replace(/\s/g, ""),onderwerp,isVanilla,data.blocks,list)
+        const e = await mails.sendMail(receivers,cc.replace(/\s/g, ""),onderwerp,isVanilla,data.blocks,bijlagen)
         if (!e) {setCustomError('Kon mail niet versturen'); setLoading(false)}
         }
         setLoading(false)
-    },[receivers,bijlagen,toBase64,editor])
+    },[receivers,bijlagen,editor])
 
     const filter = useCallback((id)=>{
         const e = receivers
@@ -79,17 +81,30 @@ export default function Mails() {
     const addFiles = useCallback(async (event)=>{
         const temp = [...bijlagen]
         for (let index = 0; index < event.target.files.length; index++) {
-            temp.push(event.target.files[index])
+            const e = event.target.files[index]
+            temp.push({name: e.name,url: await toBase64(e)})
         }
         setBijlagen(temp)
-    },[bijlagen])
+    },[bijlagen,toBase64])
+
+    const changeTemplate = useCallback(async (event)=>{
+        setSelected(event)
+        if (event !== '0') {
+            const e = templates.find(x=>x.tid === parseInt(event))
+            if (editor) editor.render(e.body)
+            setBijlagen(e.bijlagen)
+        } else {
+            if (editor) editor.render({blocks: []})
+            setBijlagen([])
+        }
+    },[templates,editor])
 
     const del = useCallback(async (x)=>{
         const temp = [...bijlagen]
         temp.splice(temp.indexOf(x),1)
         setBijlagen(temp)
     },[bijlagen])
-    if (ready && groepen) {
+    if (ready && groepen && templates) {
         if (!editor)
     setEditor(new EditorJS({
         holder: 'editorjs', 
@@ -103,6 +118,13 @@ export default function Mails() {
         <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
         {customError ? (<p className="error">{customError}</p>): null}
           <form onSubmit={handleSubmit(send)} className='grid flex-w justify fullwidth'>
+          <label className="acclabel">CC: </label>
+          <div className="accvalue inputfix">
+            <select className="accvalue inputfix" onChange={e=>changeTemplate(e.target.value)} defaultValue={selected}>
+                    <option value={0}>Geen</option>
+                    {templates.map(x=>(<option key={x.tid} value={x.tid}>{x.tnaam}</option>))}
+            </select>
+            </div> 
             <label className="acclabel">Ontvangers: </label>
             <div className="accvalue flex-w">
                 <label className="radiolabel"><input type='radio' checked={receivers.includes(-2)} onChange={()=>null} onClick={()=> receivers.includes(-2) ? setReceivers([]) : setReceivers([-2])} />Iedereen</label>
@@ -117,7 +139,7 @@ export default function Mails() {
             <label className="accvalue"><i>Split adressen met komma</i></label>
             {errors.cc && <><div className='acclabel'></div><p className='accvalue error' >{errors.cc.message}</p></>}
             <label className="acclabel">Onderwerp: </label>
-            <input className="accvalue inputfix" {...register('onderwerp',{required: 'Dit is vereist'})}/>
+            <input className="accvalue inputfix" defaultValue={selected === '0' ? '' : templates.find(x=>x.tid === parseInt(selected)).tonderwerp} {...register('onderwerp',{required: 'Dit is vereist'})}/>
             {errors.onderwerp && <><div className='acclabel'></div><p className='accvalue error' >{errors.onderwerp.message}</p></>}
             <div className="margin20 fullwidth" />
             <div id="editorjs" className="editor"/> 
