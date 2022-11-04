@@ -24,7 +24,9 @@ export default function Mails() {
     const [bijlagen,setBijlagen] = useState([])
     const [selected,setSelected] = useState('0')
     const [templates,setTemplates] = useState()
-    
+    const [success,setSuccess] = useState(false)
+    const [verzender,setVerzender] = useState(null)
+
     const back = useCallback(async ()=>{
         history.push('/')
     },[history])
@@ -61,13 +63,16 @@ export default function Mails() {
         setCustomError(null)
         if (receivers.length === 0 && cc.replace(/\s/g, "") === '') {
             setCustomError('Ontvangers of CC ontbreken')
+        } else if (verzender === null) {
+            setCustomError('Verzender ontbreekt')
         } else {
         const data = await editor.save().then(x=>{return x}).catch(x=>setCustomError('Kon gegevens niet verwerken.'))
-        const e = await mails.sendMail(receivers,cc.replace(/\s/g, ""),onderwerp,isVanilla,data.blocks,bijlagen)
-        if (!e) {setCustomError('Kon mail niet versturen'); setLoading(false)}
+        const e = await mails.sendMail(receivers,cc.replace(/\s/g, ""),onderwerp,isVanilla,data.blocks,bijlagen,verzender)
+        if (!e) setCustomError('Kon mail niet versturen');
+       else setSuccess(true)
         }
         setLoading(false)
-    },[receivers,bijlagen,editor])
+    },[receivers,bijlagen,editor,verzender])
 
     const filter = useCallback((id)=>{
         const e = receivers
@@ -118,7 +123,7 @@ export default function Mails() {
         <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
         {customError ? (<p className="error">{customError}</p>): null}
           <form onSubmit={handleSubmit(send)} className='grid flex-w justify fullwidth'>
-          <label className="acclabel">CC: </label>
+          <label className="acclabel">Template: </label>
           <div className="accvalue inputfix">
             <select className="accvalue inputfix" onChange={e=>changeTemplate(e.target.value)} defaultValue={selected}>
                     <option value={0}>Geen</option>
@@ -128,9 +133,9 @@ export default function Mails() {
             <label className="acclabel">Ontvangers: </label>
             <div className="accvalue flex-w">
                 <label className="radiolabel"><input type='radio' checked={receivers.includes(-2)} onChange={()=>null} onClick={()=> receivers.includes(-2) ? setReceivers([]) : setReceivers([-2])} />Iedereen</label>
-                <label className="radiolabel"><input type='radio' checked={receivers.includes(-1)} onChange={()=>null} onClick={()=> receivers.includes(-1) ? setReceivers([]) : setReceivers([-1])} />Actieve leden</label>
+                <label className="radiolabel"><input type='radio' checked={receivers.includes(-1)} disabled={receivers.includes(-2)} onChange={()=>null} onClick={()=> receivers.includes(-1) ? filter(-1) : setReceivers([...receivers,-1])} />Volwassenen</label>
                 {groepen.map(x=>{
-                    return <label className="radiolabel" key={x.gid}><input type='radio' disabled={receivers.includes(-1) || receivers.includes(-2)} checked={receivers.includes(x.gid)} onChange={()=>null} onClick={()=>receivers.includes(x.gid) ? filter(x.gid) : setReceivers([...receivers,x.gid])} />{x.groepnaam}</label>
+                    return <label className="radiolabel" key={x.gid}><input type='radio' disabled={receivers.includes(-2)} checked={receivers.includes(x.gid)} onChange={()=>null} onClick={()=>receivers.includes(x.gid) ? filter(x.gid) : setReceivers([...receivers,x.gid])} />{x.groepnaam}</label>
                 })}
             </div>
             <label className="acclabel">CC: </label>
@@ -152,7 +157,13 @@ export default function Mails() {
             <label className="acclabel">Opgemaakte mail (beta test): </label>
             <input className="accvalue height20 paddingrightauto" type="checkbox" {...register('isVanilla')}/>
             {errors.isVanilla && <><div className='acclabel'></div><p className='accvalue error' >{errors.isVanilla.message}</p></>}
-            <button disabled={loading} className="wwwijzig" type="submit">Versturen</button>
+            <label className="acclabel">Verzender: </label>
+            <div className="accvalue">
+            <label className="radiolabel"><input type='radio' onChange={()=>null} onClick={()=>setVerzender(false)} name="verzender" value={0}  />Info</label>
+            <label className="radiolabel"><input type='radio' onChange={()=>null} onClick={()=>setVerzender(true)} name="verzender" value={1} />Jeugd</label>
+            </div>
+            {success ? <p className="success">Mail verzonden, deze kan vertraging hebben.</p> : null}
+            <button disabled={loading || success} className="wwwijzig" type="submit">Versturen</button>
         </form>
     </>
     }

@@ -1,6 +1,6 @@
 import { axios } from ".";
 
-export const sendMail = async (list, cc, onderwerp, isVanilla, text, bijlagen) => {
+export const sendMail = async (list, cc, onderwerp, isVanilla, text, bijlagen,isJeugd) => {
   try {
     const { data } = await axios.post("mails", {
       ontvangers: list,
@@ -9,6 +9,7 @@ export const sendMail = async (list, cc, onderwerp, isVanilla, text, bijlagen) =
       isVanilla: isVanilla,
       text: text,
       bijlagen: bijlagen,
+      isJeugd: isJeugd,
     });
 
     return data;
