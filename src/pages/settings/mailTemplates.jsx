@@ -68,14 +68,26 @@ export default function MailTemplates() {
         reader.onerror = error => reject(error);
     }),[]);
 
-    const save = useCallback(async ({naam,onderwerp})=>{
+    const save = useCallback(async ({naam,onderwerp,variabelen})=>{
         setLoading(true)
         setCustomError(null)
         const data = await editor.save().then(x=>{return x}).catch(x=>setCustomError('Kon gegevens niet verwerken.'))
-        const e = add ? await mails.createTemplate(naam,onderwerp,data,null,bijlagen ? bijlagen : []) : await mails.updateTemplate(selected?.tid,naam,onderwerp,data,null,bijlagen ? bijlagen : [])
-        if (!e) {setCustomError('Kon template niet opslaan'); setLoading(false)}
-        await refresh()
-        await back()
+        const e = add ? await mails.createTemplate(naam,onderwerp,data,null,bijlagen ? bijlagen : []) : await mails.updateTemplate(selected?.tid,naam,onderwerp,data,variabelen ? JSON.parse(variabelen) : null,bijlagen ? bijlagen : [])
+        if (!e) {setCustomError('Kon template niet opslaan'); setLoading(false); setEditor(new EditorJS({
+            holder: 'editorjs', 
+             tools: { 
+                header: Header, 
+                list: List,
+                image: SimpleImage,
+              }, 
+              data: data
+          }))
+        }
+        else {
+            await refresh()
+            await back()
+        }
+        
         setLoading(false)
     },[selected,bijlagen,editor,add,back,refresh])
 
@@ -123,6 +135,11 @@ export default function MailTemplates() {
         <label className="acclabel">Onderwerp: </label>
         <input id="onderwerp" className="accvalue inputfix" defaultValue={add || onderwerp ? onderwerp : selected?.tonderwerp} {...register('onderwerp',{required: 'Dit is vereist'})}/>
         {errors.onderwerp && <><div className='acclabel'></div><p className='accvalue error' >{errors.onderwerp.message}</p></>}
+        {add || selected?.vars === null ? '' : <><label className="acclabel">Variabelen: </label>
+        <input id="variabelen" className="accvalue inputfix" defaultValue={JSON.stringify(selected.vars)} {...register('variabelen',{required: 'Dit is vereist'})}></input>
+        {errors.variabelen && <><div className='acclabel'></div><p className='accvalue error' >{errors.variabelen.message}</p></>}
+        </>
+         }
         <div className="margin20 fullwidth" />
         <div id="editorjs" className="editor"/> 
         <div className="fullwidth margin20"/>
@@ -135,7 +152,7 @@ export default function MailTemplates() {
         })}
         <button disabled={loading} className="wwwijzig" type="submit">Opslaan</button>
     </form>
-    {add ? '':<button className="wwwijzig delete" onClick={()=>deleteTemp()}>Verwijderen</button>}
+    {add || selected?.vars !== null ? '':<button className="wwwijzig delete" onClick={()=>deleteTemp()}>Verwijderen</button>}
     </>
     })
     const Template = memo(props=>{
@@ -148,7 +165,6 @@ export default function MailTemplates() {
     if (ready && templates) {
         if (selected !== null || add) {
             if (selected !== null && bijlagen === null) {
-                console.log("e")
                 setBijlagen(selected.bijlagen)
             }
         if (!editor) {
@@ -173,10 +189,15 @@ export default function MailTemplates() {
             <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
             {customError ? (<p className="error">{customError}</p>): null}
             {templates.map(template=>{
-            return <Template ob={template} key={template.tid}/>
+                return template.tid > 5 ? <Template ob={template} key={template.tid}/> : ''
     })}
-    <div className='margin20'></div>
-            <button className='wwwijzig' onClick={()=>setAdd(true)} disabled={loading}>Nieuwe template</button>
+    <div className='margin20'/>
+    <button className='wwwijzig' onClick={()=>setAdd(true)} disabled={loading}>Nieuwe template</button>
+    <div className="margin20 line grid"/>
+    <p>Systeem Templates:</p>
+    {templates.map(template=>{
+        return template.tid < 6 ? <Template ob={template} key={template.tid}/> : ''
+    })}
     </>
 }
     return <><button className='backbutton margin20' onClick={back}>{'<'} Terug</button><div>Loading...</div></>

@@ -47,13 +47,14 @@ export const getAllBetalingen = async ()=>{
             return 404
         }
 }
-export const link = async (bid,lid,prijs,datum)=>{
+export const link = async (bid,lid,prijs,datum,stuurMail)=>{
     try {
         const {data} = await axios.post(`betaling/account/`,{
             soortId:bid,
             ledenId:lid,
             prijs:prijs,
-            datum:datum
+            datum:datum,
+            stuurMail: stuurMail
         })
         return data
     } catch(error) {

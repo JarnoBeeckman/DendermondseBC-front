@@ -71,15 +71,15 @@ export default function Betalingen() {
         }
     },[ready,refreshSoorten,refresh])
 
-    const link = useCallback(async ({prijs,datum})=>{
+    const link = useCallback(async ({prijs,datum,stuurMail})=>{
         setLoading(true)
-        const e = await betaling.link(soorten[selected].bid,leden[addlid].id,prijs,datum)
+        const e = await betaling.link(soorten[selected].bid,leden[addlid].id,prijs,datum,stuurMail)
         if (!e) setCustomError('Kon betaling niet toevoegen')
         else {
             await refresh()
             setCustomError(null)
             setAdd(false)
-        } 
+        }
         setLoading(false)
     },[refresh,selected,addlid,leden,soorten])
 
@@ -155,6 +155,9 @@ export default function Betalingen() {
                    <label className='acclabel'>Datum: </label>
                    <input className='accvalue' type='date' defaultValue={toDateInputString(Date.now())} {...register('datum')} />
                    {errors.datum && <><div className='acclabel'></div><p className='accvalue error'>{errors.datum.message}</p></>}
+                   <div className="margin20 fullwidth"/>
+                   <label className="acclabel">Stuur bevestiging: </label>
+                   <input className="accvalue height20" type='checkbox' defaultChecked={true} {...register('stuurMail')} />
                    <button className='wwwijzig' type='submit' disabled={loading}>Bevestigen</button>
                    </form>
             </>
