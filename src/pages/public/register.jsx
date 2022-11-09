@@ -29,6 +29,7 @@ export default function Register() {
     if (registered)
     return <>
     <div className="fullwidth margin20"/>
+    <button className='backbutton margin20' onClick={back}>{'<'} Terug</button><br/>
     <p>U bent geregistreerd.</p>
     </>
     return <>

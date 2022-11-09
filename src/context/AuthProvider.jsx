@@ -253,11 +253,11 @@ export const AuthProvider = ({children})=>{
             setLoading(false)
         }
     },[])
-    const inschrijven = useCallback(async (id,bvid,enkel,dubbel,mix)=>{
+    const inschrijven = useCallback(async (id,bvid,enkel,dubbel,mix,stuurMail)=>{
         try {   
             setError('')
             setLoading(true)
-            await LidApi.inschrijven(id,bvid,enkel,dubbel,mix)
+            await LidApi.inschrijven(id,bvid,enkel,dubbel,mix,stuurMail)
             return true
         } catch (error) {
             return false

@@ -34,8 +34,8 @@ export default function NieuweLeden() {
                 else setNewLeden(a)
     },[getNewLeden])
 
-    const inschrijven = useCallback(async ({bvid,enkel,dubbel,mix})=>{
-        const e = await inschrijvenn(selected?.id,bvid,enkel,dubbel,mix)
+    const inschrijven = useCallback(async ({bvid,enkel,dubbel,mix,stuurMail})=>{
+        const e = await inschrijvenn(selected?.id,bvid,enkel,dubbel,mix,stuurMail)
         if (e) {
             await refresh()
             setEdit(false)
@@ -119,6 +119,9 @@ export default function NieuweLeden() {
                    <label className='acclabel'>Mix: </label>
                    <input className='accvalue' type='number' placeholder='mix niveau' defaultValue={12} {...register('mix',{required: 'Dit is vereist'})} />
                    {errors.mix && <><div className='acclabel'></div><p className='accvalue error'>{errors.mix.message}</p></>}
+                   <label className='acclabel'>Bevestigingsmail sturen: </label>
+                   <input className='accvalue' type='checkbox' defaultChecked={true} {...register('stuurMail')} />
+                   {errors.stuurMail && <><div className='acclabel'></div><p className='accvalue error'>{errors.stuurMail.message}</p></>}
                     <button type='submit' className='wwwijzig' disabled={loading}>Registreren</button>
                    </form></>)
     })

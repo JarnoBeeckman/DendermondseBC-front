@@ -120,12 +120,13 @@ export const deleteAanpassing = async (id) => {
   const { data } = await axios.delete(`account/aanpassingen/${id}`);
   return data;
 };
-export const inschrijven = async (id, bvid, enkel, dubbel, mix) => {
+export const inschrijven = async (id, bvid, enkel, dubbel, mix,stuurMail) => {
   const { data } = await axios.put(`account/aanpassingen/${id}`, {
     bvid,
     enkel,
     dubbel,
     mix,
+    stuurMail
   });
   return data;
 };

@@ -99,7 +99,7 @@ export default function Mails() {
             if (editor) editor.render(e.body)
             setBijlagen(e.bijlagen)
         } else {
-            if (editor) editor.render({blocks: []})
+            if (editor) editor.clear()
             setBijlagen([])
         }
     },[templates,editor])
@@ -127,7 +127,7 @@ export default function Mails() {
           <div className="accvalue inputfix">
             <select className="accvalue inputfix" onChange={e=>changeTemplate(e.target.value)} defaultValue={selected}>
                     <option value={0}>Geen</option>
-                    {templates.map(x=>(<option key={x.tid} value={x.tid}>{x.tnaam}</option>))}
+                    {templates.map(x=>(x.tid > 5 ? <option key={x.tid} value={x.tid}>{x.tnaam}</option> : ''))}
             </select>
             </div> 
             <label className="acclabel">Ontvangers: </label>
