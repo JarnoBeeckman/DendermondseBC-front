@@ -5,12 +5,12 @@
     "pages": {
         "lid": [["Account gegevens","accountBeheren"]],
         "communicatie": [],
-        "jeugd":[["Groepen beheren","groepBeheer"],["Instellingen","settings"]],
+        "jeugd":[["Registreer nieuw lid","register"],["Groepen beheren","groepBeheer"],["Instellingen","settings"]],
         "competitie":[],
         "ladder":[],
         "kapitein": [],
-        "trainer": [],
-        "penningmeester": [["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Instellingen","settings"]],
+        "trainer": [["Registreer nieuw lid","register"]],
+        "penningmeester": [["Registreer nieuw lid","register"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Instellingen","settings"]],
         "beheerder": [["Account gegevens","accountBeheren"],["Registreer nieuw lid","register"],["Leden beheren","lidBeheer"],["Groepen beheren","groepBeheer"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Te betalen inschrijvingen","toPay"],["Mail versturen","stuurMail"],["Importeer gegevens","excelImport"],["Instellingen","settings"]]
     },
     "settings": {

@@ -1,52 +1,56 @@
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { useCallback, useState } from "react";
-import * as lid from "../../api/lid"
+import * as lidapi from "../../api/lid"
+import { useLogin,useSession } from "../../context/AuthProvider"
 
 export default function ResetPassword() {
 
     const { register, handleSubmit, formState: {errors} } = useForm();
     const history = useHistory();
-    const [done,setDone] = useState(false)
-    const [loading,setLoading] = useState(false)
+    const {loading,lid} = useSession();
+    const [loadingg,setLoading] = useState(false)
     const [error,setError] = useState()
-    const param = new URLSearchParams(window.location.search)
-    const [key] = useState(param.get("key"))
+    const login = useLogin()
+    //const param = new URLSearchParams(window.location.search)
+    //const [key] = useState(param.get("key"))
 
     const back = useCallback(async ()=>{
         history.push('/')
     },[history])
 
-    const exe = useCallback(async ({wachtwoord,wachtwoordd})=>{
+    const exe = useCallback(async ({key,wachtwoord,wachtwoordd})=>{
         setLoading(true)
         if (wachtwoord !== wachtwoordd) setError("Wachtwoorden komen niet overeen.")
         else {
-        const e = await lid.reset(key,wachtwoord)
+        const e = await lidapi.reset(key,wachtwoord)
         if (e) {
-            setDone(true)
+            const suc = await login(lid?.username,wachtwoord)
+            if (suc) history.push('/')
+            else setError("Er is iets misgegaan bij het opnieuw inloggen. Probeer later opnieuw.")
         }
-        else setError('Kon wachtwoord niet resetten.')
+        else setError('Kon wachtwoord niet resetten. Controleer code of probeer later opnieuw.')
         }
         setLoading(false)
-    },[key])
+    },[lid?.username,login,history])
 
-    if (!key) return <div>Geen geldige URL.</div>
-    if (done)
-    return <>
-        <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
-        <p>Uw wachtwoord werd gewijzigd.</p>
-    </>
+    //if (!key) return <div>Geen geldige URL.</div>
     return <>
         <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
         {error ? (<p className="error">{error}</p>): null}
+        <p>Er werd een mail gestuurd met een reset code voor je account.<br/>Als je deze pagina verlaat zal deze code geldig blijven tot je wachtwoord is gewijzigd.</p>
         <form className="grid flex-w accgrid" onSubmit={handleSubmit(exe)}>
+        <div className="margin20 fullwidth"/>
+        <label className='acclabel'>Reset code: </label>
+        <input className='accvalue' type='text' placeholder='reset code' {...register('key',{required: 'Dit is vereist'})}/>
+        {errors.key && <><div className='acclabel'></div><p className='accvalue error'>{errors.key.message}</p></>} 
         <label className='acclabel'>Nieuw wachtwoord: </label>
-        <input className='accvalue' type='password' placeholder='nieuw' {...register('wachtwoord',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
+        <input className='accvalue' type='password' placeholder='wachtwoord' {...register('wachtwoord',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
         {errors.wachtwoord && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoord.message}</p></>}                       
         <label className='acclabel'>Herhaal nieuw wachtwoord: </label>
-        <input className='accvalue' type='password' placeholder='herhaal'{...register('wachtwoordd',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
+        <input className='accvalue' type='password' placeholder='herhaal wachtwoord'{...register('wachtwoordd',{required: 'Dit is vereist',minLength:{value:7,message:'Dit moet minstens 7 tekens bevatten'}})}/>
         {errors.wachtwoordd && <><div className='acclabel'></div><p className='accvalue error'>{errors.wachtwoordd.message}</p></>}
-        <button className="wwwijzig" disabled={loading} type="submit">Reset wachtwoord</button>
+        <button className="wwwijzig" disabled={loadingg || loading} type="submit">Reset wachtwoord</button>
         </form>
     </>
 }

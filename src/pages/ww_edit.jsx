@@ -2,7 +2,7 @@
 import { useHistory } from "react-router-dom";
 import { useCallback, useState } from 'react';
 import { useForm } from "react-hook-form"
-import { useChangePassword, useSession } from '../context/AuthProvider';
+import { useChangePassword, useLogin, useSession } from '../context/AuthProvider';
 
 export default function WijzigWachtwoord() {
     const history = useHistory();
@@ -10,6 +10,7 @@ export default function WijzigWachtwoord() {
     const {loading,lid} = useSession();
     const { register, handleSubmit, formState: {errors} } = useForm();
     const [customError,setCustomError] = useState(null)
+    const login = useLogin()
 
     const back = useCallback(async ()=>{
         history.push('/accountBeheren')
@@ -19,15 +20,18 @@ export default function WijzigWachtwoord() {
         if (wachtwoord === wachtwoordd) {
             const e = await changePassword(lid?.id,lid?.vanilla === 1 ? lid?.username: current,wachtwoord)
             if (e === 200) {
+                const suc = await login(lid?.username,wachtwoord)
                 if (lid?.vanilla === 1) {
-                    setCustomError('Gelieve de pagina te herladen om de wijzigingen door te voeren.')
+                    if (suc) history.push('/')
+                    else setCustomError('Er ging iets mis, probeer later opnieuw of contacteer een beheerder.')
                     }
+                if (!suc) setCustomError('Er ging iets mis, probeer later opnieuw of contacteer een beheerder.')
                 else back()
             }
             else if (e === 403) setCustomError('Huidig wachtwoord is incorrect')
             else setCustomError('Er is iets misgegaan, check server status of conctacteer een beheerder')
         } else setCustomError('Nieuw wachtwoord komt niet overeen')
-    },[changePassword,lid?.id,back,lid?.username,lid?.vanilla])
+    },[changePassword,lid?.id,back,lid?.username,lid?.vanilla,login,history])
 
     return (
     <>
