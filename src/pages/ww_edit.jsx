@@ -20,18 +20,14 @@ export default function WijzigWachtwoord() {
         if (wachtwoord === wachtwoordd) {
             const e = await changePassword(lid?.id,lid?.vanilla === 1 ? lid?.username: current,wachtwoord)
             if (e === 200) {
-                const suc = await login(lid?.username,wachtwoord)
-                if (lid?.vanilla === 1) {
-                    if (suc) history.push('/')
-                    else setCustomError('Er ging iets mis, probeer later opnieuw of contacteer een beheerder.')
-                    }
+                const suc = await login({username:lid?.username,wachtwoord})
                 if (!suc) setCustomError('Er ging iets mis, probeer later opnieuw of contacteer een beheerder.')
                 else back()
             }
             else if (e === 403) setCustomError('Huidig wachtwoord is incorrect')
             else setCustomError('Er is iets misgegaan, check server status of conctacteer een beheerder')
         } else setCustomError('Nieuw wachtwoord komt niet overeen')
-    },[changePassword,lid?.id,back,lid?.username,lid?.vanilla,login,history])
+    },[changePassword,lid?.id,back,lid?.username,lid?.vanilla,login])
 
     return (
     <>

@@ -36,6 +36,10 @@ export const useDeleteLid = ()=>{
     const {deleteLid} = useAuth()
     return deleteLid
 }
+export const useSetSession = ()=>{
+    const {setSession} = useAuth();
+    return setSession;
+}
 
 export const useChangePassword = ()=>{
     const {changePassword} = useAuth()
@@ -267,8 +271,8 @@ export const AuthProvider = ({children})=>{
     },[])
     
     const value= useMemo(()=>({
-        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid,getAanpassingen,getNewLeden,deleteAanpassing,inschrijven,deleteLid
-    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid,getAanpassingen,getNewLeden,deleteAanpassing,inschrijven,deleteLid]);
+        loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid,getAanpassingen,getNewLeden,deleteAanpassing,inschrijven,deleteLid,setSession
+    }),[loading,error,token,lid,login,logout,register,ready,hasRole,changePassword,updateLid,getAllLeden,adminUpdateLid,getAanpassingen,getNewLeden,deleteAanpassing,inschrijven,deleteLid,setSession]);
 
     return (
         <AuthContext.Provider value={value}>

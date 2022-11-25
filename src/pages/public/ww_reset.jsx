@@ -2,16 +2,16 @@ import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { useCallback, useState } from "react";
 import * as lidapi from "../../api/lid"
-import { useLogin,useSession } from "../../context/AuthProvider"
+import {useSession, useSetSession } from "../../context/AuthProvider"
 
 export default function ResetPassword() {
 
     const { register, handleSubmit, formState: {errors} } = useForm();
     const history = useHistory();
-    const {loading,lid} = useSession();
+    const {loading} = useSession();
     const [loadingg,setLoading] = useState(false)
     const [error,setError] = useState()
-    const login = useLogin()
+    const setSession = useSetSession()
     //const param = new URLSearchParams(window.location.search)
     //const [key] = useState(param.get("key"))
 
@@ -25,14 +25,13 @@ export default function ResetPassword() {
         else {
         const e = await lidapi.reset(key,wachtwoord)
         if (e) {
-            const suc = await login(lid?.username,wachtwoord)
-            if (suc) history.push('/')
-            else setError("Er is iets misgegaan bij het opnieuw inloggen. Probeer later opnieuw.")
+            await setSession(e.token,e.lid)
+            history.push('/')
         }
         else setError('Kon wachtwoord niet resetten. Controleer code of probeer later opnieuw.')
         }
         setLoading(false)
-    },[lid?.username,login,history])
+    },[history,setSession])
 
     //if (!key) return <div>Geen geldige URL.</div>
     return <>
