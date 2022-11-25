@@ -1,4 +1,5 @@
 import './App.css';
+import HttpsRedirect from 'react-https-redirect';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import PrivateRoute from "./components/PrivateRoute";
@@ -28,6 +29,7 @@ import MailTemplates from './pages/settings/mailTemplates';
 function App() {
   return (
     <AuthProvider>
+      <HttpsRedirect>
       <BrowserRouter>
       <Switch>
         <Route exact path='/login'><Login /></Route>
@@ -57,6 +59,7 @@ function App() {
         </Wrapper>
       </Switch>
       </BrowserRouter>
+      </HttpsRedirect>
     </AuthProvider>
   );
 }
