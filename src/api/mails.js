@@ -66,3 +66,11 @@ export const deleteTemplate = async (id) => {
     return false;
   }
 };
+export const getReceivers = async (list) => {
+  try {
+    const { data } = await axios.get("mails/receivers/" + list);
+    return data;
+  } catch (error) {
+    return 404;
+  }
+};

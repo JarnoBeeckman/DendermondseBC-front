@@ -24,8 +24,9 @@ export default function Mails() {
     const [bijlagen,setBijlagen] = useState([])
     const [selected,setSelected] = useState('0')
     const [templates,setTemplates] = useState()
-    const [success,setSuccess] = useState(false)
+    const [disabled,setDisabled] = useState(false)
     const [verzender,setVerzender] = useState(null)
+    const [copied,setCopied] = useState(false)
 
     const back = useCallback(async ()=>{
         history.push('/')
@@ -46,6 +47,25 @@ export default function Mails() {
             }
         setLoading(false)
     },[])
+
+    const getReceivers = useCallback(async ()=>{
+        setLoading(true)
+            const a = receivers.length === 0 ? '' : await mails.getReceivers(JSON.stringify(receivers))
+            console.log(a)
+            if (a === 404) setCustomError('Kon ontvangers niet laden')
+            else {
+                setCustomError(null)
+                setCopied(false)
+                try {
+                    await navigator.clipboard.writeText(a)
+                    setCopied("Ontvangers naar clipboard gekopieerd!")
+                } catch (err) {
+                  console.log(err);
+                }
+            }
+        setLoading(false)
+    },[receivers])
+
     useEffect(()=>{
         if (ready)
             refresh()
@@ -58,6 +78,18 @@ export default function Mails() {
         reader.onerror = error => reject(error);
     }),[]);
 
+    useEffect(() => {
+        let timeoutId;
+        if (disabled) {
+          timeoutId = setTimeout(() => {
+            setDisabled(false);
+          }, 5000);
+        }
+        return () => {
+          clearTimeout(timeoutId);
+        };
+      }, [disabled]);
+
     const send = useCallback(async ({onderwerp,cc,isVanilla})=>{
         setLoading(true)
         setCustomError(null)
@@ -69,7 +101,7 @@ export default function Mails() {
         const data = await editor.save().then(x=>{return x}).catch(x=>setCustomError('Kon gegevens niet verwerken.'))
         const e = await mails.sendMail(receivers,cc.replace(/\s/g, ""),onderwerp,isVanilla,data.blocks,bijlagen,verzender)
         if (!e) setCustomError('Kon mail niet versturen');
-       else setSuccess(true)
+       else setDisabled(true)
         }
         setLoading(false)
     },[receivers,bijlagen,editor,verzender])
@@ -119,6 +151,7 @@ export default function Mails() {
             image: SimpleImage,
           }, 
       }))
+
     return <>
         <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
         {customError ? (<p className="error">{customError}</p>): null}
@@ -137,6 +170,11 @@ export default function Mails() {
                 {groepen.map(x=>{
                     return <label className="radiolabel" key={x.gid}><input type='radio' disabled={receivers.includes(-2)} checked={receivers.includes(x.gid)} onChange={()=>null} onClick={()=>receivers.includes(x.gid) ? filter(x.gid) : setReceivers([...receivers,x.gid])} />{x.groepnaam}</label>
                 })}
+            </div>
+            <label className="acclabel">Alternatief: </label>
+            <div className="accvalue">
+                <button disabled={loading} className="accvalue accwijzig" onClick={getReceivers}>Copy to Clipboard</button>
+                {copied && <p className="success">{copied}</p>}
             </div>
             <label className="acclabel">CC: </label>
             <input className="accvalue inputfix" {...register('cc')} />
@@ -162,8 +200,8 @@ export default function Mails() {
             <label className="radiolabel"><input type='radio' onChange={()=>null} onClick={()=>setVerzender(false)} name="verzender" value={0}  />Info</label>
             <label className="radiolabel"><input type='radio' onChange={()=>null} onClick={()=>setVerzender(true)} name="verzender" value={1} />Jeugd</label>
             </div>
-            {success ? <p className="success">Mail verzonden, deze kan vertraging hebben.</p> : null}
-            <button disabled={loading || success} className="wwwijzig" type="submit">Versturen</button>
+            {disabled ? <p className="success">Mail verzonden, deze kan vertraging hebben.</p> : null}
+            <button disabled={loading || disabled} className="wwwijzig" type="submit">Versturen</button>
         </form>
     </>
     }
