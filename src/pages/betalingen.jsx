@@ -8,14 +8,15 @@ import { useForm } from "react-hook-form"
 const toDateInputString = (date) => {
     // (toISOString returns something like 2020-12-05T14:15:74Z,
     // date HTML5 input elements expect 2020-12-05
-    // 
+    //
     if (!date) return null;
     if (typeof date !== Object) {
-        date = new Date(date);
+      date = new Date(date);
     }
+    if (date.toISOString()[11] === '2') date.setDate(date.getDate()+1)
     const asString = date.toISOString();
     return asString.substring(0, asString.indexOf("T"));
-};
+}
 
 export default function Betalingen() {
 

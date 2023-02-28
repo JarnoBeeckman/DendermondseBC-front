@@ -119,7 +119,6 @@ export default function MailTemplates() {
         setNaam(name)
         setOnderwerp(ond)
         setBody(data)
-        console.log(bijlagen)
         const temp = [...bijlagen]
         temp.splice(temp.indexOf(x),1)
         setBijlagen(temp)
