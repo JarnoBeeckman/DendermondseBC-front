@@ -51,7 +51,6 @@ export default function Mails() {
     const getReceivers = useCallback(async ()=>{
         setLoading(true)
             const a = receivers.length === 0 ? '' : await mails.getReceivers(JSON.stringify(receivers))
-            console.log(a)
             if (a === 404) setCustomError('Kon ontvangers niet laden')
             else {
                 setCustomError(null)

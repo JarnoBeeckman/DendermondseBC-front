@@ -34,7 +34,7 @@ export default function MailTemplates() {
             setNaam()
             setOnderwerp()
         } 
-        else if (selected === null) history.push('/')
+        else if (selected === null) history.push('/settings')
         else {
             setSelected(null)
             setEditor(undefined)

@@ -16,7 +16,7 @@ export default function Rolconfig() {
     const history = useHistory()
 
     const back = useCallback(async ()=>{
-        history.push('/')
+        history.push('/settings')
     },[history])
 
     const refreshGroepen = useCallback(async ()=>{

@@ -8,6 +8,14 @@ export const getTrainings = async ()=>{
     }
 }
 
+export const getTrainers = async ()=>{
+    try {const {data} = await axios.get('training/trainers')
+    return data}
+    catch (error) {
+        return 404
+    }
+}
+
 export const saveTraining = async (training)=>{
     try {const {data} = await axios.post('training', training)
     return data}
@@ -20,6 +28,15 @@ export const updateTraining = async (id,training)=>{
     try {const {data} = await axios.put('training/'+id, training)
     return data}
     catch (error) {
+        return false
+    }
+}
+
+export const deleteTraining = async (id)=>{
+    try {
+    await axios.delete('training/'+id)
+    return true
+    } catch (error) {
         return false
     }
 }

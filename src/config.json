@@ -3,13 +3,13 @@
     "ur":"http://localhost:9000/api/",
     "token_key": "auth_token",
     "pages": {
-        "lid": [["Account gegevens","accountBeheren"]],
+        "lid": [["Account gegevens","accountBeheren"],["Trainingen","trainings"]],
         "communicatie": [],
         "jeugd":[["Registreer nieuw lid","register"],["Groepen beheren","groepBeheer"],["Instellingen","settings"]],
         "competitie":[],
         "ladder":[],
         "kapitein": [],
-        "trainer": [["Registreer nieuw lid","register"],["Trainingen","trainings"]],
+        "trainer": [["Registreer nieuw lid","register"]],
         "penningmeester": [["Registreer nieuw lid","register"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Instellingen","settings"]],
         "beheerder": [["Account gegevens","accountBeheren"],["Registreer nieuw lid","register"],["Leden beheren","lidBeheer"],["Groepen beheren","groepBeheer"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Te betalen inschrijvingen","toPay"],["Mail versturen","stuurMail"],["Trainingen","trainings"],["Importeer gegevens","excelImport"],["Instellingen","settings"]]
     },

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState,memo } from "react";
 import { useSession } from "../context/AuthProvider"
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form"
-import { getTrainings, saveTraining, updateTraining } from "../api/training";
+import { getTrainings, saveTraining, updateTraining,deleteTraining,getTrainers } from "../api/training";
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header'; 
 import List from '@editorjs/list'; 
@@ -30,6 +30,7 @@ export default function TrainingView() {
     const [groepen,setGroepen] = useState()
     const [editor,setEditor] = useState(undefined)
     const [selected,setSelected] = useState()
+    const [trainers,setTrainers] = useState()
 
     const history = useHistory()
     const back = useCallback(async ()=>{
@@ -49,9 +50,14 @@ export default function TrainingView() {
         else {
             setList(e?.training)
             setGroepen(e?.groep)
+            if (lid?.roles.includes('trainer') || lid?.roles.includes('beheerder')) {
+            const a = await getTrainers()
+            if (a === 404) setCustomError('Kon trainers niet laden')
+            else setTrainers(a)
+            }
         } 
         setLoading(false)
-    },[])
+    },[lid])
 
     useEffect( ()=>{
         if (ready) {
@@ -62,22 +68,33 @@ export default function TrainingView() {
     const save = useCallback(async (training)=>{
         setLoading(true)
         training.trbody = await editor.save().then(x=>{return x}).catch(x=>setCustomError('Kon gegevens niet verwerken.'))
-        if(selected === -1) training.trcreator = lid?.id
         const a = selected === -1? await saveTraining(training):await updateTraining(selected.trid,training)
         if (a) {
+            setEditor(undefined)
             await back()
             await refresh()
         }
         else setCustomError('Kon training niet opslaan')
         setLoading(false)
-    },[editor,refresh,lid?.id,selected,back])
+    },[editor,refresh,selected,back])
+
+    const delTraining = useCallback(async ()=>{
+        setLoading(true)
+        const a = await deleteTraining(selected.trid)
+        if (a) {
+            await back()
+            await refresh()
+        }
+        else setCustomError('Kon training niet verwijderen')
+        setLoading(false)
+    },[selected,back,refresh])
 
     const Training = memo(({tr})=>{
         let list = []
         if (Array.isArray(tr.kleur))
             tr.kleur.forEach(a=>list.push(a))
         else list.push(tr.kleur)
-        return <div className="lidlijst center" onClick={()=>setSelected(tr)}>
+        return <div className={`lidlijst center`} onClick={()=>setSelected(tr)}>
             <div className="">{toDateInputString(tr.trdatum)}</div>
             <div className="lidnaam">{tr.tronderwerp}</div>
                     <div className="circles lidstatus">
@@ -90,10 +107,14 @@ export default function TrainingView() {
 
     const Edit = memo(()=>{
         const { register, handleSubmit, formState: {errors} } = useForm();
-        return <form onSubmit={handleSubmit(save)} className='grid flex-w justify fullwidth'>
+        return <><form onSubmit={handleSubmit(save)} className='grid flex-w justify fullwidth'>
                     <label className="acclabel">Groep: </label>
                     <select className="accvalue inputfix" defaultValue={selected===-1?'':selected?.trgroep} {...register('trgroep',{required: 'Dit is vereist'})}>
                     {groepen && groepen.map(x=>( <option key={x.gid} value={x.gid}>{x.groepnaam}</option>))}
+                    </select>
+                    <label className="acclabel">Trainer: </label>
+                    <select className="accvalue inputfix" defaultValue={selected===-1?lid.id:selected?.trcreator} {...register('trcreator',{required: 'Dit is vereist'})}>
+                    {trainers && trainers.map(x=>( <option key={x.id} value={x.id}>{x.voornaam+' '+x.achternaam}</option>))}
                     </select>
                     {errors.trgroep && <><div className='acclabel'></div><p className='accvalue error'>{errors.trgroep.message}</p></>}
                     <label className="acclabel">Datum: </label>
@@ -106,24 +127,29 @@ export default function TrainingView() {
                     <div id="editorjs" className="editor"/>
                     <button disabled={loading} className="wwwijzig" type="submit">Opslaan</button>
                 </form>
+                {selected!==-1&&<button className="wwwijzig delete" onClick={()=>delTraining()}>Verwijderen</button>}
+            </>
     })
 
     const Details = memo(()=>{
         
         return <div className="grid flex-w justify fullwidth">
             <label className="acclabel">Groep: </label>
-            <div className="accvalue">{selected?.groepnaam}</div>
+            <div className="accvalue" style={{color:selected?.kleur,textShadow:"-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>{selected?.groepnaam}</div>
+            <label className="acclabel">Trainer: </label>
+            <div className="accvalue">{selected?.voornaam+' '+selected?.achternaam}</div>
+
             <label className="acclabel">Datum: </label>
             <div className="accvalue">{toDateInputString(selected?.trdatum)}</div>
             <label className="acclabel">Onderwerp: </label>
             <div className="accvalue">{selected?.tronderwerp}</div>
             <div className="margin20 fullwidth" />
             <div id="editorjs" className="editor"/>
-            <button className="wwwijzig" onClick={()=>{setEditor(undefined); setEdit(true)}}>Wijzig</button>
+            {selected.trcreator === lid.id && <button className="wwwijzig" onClick={()=>{setEditor(undefined); setEdit(true)}}>Wijzig</button>}
         </div>
     })
 
-    if (ready && list && selected) {
+    if (selected && !loading) {
         if (!editor)
     setEditor(new EditorJS({
         holder: 'editorjs', 
@@ -148,7 +174,7 @@ export default function TrainingView() {
         {selected && selected !== -1 && !edit && <Details/>}
 
         {Array.isArray(list) && !selected ? 
-         <><button className='wwwijzig' onClick={()=>{setSelected(-1);setEdit(true)}} disabled={loading}>Nieuwe training</button>
+         <>{lid?.roles.includes('trainer') && <button className='wwwijzig' onClick={()=>{setSelected(-1);setEdit(true)}} disabled={loading}>Nieuwe training</button>}
             <div className="margin20 fullwidth" />
           {list.map(tr => {
             return <Training tr={tr} key={tr.trid}/>
