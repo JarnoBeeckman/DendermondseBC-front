@@ -4,8 +4,8 @@
     "token_key": "auth_token",
     "pages": {
         "lid": [["Account gegevens","accountBeheren"],["Trainingen","trainings"]],
-        "communicatie": [],
-        "jeugd":[["Registreer nieuw lid","register"],["Groepen beheren","groepBeheer"],["Instellingen","settings"]],
+        "communicatie": [["Mail versturen","stuurMail"]],
+        "jeugd":[["Groepen beheren","groepBeheer"],["Instellingen","settings"]],
         "competitie":[],
         "ladder":[],
         "kapitein": [],

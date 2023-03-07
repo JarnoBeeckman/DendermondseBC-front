@@ -65,6 +65,10 @@ export default function TrainingView() {
         }
     },[ready,refresh])
 
+    const goToAanwezigheid = useCallback(()=>{
+        history.push('/aanwezigheden/?key='+selected?.trid)
+    },[history,selected])
+
     const save = useCallback(async (training)=>{
         setLoading(true)
         training.trbody = await editor.save().then(x=>{return x}).catch(x=>setCustomError('Kon gegevens niet verwerken.'))
@@ -131,6 +135,11 @@ export default function TrainingView() {
             </>
     })
 
+    const Status = memo(()=>{
+        const strings = ["Geen aanwezigheden","Aanwezigheden ingegeven","Afgewerkt","Betaald"]
+        return <div className="accvalue">{strings[selected?.trstatus]}</div>
+    })
+
     const Details = memo(()=>{
         
         return <div className="grid flex-w justify fullwidth">
@@ -138,14 +147,17 @@ export default function TrainingView() {
             <div className="accvalue" style={{color:selected?.kleur,textShadow:"-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>{selected?.groepnaam}</div>
             <label className="acclabel">Trainer: </label>
             <div className="accvalue">{selected?.voornaam+' '+selected?.achternaam}</div>
-
             <label className="acclabel">Datum: </label>
             <div className="accvalue">{toDateInputString(selected?.trdatum)}</div>
+            <label className="acclabel">Status: </label>
+            <Status />
             <label className="acclabel">Onderwerp: </label>
             <div className="accvalue">{selected?.tronderwerp}</div>
             <div className="margin20 fullwidth" />
             <div id="editorjs" className="editor"/>
             {selected.trcreator === lid.id && <button className="wwwijzig" onClick={()=>{setEditor(undefined); setEdit(true)}}>Wijzig</button>}
+            {selected.trcreator === lid.id && <button className="wwwijzig" onClick={()=>{goToAanwezigheid()}}>Aanwezigheden {selected.trstatus === 0 ? 'ingeven':'bewerken'}</button>}
+            
         </div>
     })
 

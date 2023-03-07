@@ -40,3 +40,21 @@ export const deleteTraining = async (id)=>{
         return false
     }
 }
+
+export const getAanwezigheden = async (id)=>{
+    try {
+        const {data} = await axios.get('training/aanwezigheden/'+id)
+        return data
+    } catch (error) {
+        return 404
+    }
+}
+
+export const updateAanwezigheden = async (id, aanwezigheden)=>{
+    try {
+        const {data} = await axios.put('training/aanwezigheden/'+id, aanwezigheden)
+        return data
+    } catch (error) {
+        return false
+    }
+}
