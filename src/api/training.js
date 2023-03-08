@@ -58,3 +58,12 @@ export const updateAanwezigheden = async (id, aanwezigheden)=>{
         return false
     }
 }
+
+export const submitTraining = async (id,object)=>{
+    try {
+        const {data} = await axios.put('training/submit/'+id, object)
+        return data
+    } catch (error) {
+        return false
+    }
+}

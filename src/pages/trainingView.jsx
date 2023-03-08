@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState,memo } from "react";
 import { useSession } from "../context/AuthProvider"
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form"
-import { getTrainings, saveTraining, updateTraining,deleteTraining,getTrainers } from "../api/training";
+import { getTrainings, saveTraining, updateTraining,deleteTraining,getTrainers,submitTraining } from "../api/training";
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header'; 
 import List from '@editorjs/list'; 
@@ -82,6 +82,17 @@ export default function TrainingView() {
         setLoading(false)
     },[editor,refresh,selected,back])
 
+    const submit = useCallback(async ()=>{
+        setLoading(true)
+        const e = await submitTraining(selected.trid, {upgrade:selected.trstatus === 1})
+        if (e) {
+            await back()
+            await refresh()
+        }
+        else setCustomError('Kon training niet indienen')
+        setLoading(false)
+    },[selected,refresh,back])
+
     const delTraining = useCallback(async ()=>{
         setLoading(true)
         const a = await deleteTraining(selected.trid)
@@ -157,7 +168,7 @@ export default function TrainingView() {
             <div id="editorjs" className="editor"/>
             {selected.trcreator === lid.id && <button className="wwwijzig" onClick={()=>{setEditor(undefined); setEdit(true)}}>Wijzig</button>}
             {selected.trcreator === lid.id && <button className="wwwijzig" onClick={()=>{goToAanwezigheid()}}>Aanwezigheden {selected.trstatus === 0 ? 'ingeven':'bewerken'}</button>}
-            
+            {selected.trcreator === lid.id && (selected.trstatus === 1 || selected.trstatus === 2) && <button className="wwwijzig" onClick={()=>{submit()}}>{selected.trstatus === 2?'Niet a':'A'}fgewerkt en betalingsaanvraag {selected.trstatus === 2 ? 'annuleren':'indienen'}</button>}
         </div>
     })
 

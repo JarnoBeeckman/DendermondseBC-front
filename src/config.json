@@ -11,7 +11,7 @@
         "kapitein": [],
         "trainer": [["Registreer nieuw lid","register"]],
         "penningmeester": [["Registreer nieuw lid","register"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Instellingen","settings"]],
-        "beheerder": [["Account gegevens","accountBeheren"],["Registreer nieuw lid","register"],["Leden beheren","lidBeheer"],["Groepen beheren","groepBeheer"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Te betalen inschrijvingen","toPay"],["Mail versturen","stuurMail"],["Trainingen","trainings"],["Importeer gegevens","excelImport"],["Instellingen","settings"]]
+        "beheerder": [["Account gegevens","accountBeheren"],["Registreer nieuw lid","register"],["Leden beheren","lidBeheer"],["Groepen beheren","groepBeheer"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Mail versturen","stuurMail"],["Trainingen","trainings"],["Importeer gegevens","excelImport"],["Instellingen","settings"]]
     },
     "settings": {
         "lid":[],
