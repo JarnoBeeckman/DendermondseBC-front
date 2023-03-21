@@ -12,7 +12,7 @@ export default function Rolconfig() {
     const [leden,setLeden] = useState()
     const [selected,setSelected] =  useState('0')
     const [customError,setCustomError] = useState()
-    const {ready } = useSession()
+    const {ready,lid } = useSession()
     const history = useHistory()
 
     const back = useCallback(async ()=>{
@@ -119,7 +119,7 @@ export default function Rolconfig() {
                 <div className="fullwidth center flex">
                     <select onChange={e=>setSelected(e.target.value)} defaultValue={selected}>
                         <option value={0}>Geen</option>
-                        {groepen.map(x=>{
+                        {lid.roles.includes('competitie') ? <option value={"kapitein"}>{"Kapitein"}</option> : groepen.map(x=>{
                         return <option key={x.gid} value={x.rolnaam}>{x.groepnaam}</option>
                         })}
                     </select>

@@ -56,6 +56,10 @@ export default function AanpassingenBV() {
                 <div className="accvalue">{attribute === "geboortedatum" ? toDateInputString(props.ob[attribute]) : props.ob[attribute]}</div>
                 </div>
             })}
+            {props.ob.aanpassinglijst.length % 2 === 1 ? <div className="lidattribuut" key={0}>
+                <div className="acclabel"> </div>
+                <div className="accvalue"></div>
+                </div> : null}
             <button className="fullwidth wwwijzig" disabled={loading} onClick={()=>del(props.ob.id)}>{'Delete wijziging'}</button>
         </div>)
      })
