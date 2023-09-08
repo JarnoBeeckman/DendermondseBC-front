@@ -4,6 +4,7 @@ import * as groep from '../../api/groep'
 import { useSession } from "../../context/AuthProvider"
 import {RiDeleteBin6Line} from 'react-icons/ri'
 import {GrAdd} from 'react-icons/gr'
+//import SearchBar from '../../components/searchbar';
 
 export default function Rolconfig() {
 
@@ -123,6 +124,7 @@ export default function Rolconfig() {
                         return <option key={x.gid} value={x.rolnaam}>{x.groepnaam}</option>
                         })}
                     </select>
+                    
                 </div>
             <div className="margin20"/>
             <Filtered/>

@@ -27,6 +27,7 @@ import ResetPassword from './pages/public/ww_reset';
 import MailTemplates from './pages/settings/mailTemplates';
 import TrainingView from './pages/trainingView';
 import Aanwezigheden from './pages/aanwezigheid';
+import Calendar from './pages/calendar';
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
         <PrivateRoute exact path='/mailTemplates'><MailTemplates/></PrivateRoute>
         <PrivateRoute exact path='/trainings'><TrainingView/></PrivateRoute>
         <PrivateRoute exact path='/aanwezigheden'><Aanwezigheden/></PrivateRoute>
+        <PrivateRoute exact path='/calendar'><Calendar/></PrivateRoute>
         </Wrapper>
       </Switch>
       </BrowserRouter>

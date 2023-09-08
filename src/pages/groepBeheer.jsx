@@ -125,15 +125,13 @@ export default function GroepBeheer() {
         <>
             <button className='backbutton margin20' onClick={back}>{'<'} Terug</button>
             {customError ? (<p className="error">{customError}</p>): null}
-                <div className="fullwidth center flex margin20">
+                <div className="fullwidth center flex space-evenly margin20">
                     <select onChange={e=>setSelected(e.target.value)} defaultValue={selected}>
                         <option value={0}>Geen</option>
                         {groepen.map(x=>{
                         return <option key={x.gid} value={x.gid}>{x.groepnaam}</option>
                         })}
                     </select>
-                </div>
-                <div className="fullwidth center flex">
                     <select onChange={e=>setStatus(e.target.value)} defaultValue={status}>
                             <option value={'0'}>Alles</option>
                             <option value={'Jeugd'}>Jeugd</option>

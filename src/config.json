@@ -3,20 +3,20 @@
     "ur":"http://localhost:9000/api/",
     "token_key": "auth_token",
     "pages": {
-        "lid": [["Account gegevens","accountBeheren"],["Trainingen","trainings"]],
+        "lid": [["Account gegevens","accountBeheren"],["Kalender","calendar"]],
         "communicatie": [["Mail versturen","stuurMail"]],
         "jeugd":[["Groepen beheren","groepBeheer"],["Instellingen","settings"]],
-        "competitie":[],
+        "competitie":[["Instellingen","settings"]],
         "ladder":[],
         "kapitein": [],
-        "trainer": [["Registreer nieuw lid","register"]],
+        "trainer": [["Registreer nieuw lid","register"],["Trainingen","trainings"]],
         "penningmeester": [["Registreer nieuw lid","register"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Instellingen","settings"]],
-        "beheerder": [["Account gegevens","accountBeheren"],["Registreer nieuw lid","register"],["Leden beheren","lidBeheer"],["Groepen beheren","groepBeheer"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Mail versturen","stuurMail"],["Trainingen","trainings"],["Importeer gegevens","excelImport"],["Instellingen","settings"]]
+        "beheerder": [["Account gegevens","accountBeheren"],["Registreer nieuw lid","register"],["Leden beheren","lidBeheer"],["Groepen beheren","groepBeheer"],["Nieuwe aanpassingen","aanpassenBV"],["Nieuwe inschrijvingen","nieuweLeden"],["Betalingen","betalingen"],["Mail versturen","stuurMail"],["Trainingen","trainings"],["Kalender","calendar"],["Importeer gegevens","excelImport"],["Instellingen","settings"]]
     },
     "settings": {
         "lid":[],
         "communicatie":[],
-        "competitie":[],
+        "competitie":[["Kapiteins","rolConfig"]],
         "ladder":[],
         "kapitein":[],
         "trainer":[],
