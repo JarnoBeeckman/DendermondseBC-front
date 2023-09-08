@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/DendermondseBC-front/static/css/main.d33275f3.chunk.css",
-    "main.js": "/DendermondseBC-front/static/js/main.870ea4c2.chunk.js",
-    "main.js.map": "/DendermondseBC-front/static/js/main.870ea4c2.chunk.js.map",
-    "runtime-main.js": "/DendermondseBC-front/static/js/runtime-main.7e7b620a.js",
-    "runtime-main.js.map": "/DendermondseBC-front/static/js/runtime-main.7e7b620a.js.map",
-    "static/js/2.6333777a.chunk.js": "/DendermondseBC-front/static/js/2.6333777a.chunk.js",
-    "static/js/2.6333777a.chunk.js.map": "/DendermondseBC-front/static/js/2.6333777a.chunk.js.map",
-    "static/js/3.42d1e70d.chunk.js": "/DendermondseBC-front/static/js/3.42d1e70d.chunk.js",
-    "static/js/3.42d1e70d.chunk.js.map": "/DendermondseBC-front/static/js/3.42d1e70d.chunk.js.map",
-    "index.html": "/DendermondseBC-front/index.html",
-    "static/css/main.d33275f3.chunk.css.map": "/DendermondseBC-front/static/css/main.d33275f3.chunk.css.map",
-    "static/js/2.6333777a.chunk.js.LICENSE.txt": "/DendermondseBC-front/static/js/2.6333777a.chunk.js.LICENSE.txt",
-    "static/media/login.css": "/DendermondseBC-front/static/media/Ubuntu-Regular.1cbb1b79.ttf",
-    "static/media/logoBC.dcd27ad3.jpg": "/DendermondseBC-front/static/media/logoBC.dcd27ad3.jpg"
+    "main.css": "/static/css/main.d55f97eb.chunk.css",
+    "main.js": "/static/js/main.ab0d4d03.chunk.js",
+    "main.js.map": "/static/js/main.ab0d4d03.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.b5c4893c.js",
+    "runtime-main.js.map": "/static/js/runtime-main.b5c4893c.js.map",
+    "static/js/2.4784605d.chunk.js": "/static/js/2.4784605d.chunk.js",
+    "static/js/2.4784605d.chunk.js.map": "/static/js/2.4784605d.chunk.js.map",
+    "static/js/3.d24439fc.chunk.js": "/static/js/3.d24439fc.chunk.js",
+    "static/js/3.d24439fc.chunk.js.map": "/static/js/3.d24439fc.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.d55f97eb.chunk.css.map": "/static/css/main.d55f97eb.chunk.css.map",
+    "static/js/2.4784605d.chunk.js.LICENSE.txt": "/static/js/2.4784605d.chunk.js.LICENSE.txt",
+    "static/media/login.css": "/static/media/Ubuntu-Regular.1cbb1b79.ttf",
+    "static/media/logoBC.dcd27ad3.jpg": "/static/media/logoBC.dcd27ad3.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.7e7b620a.js",
-    "static/js/2.6333777a.chunk.js",
-    "static/css/main.d33275f3.chunk.css",
-    "static/js/main.870ea4c2.chunk.js"
+    "static/js/runtime-main.b5c4893c.js",
+    "static/js/2.4784605d.chunk.js",
+    "static/css/main.d55f97eb.chunk.css",
+    "static/js/main.ab0d4d03.chunk.js"
   ]
 }
