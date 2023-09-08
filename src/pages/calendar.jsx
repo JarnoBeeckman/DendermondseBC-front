@@ -55,7 +55,7 @@ export default function Calendar() {
 
       const refresh = useCallback(async ()=>{
         const e = await getTrainings()
-        if (!e) setCustomError('Kon trainingen niet laden')
+        if (e===404) setCustomError('Kon trainingen niet laden')
         else {
             setEvents(await formatEvents(e.training))
         } 
