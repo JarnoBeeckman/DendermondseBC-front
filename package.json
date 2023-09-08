@@ -2,7 +2,7 @@
   "name": "toolbox",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jarnobeeckman.github.io/",
+  "homepage": "https://jarnobeeckman.github.io/DendermondseBC-front/",
   "dependencies": {
     "@craco/craco": "^6.4.0",
     "@editorjs/editorjs": "^2.25.0",
