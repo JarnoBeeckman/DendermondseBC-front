@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useState } from 'react'
 import {useHistory} from 'react-router-dom'
 import {useSession} from '../../context/AuthProvider'
-import * as prijs from '../../api/prijs'
+import * as prijs from '../../api/facts'
 import { useForm } from "react-hook-form"
 
 export default function PrijsConfig() {
@@ -43,13 +43,13 @@ export default function PrijsConfig() {
         const { register, handleSubmit, formState: {errors} } = useForm();
         return <form className='grid flex-w justify fullwidth' onSubmit={handleSubmit(updateInschrijvingen)}>
             <label className='acclabel'>{prijzen[0].naam}</label>
-            <input className='accvalue inputfix' type='number' step={'any'} defaultValue={prijzen[0].aantal} {...register('comp',{required:'Dit is vereist'})} />
+            <input className='accvalue inputfix' type='number' step={'any'} defaultValue={prijzen[0].waarde} {...register('comp',{required:'Dit is vereist'})} />
             {errors.comp && <><div className='acclabel'></div><p className='accvalue error'>{errors.comp.message}</p></>}
             <label className='acclabel'>{prijzen[1].naam}</label>
-            <input className='accvalue inputfix' type='number' step={'any'} defaultValue={prijzen[1].aantal} {...register('recreant',{required:'Dit is vereist'})} />
+            <input className='accvalue inputfix' type='number' step={'any'} defaultValue={prijzen[1].waarde} {...register('recreant',{required:'Dit is vereist'})} />
             {errors.recreant && <><div className='acclabel'></div><p className='accvalue error'>{errors.recreant.message}</p></>}
             <label className='acclabel'>{prijzen[2].naam}</label>
-            <input className='accvalue inputfix' type='number' step={'any'} defaultValue={prijzen[2].aantal} {...register('jeugd',{required:'Dit is vereist'})} />
+            <input className='accvalue inputfix' type='number' step={'any'} defaultValue={prijzen[2].waarde} {...register('jeugd',{required:'Dit is vereist'})} />
             {errors.jeugd && <><div className='acclabel'></div><p className='accvalue error'>{errors.jeugd.message}</p></>}
             <button className='wwwijzig' disabled={loading}>Bevestigen</button>
         </form>

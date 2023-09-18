@@ -3,6 +3,7 @@ import { useSession } from "../context/AuthProvider";
 import config from '../config.json'
 import { useLogout } from "../context/AuthProvider";
 import { useHistory } from "react-router-dom";
+//import InfoSection from "./InfoSection";
 
 export default function KeuzeMenu(props) {
    const {lid,loading,error} = useSession();
@@ -27,6 +28,8 @@ export default function KeuzeMenu(props) {
     return <button className="keuzemenubutton" key={props.page} onClick={props.click}>{props.page}</button>
    })
 
+   
+
     if (lid) {
         if (props.view === 'main') {
             if (!lid.roles.includes('beheerder')) {
@@ -42,12 +45,14 @@ export default function KeuzeMenu(props) {
                     <Buttn key={'log uit'} page={'Log uit'} click={loguit}/>
                 </div>
                 ) }
-                return (<div className="grid flex-w">
+                return (<>
+                {/*<InfoSection/>*/}
+                <div className="grid flex-w">
                 {config.pages.beheerder.map(page=>{
                     return <Buttn key={page[0]} page={page[0]} click={()=>goTo(page[1])}/>
                 })}
                 <Buttn key={'Log uit'} page={"Log uit"} click={loguit} />
-                </div>);
+                </div></>);
         }
         if (props.view === 'settings') {
             if (!lid.roles.includes('beheerder')) {

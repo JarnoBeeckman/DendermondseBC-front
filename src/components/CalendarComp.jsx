@@ -21,6 +21,8 @@ export default function CalendarComponent(props) {
         selectable={props.selectable}
         select={props.setNewEvent}
         height="500px"
+        slotMinTime= '07:00:00'  // Sets the minimum time to 7:00 am
+        slotMaxTime= '24:00:00'
           />
         </>
       );
